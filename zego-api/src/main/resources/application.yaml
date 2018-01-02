@@ -1,9 +1,9 @@
 spring:
     datasource:
         driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://ilockers.mysql.rds.aliyuncs.com:3306/javava?useUnicode=true&characterEncoding=utf-8
-        username: javava
-        password: javava
+        url: 
+        username: 
+        password: 
     jpa:
         open-in-view: true
         show-sql: true
@@ -11,7 +11,7 @@ spring:
         host: smtp.exmail.qq.com
         port: 465
         username: debug@javava.cn
-        password: Zizhu147258
+        password: 
         protocol: smtp
         properties:
             mail:
