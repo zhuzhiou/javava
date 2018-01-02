@@ -1,0 +1,10 @@
+spring:
+    datasource:
+        driver-class-name: com.mysql.jdbc.Driver
+        url:
+        username:
+        password:
+server:
+    servlet:
+        context-path: /authc
+    port: 8080
