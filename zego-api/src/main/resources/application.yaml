@@ -1,0 +1,28 @@
+spring:
+    datasource:
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://ilockers.mysql.rds.aliyuncs.com:3306/javava?useUnicode=true&characterEncoding=utf-8
+        username: javava
+        password: javava
+    jpa:
+        open-in-view: true
+        show-sql: true
+    mail:
+        host: smtp.exmail.qq.com
+        port: 465
+        username: debug@javava.cn
+        password: Zizhu147258
+        protocol: smtp
+        properties:
+            mail:
+                debug: false
+                smtp:
+                    auth: true
+                    ssl:
+                        enable: true
+zego:
+    api:
+        secret: secret
+server:
+    servlet:
+        context-path: /zego-api
