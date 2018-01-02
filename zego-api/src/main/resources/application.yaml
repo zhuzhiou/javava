@@ -1,17 +1,17 @@
 spring:
     datasource:
         driver-class-name: com.mysql.jdbc.Driver
-        url: 
-        username: 
-        password: 
+        url:
+        username:
+        password:
     jpa:
         open-in-view: true
         show-sql: true
     mail:
         host: smtp.exmail.qq.com
         port: 465
-        username: debug@javava.cn
-        password: 
+        username:
+        password:
         protocol: smtp
         properties:
             mail:
