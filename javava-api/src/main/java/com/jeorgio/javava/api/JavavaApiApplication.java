@@ -7,6 +7,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.Arrays;
 
 @SpringBootApplication
 @EntityScan("com.jeorgio.javava.entity")
@@ -19,5 +24,11 @@ public class JavavaApiApplication {
 	@Bean
 	public TimeBasedGenerator timeBasedGenerator() {
 		return Generators.timeBasedGenerator(EthernetAddress.fromInterface());
+	}
+
+	@Bean
+	public RestTemplate restTemplate() {
+		RestTemplate restTemplate = new RestTemplate();
+		return restTemplate;
 	}
 }
