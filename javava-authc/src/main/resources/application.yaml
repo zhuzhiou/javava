@@ -6,5 +6,5 @@ spring:
         password:
 server:
     servlet:
-        context-path: /authc
+        context-path: /weixin-authc
     port: 8080
