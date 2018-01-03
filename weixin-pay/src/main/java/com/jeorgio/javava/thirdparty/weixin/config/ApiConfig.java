@@ -1,0 +1,21 @@
+package com.jeorgio.javava.thirdparty.weixin.config;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+
+import java.io.Serializable;
+
+@ConfigurationProperties(prefix = "zego.api")
+@Component
+public class ApiConfig implements Serializable {
+
+    private String secret;
+
+    public String getSecret() {
+        return secret;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
+}
