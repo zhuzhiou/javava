@@ -26,3 +26,5 @@ zego:
 server:
     servlet:
         context-path: /zego-api
+javava:
+    postmaster:

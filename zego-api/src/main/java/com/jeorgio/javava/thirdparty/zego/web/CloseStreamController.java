@@ -12,6 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,17 +44,32 @@ public class CloseStreamController {
     @Qualifier("closeStreamHandlerChain")
     private CloseStreamHandler closeStreamHandler;
 
+    @Autowired
+    private JavaMailSender javaMailSender;
+
+    @Value("${javava.postmaster}")
+    private String postmaster;
+
+    @Value("${spring.mail.username}")
+    private String addresser;
+
     @PostMapping("/closeStream")
     public int closeStream(HttpServletRequest request) {
         CloseStreamVo vo = assignVo(request);
         LocalDateTime timestamp = ofEpochSecond(Longs.tryParse(vo.getTimestamp()), 0, ZoneOffset.of("+8"));
         Duration duration = Duration.between(LocalDateTime.now(), timestamp);
         if (abs(duration.toDays()) > 1) {
-            return ZegoConstants.CODE_DATETIME_MISMATCH;
+            //return ZegoConstants.CODE_DATETIME_MISMATCH;
         }
         String signature = createSign(apiConfig.getSecret(), vo.getTimestamp(), vo.getNonce());
         if (isNotBlank(signature) && signature.equals(vo.getSignature())) {
             closeStreamHandler.handle(vo);
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setSubject("娃娃机关闭了");
+            message.setFrom(addresser);
+            message.setTo(postmaster);
+            message.setText("请确保是否正常操作。");
+            javaMailSender.send(message);
         } else {
             if (logger.isErrorEnabled()) {
                 logger.error("关闭流接口签名失败");
