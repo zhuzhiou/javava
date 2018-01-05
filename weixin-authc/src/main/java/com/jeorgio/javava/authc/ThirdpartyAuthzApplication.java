@@ -19,10 +19,10 @@ import java.util.concurrent.Executor;
 @SpringBootApplication
 @EntityScan("com.jeorgio.javava.entity")
 @EnableAsync
-public class ThirdpartyAuthcApplication {
+public class ThirdpartyAuthzApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ThirdpartyAuthcApplication.class, args);
+		SpringApplication.run(ThirdpartyAuthzApplication.class, args);
 	}
 
 	@Bean

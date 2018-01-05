@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
-@RequestMapping("/authorize")
+@RequestMapping("/authz")
 @RestController
 public class AuthorizationController {
 
