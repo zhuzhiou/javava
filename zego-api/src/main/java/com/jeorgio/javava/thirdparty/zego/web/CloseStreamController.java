@@ -8,6 +8,8 @@ import com.jeorgio.javava.thirdparty.zego.config.ApiConfig;
 import com.jeorgio.javava.thirdparty.zego.config.ZegoConstants;
 import com.jeorgio.javava.thirdparty.zego.service.CloseStreamHandler;
 import com.jeorgio.javava.thirdparty.zego.service.OpenStreamHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +32,8 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 @RestController
 public class CloseStreamController {
 
+    private Logger logger = LoggerFactory.getLogger(OpenStreamHandler.class);
+
     @Autowired
     private ApiConfig apiConfig;
 
@@ -49,6 +53,9 @@ public class CloseStreamController {
         if (isNotBlank(signature) && signature.equals(vo.getSignature())) {
             closeStreamHandler.handle(vo);
         } else {
+            if (logger.isErrorEnabled()) {
+                logger.error("关闭流接口签名失败");
+            }
             return ZegoConstants.CODE_ILLEGAL_SIGN;
         }
         return ZegoConstants.CODE_SUCCESS;
