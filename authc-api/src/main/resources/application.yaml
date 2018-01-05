@@ -1,0 +1,12 @@
+server:
+    servlet:
+        context-path: /authc-api
+    port: 8080
+weixin:
+    api:
+        appId: wx3c9fe7990504ee43
+    authz:
+        redirect_uri: http://zhuzhiou.asuscomm.com/authc-api/authz
+javava:
+    jwt:
+        secret:
