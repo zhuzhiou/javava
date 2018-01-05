@@ -1,2 +1,2 @@
 rootProject.name = 'javava'
-include 'javava-commons', 'javava-api', 'zego-api', 'weixin-authc', 'weixin-pay'
+include 'javava-commons', 'javava-api', 'zego-api', 'authc-api', 'weixin-pay'
