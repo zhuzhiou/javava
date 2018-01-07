@@ -2,10 +2,11 @@ package com.jeorgio.javava.thirdparty.zego.web;
 
 import com.google.common.primitives.Ints;
 import com.google.common.primitives.Longs;
-import com.jeorgio.javava.thirdparty.zego.OpenStreamVo;
 import com.jeorgio.javava.thirdparty.zego.config.ApiConfig;
 import com.jeorgio.javava.thirdparty.zego.config.ZegoConstants;
+import com.jeorgio.javava.thirdparty.zego.service.NotificationService;
 import com.jeorgio.javava.thirdparty.zego.service.OpenStreamHandler;
+import com.jeorgio.javava.thirdparty.zego.vo.OpenStreamVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import static java.lang.Math.abs;
 import static java.time.LocalDateTime.ofEpochSecond;
 import static org.apache.commons.lang3.ArrayUtils.isNotEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static org.apache.commons.lang3.StringUtils.join;
 
 @RequestMapping("/v1")
 @RestController
@@ -38,20 +40,25 @@ public class OpenStreamController {
     @Qualifier("openStreamHandlerChain")
     private OpenStreamHandler openStreamHandler;
 
+    @Autowired
+    private NotificationService notificationService;
+
     @PostMapping("/openStream")
     public int openStream(HttpServletRequest request) {
         OpenStreamVo vo = assignVo(request);
         LocalDateTime timestamp = ofEpochSecond(Longs.tryParse(vo.getTimestamp()), 0, ZoneOffset.of("+8"));
         Duration duration = Duration.between(LocalDateTime.now(), timestamp);
         if (abs(duration.toDays()) > 1) {
+            notificationService.sendMail("[加一联萌] 时间调整通知", join("创建流回调的娃娃机时间与业务服务器的时间不一致，请运维人员调整娃娃机、服务器的时间。\n\n", vo.toString()));
             return ZegoConstants.CODE_DATETIME_MISMATCH;
         }
         String signature = createSign(apiConfig.getSecret(), vo.getTimestamp(), vo.getNonce());
         if (isNotBlank(signature) && signature.equals(vo.getSignature())) {
             openStreamHandler.handle(vo);
         } else {
+            notificationService.sendMail("[加一联萌] 签名错误通知", join("创建流回调的签名不正确，请核查密钥是否已修改。\n\n", vo.toString()));
             if (logger.isErrorEnabled()) {
-                logger.error("创建流接口签名失败");
+                logger.error("创建流回调接口 -> 签名不一致");
             }
             return ZegoConstants.CODE_ILLEGAL_SIGN;
         }
@@ -136,6 +143,7 @@ public class OpenStreamController {
             vo.setSignature(signature);
         }
 
+        System.out.println(vo.toString());
         return vo;
     }
 }

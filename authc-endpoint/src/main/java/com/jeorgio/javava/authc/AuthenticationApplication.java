@@ -1,8 +1,8 @@
 package com.jeorgio.javava.authc;
 
+import com.alibaba.dubbo.config.spring.context.annotation.DubboComponentScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -14,12 +14,12 @@ import java.util.Arrays;
 import java.util.concurrent.Executor;
 
 @SpringBootApplication
-@EntityScan("com.jeorgio.javava.entity")
+@DubboComponentScan("com.jeorgio.javava.authc.service")
 @EnableAsync
-public class AuthcApiApplication {
+public class AuthenticationApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AuthcApiApplication.class, args);
+		SpringApplication.run(AuthenticationApplication.class, args);
 	}
 
 	@Bean
@@ -28,7 +28,7 @@ public class AuthcApiApplication {
 		executor.setCorePoolSize(10);
 		executor.setMaxPoolSize(100);
 		executor.setQueueCapacity(1000);
-		executor.setThreadNamePrefix("AsyncMethod-");
+		executor.setThreadNamePrefix("asyncInvoker-");
 		executor.initialize();
 		return executor;
 	}

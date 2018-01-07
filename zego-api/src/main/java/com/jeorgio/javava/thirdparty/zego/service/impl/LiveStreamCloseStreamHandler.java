@@ -2,9 +2,9 @@ package com.jeorgio.javava.thirdparty.zego.service.impl;
 
 import com.jeorgio.javava.config.LiveConstants;
 import com.jeorgio.javava.entity.LiveStream;
-import com.jeorgio.javava.thirdparty.zego.CloseStreamVo;
 import com.jeorgio.javava.thirdparty.zego.repository.LiveStreamRepository;
 import com.jeorgio.javava.thirdparty.zego.service.CloseStreamHandler;
+import com.jeorgio.javava.thirdparty.zego.vo.CloseStreamVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;

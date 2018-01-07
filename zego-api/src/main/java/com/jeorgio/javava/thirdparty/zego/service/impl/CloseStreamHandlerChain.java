@@ -1,8 +1,8 @@
 package com.jeorgio.javava.thirdparty.zego.service.impl;
 
-import com.jeorgio.javava.thirdparty.zego.CloseStreamVo;
 import com.jeorgio.javava.thirdparty.zego.service.CloseStreamHandler;
 import com.jeorgio.javava.thirdparty.zego.service.OpenStreamHandler;
+import com.jeorgio.javava.thirdparty.zego.vo.CloseStreamVo;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;

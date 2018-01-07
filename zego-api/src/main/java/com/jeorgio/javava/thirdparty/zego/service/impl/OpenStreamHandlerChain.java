@@ -1,7 +1,7 @@
 package com.jeorgio.javava.thirdparty.zego.service.impl;
 
-import com.jeorgio.javava.thirdparty.zego.OpenStreamVo;
 import com.jeorgio.javava.thirdparty.zego.service.OpenStreamHandler;
+import com.jeorgio.javava.thirdparty.zego.vo.OpenStreamVo;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;

@@ -3,15 +3,14 @@ package com.jeorgio.javava.thirdparty.zego.service.impl;
 import com.fasterxml.uuid.impl.TimeBasedGenerator;
 import com.jeorgio.javava.config.LiveConstants;
 import com.jeorgio.javava.entity.LiveRoom;
-import com.jeorgio.javava.thirdparty.zego.OpenStreamVo;
 import com.jeorgio.javava.thirdparty.zego.repository.LiveRoomRepository;
 import com.jeorgio.javava.thirdparty.zego.service.OpenStreamHandler;
+import com.jeorgio.javava.thirdparty.zego.vo.OpenStreamVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
 import static java.time.LocalDateTime.ofEpochSecond;
