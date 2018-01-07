@@ -1,14 +1,11 @@
 package com.jeorgio.javava.authc.service.impl;
 
-import com.alibaba.dubbo.config.annotation.Reference;
-import com.jeorgio.javava.authc.service.TicketService;
+import com.jeorgio.javava.authc.service.QrcodeTokenService;
 import com.jeorgio.javava.authc.service.UserIdentificationService;
 import com.jeorgio.javava.authc.vo.AccessToken;
 import com.jeorgio.javava.authc.vo.ApiConfig;
-import com.jeorgio.javava.users.service.UserService;
 import com.jeorgio.javava.users.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -21,14 +18,11 @@ public class UserIdentificationServiceImpl implements UserIdentificationService 
     @Autowired
     private RestTemplate restTemplate;
 
-    @Reference(version = "1.0", check = false)
-    private UserService userService;
-
     @Autowired
     private ApiConfig apiConfig;
 
     @Autowired
-    private TicketService ticketService;
+    private QrcodeTokenService qrcodeTokenService;
 
     @Override
     public Future<String> identify(String code, String state) {
@@ -44,8 +38,7 @@ public class UserIdentificationServiceImpl implements UserIdentificationService 
                     UserVo.class,
                     accessToken.getAccessToken(),
                     accessToken.getOpenid());
-            userService.save(userVo);
-            ticketService.updateTicket(code, userVo.getOpenid());
+            qrcodeTokenService.scanQrcodeSuccess(state, userVo);
         }
         return new AsyncResult<>("");
     }

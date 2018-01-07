@@ -1,8 +1,11 @@
 package com.jeorgio.javava.authc.service.impl;
 
-import com.jeorgio.javava.authc.service.TicketService;
+import com.alibaba.dubbo.config.annotation.Reference;
+import com.jeorgio.javava.authc.service.QrcodeTokenService;
 import com.jeorgio.javava.authc.vo.ApiConfig;
-import com.jeorgio.javava.authc.vo.QrcodeLoginVo;
+import com.jeorgio.javava.authc.vo.QrcodeToken;
+import com.jeorgio.javava.users.service.UserService;
+import com.jeorgio.javava.users.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -18,7 +21,7 @@ import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric;
 import static org.apache.commons.lang3.StringUtils.join;
 
 @Service
-public class TicketServiceImpl implements TicketService {
+public class QrcodeTokenServiceImpl implements QrcodeTokenService {
 
     @Autowired
     private ApiConfig apiConfig;
@@ -29,32 +32,36 @@ public class TicketServiceImpl implements TicketService {
     @Value("${weixin.authz.redirect_uri}")
     private String redirect_uri;
 
+    @Reference(version = "1.0", check = false)
+    private UserService userService;
+
     @Override
-    public QrcodeLoginVo createTicket() {
+    public QrcodeToken generateQrcodeToken() {
         ValueOperations<String, String> valueOps = stringRedisTemplate.opsForValue();
-        String ticket;
+        String state;
         do {
-            ticket = join(randomAlphabetic(2) + randomAlphanumeric(30));
-        } while (!valueOps.setIfAbsent(ticket, ""));
-        stringRedisTemplate.expire(ticket,5, TimeUnit.MINUTES);
+            state = join(randomAlphabetic(2) + randomAlphanumeric(30));
+        } while (!valueOps.setIfAbsent(state, ""));
+        stringRedisTemplate.expire(state,5, TimeUnit.MINUTES);
         String qrcode = join("https://open.weixin.qq.com/connect/oauth2/authorize",
                 "?appid=", apiConfig.getAppId(),
                 "&redirect_uri=", UriUtils.encode(redirect_uri, StandardCharsets.UTF_8),
                 "&response_type=code&scope=snsapi_userinfo",
-                "&state=", ticket, "#wechat_redirect");
-        QrcodeLoginVo vo = new QrcodeLoginVo();
-        vo.setTicket(ticket);
+                "&state=", state, "#wechat_redirect");
+        QrcodeToken vo = new QrcodeToken();
+        vo.setState(state);
         vo.setQrcode(qrcode);
         return vo;
     }
 
-    public void updateTicket(String ticket, String subject) {
+    public void scanQrcodeSuccess(String qrcode, UserVo userVo) {
+        userService.save(userVo);
         ValueOperations<String, String> valueOps = stringRedisTemplate.opsForValue();
-        valueOps.set(ticket, subject, 1, TimeUnit.HOURS);
+        valueOps.set(qrcode, userVo.getOpenid(), 1, TimeUnit.HOURS);
     }
 
-    public String getTicket(String ticket) {
+    public String obtainPrincipal(String qrcode) {
         ValueOperations<String, String> valueOps = stringRedisTemplate.opsForValue();
-        return valueOps.get(ticket);
+        return valueOps.get(qrcode);
     }
 }
