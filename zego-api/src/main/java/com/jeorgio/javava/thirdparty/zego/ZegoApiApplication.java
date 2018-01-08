@@ -12,7 +12,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import java.util.concurrent.Executor;
 
 @SpringBootApplication
-@EntityScan("com.jeorgio.javava.entity")
+@EntityScan("com.jeorgio.javava.live.entity")
 public class ZegoApiApplication {
 
 	public static void main(String[] args) {

@@ -3,7 +3,7 @@ package com.jeorgio.javava.thirdparty.zego.web;
 import com.google.common.primitives.Ints;
 import com.google.common.primitives.Longs;
 import com.jeorgio.javava.thirdparty.zego.config.ApiConfig;
-import com.jeorgio.javava.thirdparty.zego.config.ZegoConstants;
+import com.jeorgio.javava.thirdparty.zego.util.ZegoConstants;
 import com.jeorgio.javava.thirdparty.zego.service.NotificationService;
 import com.jeorgio.javava.thirdparty.zego.service.OpenStreamHandler;
 import com.jeorgio.javava.thirdparty.zego.vo.OpenStreamVo;
