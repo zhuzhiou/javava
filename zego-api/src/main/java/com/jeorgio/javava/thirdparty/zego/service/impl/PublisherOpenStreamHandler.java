@@ -1,8 +1,8 @@
 package com.jeorgio.javava.thirdparty.zego.service.impl;
 
 import com.fasterxml.uuid.impl.TimeBasedGenerator;
-import com.jeorgio.javava.live.entity.Publisher;
-import com.jeorgio.javava.live.repository.PublisherRepository;
+import com.jeorgio.javava.thirdparty.zego.entity.Publisher;
+import com.jeorgio.javava.thirdparty.zego.repository.PublisherRepository;
 import com.jeorgio.javava.thirdparty.zego.service.OpenStreamHandler;
 import com.jeorgio.javava.thirdparty.zego.vo.OpenStreamVo;
 import org.springframework.beans.factory.annotation.Autowired;

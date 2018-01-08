@@ -1,7 +1,7 @@
 package com.jeorgio.javava.thirdparty.zego.service.impl;
 
-import com.jeorgio.javava.live.entity.Video;
-import com.jeorgio.javava.live.repository.VideoRepository;
+import com.jeorgio.javava.thirdparty.zego.entity.Video;
+import com.jeorgio.javava.thirdparty.zego.repository.VideoRepository;
 import com.jeorgio.javava.thirdparty.zego.service.CloseStreamHandler;
 import com.jeorgio.javava.thirdparty.zego.util.ZegoConstants;
 import com.jeorgio.javava.thirdparty.zego.vo.CloseStreamVo;
@@ -21,7 +21,7 @@ public class VideoCloseStreamHandler implements CloseStreamHandler {
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     @Override
     public void handle(CloseStreamVo vo) {
-        Video video = videoRepository.getVideoByRoomIdAAndStreamAlias(vo.getChannelId(), vo.getStreamAlias());
+        Video video = videoRepository.getVideoByRoomIdAndStreamAlias(vo.getChannelId(), vo.getStreamAlias());
         if (video != null) {
             switch (vo.getType()) {
                 case 0:

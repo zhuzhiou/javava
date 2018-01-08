@@ -48,10 +48,10 @@ public class OpenStreamController {
         OpenStreamVo vo = assignVo(request);
         LocalDateTime timestamp = ofEpochSecond(Longs.tryParse(vo.getTimestamp()), 0, ZoneOffset.of("+8"));
         Duration duration = Duration.between(LocalDateTime.now(), timestamp);
-        if (abs(duration.toDays()) > 1) {
-            notificationService.sendMail("[加一联萌] 时间调整通知", join("创建流回调的娃娃机时间与业务服务器的时间不一致，请运维人员调整娃娃机、服务器的时间。\n\n", vo.toString()));
-            return ZegoConstants.CODE_DATETIME_MISMATCH;
-        }
+        //if (abs(duration.toDays()) > 1) {
+        //    notificationService.sendMail("[加一联萌] 时间调整通知", join("创建流回调的娃娃机时间与业务服务器的时间不一致，请运维人员调整娃娃机、服务器的时间。\n\n", vo.toString()));
+        //    return ZegoConstants.CODE_DATETIME_MISMATCH;
+        //}
         String signature = createSign(apiConfig.getSecret(), vo.getTimestamp(), vo.getNonce());
         if (isNotBlank(signature) && signature.equals(vo.getSignature())) {
             openStreamHandler.handle(vo);

@@ -1,4 +1,4 @@
-package com.jeorgio.javava.live.entity;
+package com.jeorgio.javava.thirdparty.zego.entity;
 
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;

@@ -41,7 +41,6 @@ dependencies {
     compile 'commons-codec:commons-codec:1.11'
     compile 'org.apache.commons:commons-lang3:3.7'
     compile 'com.google.guava:guava:23.6-jre'
-    compile project(":javava-commons")
 
     runtime 'org.springframework.boot:spring-boot-devtools'
 }

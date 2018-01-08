@@ -1,7 +1,7 @@
 package com.jeorgio.javava.thirdparty.zego.service.impl;
 
-import com.jeorgio.javava.live.entity.Room;
-import com.jeorgio.javava.live.repository.RoomRepository;
+import com.jeorgio.javava.thirdparty.zego.entity.Room;
+import com.jeorgio.javava.thirdparty.zego.repository.RoomRepository;
 import com.jeorgio.javava.thirdparty.zego.service.CloseStreamHandler;
 import com.jeorgio.javava.thirdparty.zego.vo.CloseStreamVo;
 import org.springframework.beans.factory.annotation.Autowired;
