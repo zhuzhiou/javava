@@ -1,9 +1,9 @@
 spring:
     datasource:
         driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://ilockers.mysql.rds.aliyuncs.com:3306/javava?useUnicode=true&characterEncoding=utf-8
-        username: javava
-        password: javava@il0ckers
+        url: jdbc:mysql://192.168.150.129:3306/javava?useUnicode=true&characterEncoding=utf-8&useSSL=false
+        username: root
+        password: develop
         hikari:
           connection-init-sql:  "set names utf8mb4"
     dubbo:
