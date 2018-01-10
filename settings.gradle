@@ -1,2 +1,2 @@
 rootProject.name = 'javava'
-include 'zego-api', 'users-api', 'users-provider', 'authc-endpoint', 'weixin-pay'
+include 'live-api', 'live-module', 'zego-api', 'user-api', 'user-module', 'authc-endpoint', 'weixin-pay'
