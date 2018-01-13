@@ -1,0 +1,20 @@
+spring:
+    datasource:
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://192.168.150.129:3306/javava?useUnicode=true&characterEncoding=utf-8&useSSL=false
+        username: root
+        password: develop
+        hikari:
+          connection-init-sql:  "set names utf8mb4"
+    dubbo:
+        application:
+            name: users-provider
+        registry:
+            address: zookeeper://192.168.160.129:2181
+        protocol:
+            name: dubbo
+            port: 20880
+server:
+    servlet:
+        context-path: /javava-users
+    port: 8081

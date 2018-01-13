@@ -9,14 +9,8 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>javava-live</artifactId>
+	<artifactId>javava-user</artifactId>
 	<packaging>jar</packaging>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
-	</properties>
 
 	<dependencies>
 		<dependency>
@@ -32,13 +26,13 @@
 			<artifactId>java-uuid-generator</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>ma.glasnost.orika</groupId>
+			<artifactId>orika-core</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger2</artifactId>
 		</dependency>
 	</dependencies>
 
