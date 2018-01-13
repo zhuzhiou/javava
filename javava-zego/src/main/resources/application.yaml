@@ -1,0 +1,27 @@
+spring:
+    application:
+        name: javava-zego
+    mail:
+        host: smtp.exmail.qq.com
+        port: 465
+        username: debug@javava.cn
+        password: Zizhu20180102
+        protocol: smtp
+        properties:
+            mail:
+                debug: false
+                smtp:
+                    auth: true
+                    ssl:
+                        enable: true
+---
+zego:
+    api:
+        secret: 4a0af0daafe22ed2a7bd5661e87890aa
+---
+server:
+    context-path: /zego-api
+---
+javava:
+    notification:
+        consignee: zhuzhiou@qq.com
