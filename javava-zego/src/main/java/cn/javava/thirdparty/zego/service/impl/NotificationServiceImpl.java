@@ -7,14 +7,16 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import static org.apache.commons.lang3.StringUtils.split;
+
 @Service("notificationService")
 public class NotificationServiceImpl implements NotificationService {
 
     @Autowired
     private JavaMailSender javaMailSender;
 
-    @Value("${javava.notification.consignee}")
-    private String consignee;
+    @Value("${javava.notification.consignees}")
+    private String consignees;
 
     @Value("${spring.mail.username}")
     private String consignor;
@@ -24,7 +26,7 @@ public class NotificationServiceImpl implements NotificationService {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setSubject(subject);
         message.setFrom(consignor);
-        message.setTo(consignee);
+        message.setTo(split(consignees, ","));
         message.setText(content);
         javaMailSender.send(message);
     }
