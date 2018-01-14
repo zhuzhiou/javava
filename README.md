@@ -1,6 +1,14 @@
 # javava
 抓娃娃
 
+# repackage
+
+    mvn clean package spring-boot:repackage
+
+# 自定义打包
+
+    mvn clean package dependency:copy-dependencies
+
 # zego-api
 
 创建流回调接口
