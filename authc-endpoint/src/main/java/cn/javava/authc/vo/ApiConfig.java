@@ -1,4 +1,4 @@
-package com.jeorgio.javava.authc.vo;
+package cn.javava.authc.vo;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

@@ -1,19 +1,17 @@
-package com.jeorgio.javava.authc.service.impl;
+package cn.javava.authc.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.jeorgio.javava.authc.service.QrcodeTokenService;
-import com.jeorgio.javava.authc.vo.ApiConfig;
-import com.jeorgio.javava.authc.vo.QrcodeToken;
-import com.jeorgio.javava.users.service.UserService;
-import com.jeorgio.javava.users.vo.UserVo;
+import cn.javava.authc.service.QrcodeTokenService;
+import cn.javava.authc.vo.ApiConfig;
+import cn.javava.authc.vo.QrcodeToken;
+import cn.javava.user.service.UserService;
+import cn.javava.user.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
-import org.springframework.web.util.UriUtils;
 
-import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
@@ -32,7 +30,7 @@ public class QrcodeTokenServiceImpl implements QrcodeTokenService {
     @Value("${weixin.authz.redirect_uri}")
     private String redirect_uri;
 
-    @Reference(version = "1.0", check = false)
+    @Autowired
     private UserService userService;
 
     @Override
@@ -45,7 +43,7 @@ public class QrcodeTokenServiceImpl implements QrcodeTokenService {
         stringRedisTemplate.expire(state,5, TimeUnit.MINUTES);
         String qrcode = join("https://open.weixin.qq.com/connect/oauth2/authorize",
                 "?appid=", apiConfig.getAppId(),
-                "&redirect_uri=", UriUtils.encode(redirect_uri, StandardCharsets.UTF_8),
+                "&redirect_uri=", redirect_uri,
                 "&response_type=code&scope=snsapi_userinfo",
                 "&state=", state, "#wechat_redirect");
         QrcodeToken vo = new QrcodeToken();

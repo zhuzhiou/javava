@@ -1,8 +1,6 @@
-package com.jeorgio.javava.authc;
+package cn.javava.authc;
 
-import com.alibaba.dubbo.config.spring.context.annotation.DubboComponentScan;
 import io.swagger.annotations.Api;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -24,7 +22,6 @@ import java.util.Arrays;
 import java.util.concurrent.Executor;
 
 @SpringBootApplication
-@DubboComponentScan("com.jeorgio.javava.authc.service")
 @EnableSwagger2
 @EnableAsync
 public class AuthenticationApplication {

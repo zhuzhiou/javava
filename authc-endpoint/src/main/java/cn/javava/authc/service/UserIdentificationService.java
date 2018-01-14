@@ -1,4 +1,4 @@
-package com.jeorgio.javava.authc.service;
+package cn.javava.authc.service;
 
 import org.springframework.scheduling.annotation.Async;
 

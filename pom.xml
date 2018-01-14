@@ -65,7 +65,7 @@
                     <overWriteReleases>true</overWriteReleases>
                     <overWriteSnapshots>true</overWriteSnapshots>
                     <outputDirectory>${project.build.directory}/libs</outputDirectory>
-                    <excludeTransitive>true</excludeTransitive>
+                    <excludeTransitive>false</excludeTransitive>
                 </configuration>
             </plugin>
         </plugins>

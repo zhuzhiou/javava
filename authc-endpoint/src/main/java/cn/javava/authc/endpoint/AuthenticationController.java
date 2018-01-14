@@ -1,20 +1,18 @@
-package com.jeorgio.javava.authc.endpoint;
+package cn.javava.authc.endpoint;
 
-import com.jeorgio.javava.authc.service.QrcodeTokenService;
-import com.jeorgio.javava.authc.vo.QrcodeToken;
+import cn.javava.authc.service.QrcodeTokenService;
+import cn.javava.authc.vo.QrcodeToken;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.swagger.annotations.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.repository.Repository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import static org.apache.commons.codec.digest.DigestUtils.sha1Hex;

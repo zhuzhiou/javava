@@ -9,7 +9,9 @@
 
     mvn clean package dependency:copy-dependencies
 
-# zego-api
+# javava-zego
+
+    mvn clean package -pl javava-zego -am dependency:copy-dependencies
 
 创建流回调接口
 

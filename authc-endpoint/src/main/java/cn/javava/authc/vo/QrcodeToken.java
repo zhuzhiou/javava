@@ -1,4 +1,4 @@
-package com.jeorgio.javava.authc.vo;
+package cn.javava.authc.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

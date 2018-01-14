@@ -1,8 +1,8 @@
-package com.jeorgio.javava.authc.service;
+package cn.javava.authc.service;
 
 
-import com.jeorgio.javava.authc.vo.QrcodeToken;
-import com.jeorgio.javava.users.vo.UserVo;
+import cn.javava.authc.vo.QrcodeToken;
+import cn.javava.user.vo.UserVo;
 
 public interface QrcodeTokenService {
 

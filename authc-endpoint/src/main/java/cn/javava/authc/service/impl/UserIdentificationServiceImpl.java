@@ -1,10 +1,10 @@
-package com.jeorgio.javava.authc.service.impl;
+package cn.javava.authc.service.impl;
 
-import com.jeorgio.javava.authc.service.QrcodeTokenService;
-import com.jeorgio.javava.authc.service.UserIdentificationService;
-import com.jeorgio.javava.authc.vo.AccessToken;
-import com.jeorgio.javava.authc.vo.ApiConfig;
-import com.jeorgio.javava.users.vo.UserVo;
+import cn.javava.authc.service.QrcodeTokenService;
+import cn.javava.authc.service.UserIdentificationService;
+import cn.javava.authc.vo.AccessToken;
+import cn.javava.authc.vo.ApiConfig;
+import cn.javava.user.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
