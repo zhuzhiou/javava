@@ -2,6 +2,7 @@ spring:
     application:
         name: javava-zego
     profiles:
-        active: dev
+        active: prod
 server:
-    context-path: /zego-api
+    context-path: /
+    port: 8080
