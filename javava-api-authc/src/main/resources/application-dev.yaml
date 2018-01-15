@@ -9,3 +9,6 @@ spring:
             username: root
             password: develop
             connection-init-sqls: set names utf8mb4
+server:
+    context-path: /
+    port: 8080

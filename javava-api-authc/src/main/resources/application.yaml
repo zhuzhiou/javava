@@ -1,9 +1,8 @@
 spring:
     application:
         name: javava-weixin-authc
-server:
-    context-path: /
-    port: 8083
+    profiles:
+        active: prod
 weixin:
     api:
         appId: wx3c9fe7990504ee43
