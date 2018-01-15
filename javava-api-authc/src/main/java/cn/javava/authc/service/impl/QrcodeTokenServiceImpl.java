@@ -3,8 +3,7 @@ package cn.javava.authc.service.impl;
 import cn.javava.authc.service.QrcodeTokenService;
 import cn.javava.authc.vo.ApiConfig;
 import cn.javava.authc.vo.QrcodeToken;
-import cn.javava.user.service.UserService;
-import cn.javava.user.vo.UserVo;
+import cn.javava.authc.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -29,9 +28,6 @@ public class QrcodeTokenServiceImpl implements QrcodeTokenService {
     @Value("${weixin.authz.redirect_uri}")
     private String redirect_uri;
 
-    @Autowired
-    private UserService userService;
-
     @Override
     public QrcodeToken generateQrcodeToken() {
         ValueOperations<String, String> valueOps = stringRedisTemplate.opsForValue();
@@ -52,7 +48,7 @@ public class QrcodeTokenServiceImpl implements QrcodeTokenService {
     }
 
     public void scanQrcodeSuccess(String qrcode, UserVo userVo) {
-        userService.save(userVo);
+        //userService.save(userVo);
         ValueOperations<String, String> valueOps = stringRedisTemplate.opsForValue();
         valueOps.set(qrcode, userVo.getOpenid(), 1, TimeUnit.HOURS);
     }

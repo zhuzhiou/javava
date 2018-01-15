@@ -19,7 +19,7 @@ import static org.apache.commons.codec.digest.DigestUtils.sha1Hex;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.join;
 
-@RequestMapping("/authc")
+@RequestMapping("/api/authc")
 @RestController
 @Api(tags = "微信扫码登陆", description = "第1个版本仅支持微信扫码。")
 public class AuthenticationController {

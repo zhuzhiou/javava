@@ -4,7 +4,7 @@ import cn.javava.authc.service.QrcodeTokenService;
 import cn.javava.authc.service.UserIdentificationService;
 import cn.javava.authc.vo.AccessToken;
 import cn.javava.authc.vo.ApiConfig;
-import cn.javava.user.vo.UserVo;
+import cn.javava.authc.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;

@@ -2,7 +2,7 @@ package cn.javava.authc.service;
 
 
 import cn.javava.authc.vo.QrcodeToken;
-import cn.javava.user.vo.UserVo;
+import cn.javava.authc.vo.UserVo;
 
 public interface QrcodeTokenService {
 
