@@ -32,7 +32,7 @@ public class LiveRoomDaoImpl implements LiveRoomDao {
     @Override
     public int create(OpenLiveVo vo) {
         int rows = jdbcTemplate.update(
-                "insert into jww_live_room(ID, ROOM_ID, ROOM_STATE) values(?, ?, ?)",
+                "insert into jww_live_room(ID, ROOM_ID, ROOM_STATE, CREATE_DATE) values(?, ?, ?, NOW())",
                 (pss) -> {
                     pss.setString(1, remove(timeBasedGenerator.generate().toString(), "-"));
                     pss.setString(2, vo.getChannelId());

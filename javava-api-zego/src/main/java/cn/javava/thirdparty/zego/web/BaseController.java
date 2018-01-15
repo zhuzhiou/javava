@@ -1,5 +1,8 @@
 package cn.javava.thirdparty.zego.web;
 
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@RequestMapping("/api")
 public abstract class BaseController {
 
     protected final int CODE_SUCCESS = 1;

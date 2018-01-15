@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +23,6 @@ import static java.lang.Math.abs;
 import static java.time.LocalDateTime.ofEpochSecond;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
-@RequestMapping("/v1")
 @RestController
 public class CloseLiveController extends BaseController {
 
@@ -40,7 +38,7 @@ public class CloseLiveController extends BaseController {
     @Autowired
     private NotificationService notificationService;
 
-    @PostMapping("/closeStream")
+    @PostMapping("/close-live")
     public int closeStream(HttpServletRequest request) {
         CloseLiveVo vo = assignVo(request);
         LocalDateTime timestamp = ofEpochSecond(Longs.tryParse(vo.getTimestamp()), 0, ZoneOffset.of("+8"));

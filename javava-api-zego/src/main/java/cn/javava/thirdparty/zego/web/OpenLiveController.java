@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +24,7 @@ import static java.time.LocalDateTime.ofEpochSecond;
 import static org.apache.commons.lang3.ArrayUtils.isNotEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
-@RequestMapping("/v1")
+
 @RestController
 public class OpenLiveController extends BaseController {
 
@@ -41,7 +40,7 @@ public class OpenLiveController extends BaseController {
     @Autowired
     private NotificationService notificationService;
 
-    @PostMapping("/openStream")
+    @PostMapping("/open-live")
     public int openStream(HttpServletRequest request) {
         OpenLiveVo vo = assignVo(request);
         LocalDateTime timestamp = ofEpochSecond(Longs.tryParse(vo.getTimestamp()), 0, ZoneOffset.of("+8"));
