@@ -1,11 +1,8 @@
 package cn.javava.authc.service;
 
-import org.springframework.scheduling.annotation.Async;
-
-import java.util.concurrent.Future;
+import cn.javava.authc.vo.UserVo;
 
 public interface UserIdentificationService {
 
-    @Async
-    Future<String> identify(String code, String state);
+    UserVo identify(String code, String state);
 }

@@ -1,26 +1,13 @@
 spring:
-    dubbo:
-        application:
-            name: users-consumer
-        registry:
-            address: zookeeper://192.168.150.129:2181
-        protocol:
-            name: dubbo
-            port: 20880
-    redis:
-        host: 192.168.160.129
-        port: 6379
-        database: 0
+    application:
+        name: javava-weixin-authc
 server:
-    servlet:
-        context-path: /authc
-    port: 8080
+    context-path: /
+    port: 8083
 weixin:
     api:
         appId: wx3c9fe7990504ee43
         appSecret: 86a03cf6061df50185eb49dfaf31cc59
-    authz:
-        redirect_uri: http://piggy.s1.natapp.cc/authc/authz
 javava:
     api:
         secret: gOw8ovGXsChAIw7MVpwsKsA9lysvNNPC

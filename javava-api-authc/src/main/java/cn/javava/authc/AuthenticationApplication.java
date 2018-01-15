@@ -53,6 +53,7 @@ public class AuthenticationApplication {
 	@Bean
 	public Docket docket() {
 		return new Docket(DocumentationType.SWAGGER_2)
+				.useDefaultResponseMessages(false)
 				.apiInfo(apiInfo())
 				.select()
 				.apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
