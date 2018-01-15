@@ -1,7 +1,0 @@
-spring:
-    application:
-        name: javava-zego
-    profiles:
-        active: dev
-server:
-    context-path: /zego-api

@@ -19,8 +19,8 @@
     <modules>
         <module>javava-live</module>
         <module>javava-user</module>
-        <module>javava-zego</module>
-        <module>authc-endpoint</module>
+        <module>javava-api-zego</module>
+        <module>javava-api-authc</module>
     </modules>
 
     <dependencies>
