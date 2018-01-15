@@ -9,7 +9,5 @@ weixin:
         appId: wx3c9fe7990504ee43
         appSecret: 86a03cf6061df50185eb49dfaf31cc59
 javava:
-    api:
-        secret: gOw8ovGXsChAIw7MVpwsKsA9lysvNNPC
     jwt:
         secret: JErH9l4oxxvsS6ktynDx0yB0IG6nhrXzAR7SSDkU53NPTrm8SoziOQOmUTCa46o0EpTfE3uODClWHGbRmfQd2g==

@@ -28,7 +28,7 @@ public class AuthenticationController {
     ) {
         UserVo userVo = userIdentificationService.identify(code, state);
         model.addAttribute("userVo", userVo);
-        return "";
+        return "authc";
     }
 
 
