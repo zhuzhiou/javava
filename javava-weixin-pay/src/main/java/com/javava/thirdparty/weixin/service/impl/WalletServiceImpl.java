@@ -1,5 +1,6 @@
 package com.javava.thirdparty.weixin.service.impl;
 
+import com.javava.thirdparty.weixin.constant.WxPayConstants;
 import com.javava.thirdparty.weixin.service.WalletService;
 import com.javava.thirdparty.weixin.util.WxPayUtil;
 import com.javava.thirdparty.weixin.entity.Wallet;
@@ -8,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -30,6 +32,8 @@ public class WalletServiceImpl implements WalletService {
                 wallet.setBalance(fee);
                 wallet.setOpenid(params.get("openid"));
                 wallet.setUserId(userId);
+                wallet.setCreateTime(new Date());
+                wallet.setStatus(WxPayConstants.WALLET_STATUS_1);
             } else {
                 wallet.setBalance(wallet.getBalance() + fee);
             }

@@ -40,6 +40,15 @@ public class FlowRecordServiceImpl implements FlowRecordService {
             if(StringUtils.isNotBlank(record.getWalletId())){
                 predicates.add(criteriaBuilder.equal(root.get("walletId"),record.getWalletId()));
             }
+            if(StringUtils.isNotBlank(record.getOutTradeNo())){
+                predicates.add(criteriaBuilder.equal(root.get("outTradeNo"),record.getOutTradeNo()));
+            }
+            if(record.getMoney() != 0){
+                predicates.add(criteriaBuilder.equal(root.get("money"),record.getMoney()));
+            }
+            if(StringUtils.isNotBlank(record.getWalletId())){
+                predicates.add(criteriaBuilder.equal(root.get("walletId"),record.getWalletId()));
+            }
             if(beginTime != null){
                 predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("operateTime"),beginTime));
             }

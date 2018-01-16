@@ -1,8 +1,5 @@
 package com.javava.thirdparty.weixin.entity;
 
-import com.javava.thirdparty.weixin.constant.WxPayConstants;
-import org.hibernate.annotations.ColumnDefault;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -44,6 +41,5 @@ public class Wallet {
      * 钱包状态
      */
     @Column(name = "STATUS")
-    @ColumnDefault(WxPayConstants.WALLET_STATUS_1)
     private String status;
 }

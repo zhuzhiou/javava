@@ -32,7 +32,7 @@ public class FlowRecordServiceImpl implements FlowRecordService {
         flowRecord.setUserId(userId);
         flowRecord.setBankType(data.get("bank_type"));
         flowRecord.setDeviceInfo(data.get("device_info"));
-        flowRecord.setMoney(Double.parseDouble(data.get("total_fee")));
+        flowRecord.setMoney(Integer.parseInt(data.get("total_fee")));
         flowRecord.setOperateTime(new Date());
         flowRecord.setOutTradeNo(data.get("out_trade_no"));
         flowRecord.setRemark(JSONObject.toJSONString(data));

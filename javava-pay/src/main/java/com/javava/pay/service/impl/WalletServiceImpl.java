@@ -18,7 +18,7 @@ public class WalletServiceImpl implements WalletService {
 
     @Override
     public Wallet findByOpenid(String openId) {
-        return walletRepository.findByOpenId(openId);
+        return walletRepository.findByOpenid(openId);
     }
 
 }

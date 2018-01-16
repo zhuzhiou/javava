@@ -21,7 +21,7 @@ public class FlowRecord {
      * 消费金额
      */
     @Column(name="MONEY")
-    private Double money;
+    private Integer money;
     /**
      * 消费类型 消费/充值
      */
