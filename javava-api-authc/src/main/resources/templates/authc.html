@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<p th:text="'Hello！, ' + ${userVo.nickname} + '!'" >3333</p>
+<p th:text="${userVo.nickname} + '，请您稍等，马上进入游戏...'" >温馨提示</p>
+<p>调用activity提供的方法，传入令牌，app收到令牌后临时存储，在调用服务端api的时候，带上这个令牌，服务器就能识别身份了，注意，由于app的开放性，用户玩完游戏后最好消毁掉令牌，避免潜在的风险。</p>
 </body>
 </html>
