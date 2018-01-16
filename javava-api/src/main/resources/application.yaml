@@ -3,3 +3,6 @@ spring:
         name: javava-api
     profiles:
         active: prod
+javava:
+    api:
+        path: /api
