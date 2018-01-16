@@ -7,10 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@RequestMapping("/api/authc")
 @Controller
 public class AuthenticationController {
 
@@ -20,8 +18,8 @@ public class AuthenticationController {
     @Autowired
     private UserIdentificationService userIdentificationService;
 
-    @GetMapping(path = "")
-    public String doGet(
+    @GetMapping(path = "/scanQRCodeComplete")
+    public String scanQRCode_complete(
             @RequestParam(name = "code") String code,
             @RequestParam(name = "state") String state,
             Model model

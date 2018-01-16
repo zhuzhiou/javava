@@ -1,0 +1,5 @@
+spring:
+    application:
+        name: javava-admin-webapp
+    profiles:
+        active: prod

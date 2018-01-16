@@ -17,10 +17,10 @@ import java.util.concurrent.Executor;
 
 @SpringBootApplication
 @EnableAsync
-public class AuthenticationApplication {
+public class WeixinAuthenticationApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AuthenticationApplication.class, args);
+		SpringApplication.run(WeixinAuthenticationApplication.class, args);
 	}
 
 	@Bean

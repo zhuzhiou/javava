@@ -19,8 +19,12 @@
     <modules>
         <module>javava-live</module>
         <module>javava-user</module>
+        <module>javava-pay</module>
+        <module>javava-admin-webapp</module>
+        <module>javava-api</module>
         <module>javava-api-zego</module>
-        <module>javava-api-authc</module>
+        <module>javava-weixin-authc</module>
+		<module>javava-weixin-pay</module>
     </modules>
 
     <dependencies>
