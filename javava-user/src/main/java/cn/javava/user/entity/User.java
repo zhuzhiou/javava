@@ -12,8 +12,8 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     @Id
-    @Column(name = "ID")
-    private String id;
+    @Column(name = "USER_ID")
+    private String userid;
 
     @Column(name = "USERNAME")
     private String username;
