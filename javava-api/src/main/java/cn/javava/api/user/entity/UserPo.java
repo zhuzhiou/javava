@@ -1,4 +1,4 @@
-package cn.javava.user.entity;
+package cn.javava.api.user.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Table(name = "jww_user")
 @Entity
 @lombok.Data
-public class User implements Serializable {
+public class UserPo implements Serializable {
 
     @Id
     @Column(name = "USER_ID")
