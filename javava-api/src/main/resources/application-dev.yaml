@@ -10,3 +10,16 @@ spring:
 server:
     context-path: /
     port: 8084
+wx:
+    api:
+        unifiedOrderUrl: https://api.mch.weixin.qq.com/pay/unifiedorder
+        goodsBody: 测试商品描述..
+        tradeType: NATIVE
+        appId: wxfe19480979014ade
+        mchId: 1461351402
+        key: ouQ1s6moJu70mJJx7LuU82gbWaIR4s5D
+        notifyUrl: http://pppe6e.natappfree.cc/notify/payedInfo
+        signType: MD5
+        httpConnectTimeout: 6000
+        httpReadTimeout: 8000
+        ip: 127.0.0.1
