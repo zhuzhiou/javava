@@ -1,8 +1,8 @@
 package cn.javava.api.user.controller;
 
 import cn.javava.api.commons.controller.BaseApiController;
-import cn.javava.user.service.UserService;
-import cn.javava.user.vo.UserVo;
+import cn.javava.api.user.service.UserService;
+import cn.javava.api.user.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
@@ -21,7 +21,7 @@ public class UserController extends BaseApiController {
 
     @GetMapping(path = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public UserVo getUsers(Pageable pageable) {
-        userService.getUsers(pageable);
+        userService.findUsers(null, pageable);
         return null;
     }
 

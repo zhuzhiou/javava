@@ -1,8 +1,8 @@
 package cn.javava.api.live.controller;
 
 import cn.javava.api.commons.controller.BaseApiController;
-import cn.javava.live.vo.LiveVo;
-import cn.javava.user.vo.UserVo;
+import cn.javava.api.live.vo.LiveVo;
+import cn.javava.api.user.vo.UserVo;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
