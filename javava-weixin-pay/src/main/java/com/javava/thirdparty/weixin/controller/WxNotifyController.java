@@ -89,22 +89,6 @@ public class WxNotifyController {
 
     }
 
-    /**
-     * 客户端请求获取订单状态
-     * @param tradeNo
-     * @return
-     */
-    @RequestMapping("/payStatus/{tradeNo}")
-    public JSONObject respStatus(@PathVariable String tradeNo){
-        JSONObject resp = new JSONObject();
-        resp.put("result_code",WxPayConstants.DEALING);
-        FlowRecord record = flowRecordService.findByOutTradeNo(tradeNo);
-        if(record != null){
-            resp.put("result_code",record.getResultCode());
-        }
-        return resp;
-    }
-
 
     /**
      * 普通支付模式一

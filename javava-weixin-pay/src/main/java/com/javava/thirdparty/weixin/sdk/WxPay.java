@@ -3,6 +3,7 @@ package com.javava.thirdparty.weixin.sdk;
 import com.javava.thirdparty.weixin.constant.WxPayConstants;
 import com.javava.thirdparty.weixin.util.WxPayUtil;
 import com.javava.thirdparty.weixin.config.ApiConfig;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,9 +129,7 @@ public class WxPay {
      */
     public String requestWithCert(String urlSuffix, Map<String, String> reqData,
                                   int connectTimeoutMs, int readTimeoutMs) throws Exception {
-        String msgUUID= reqData.get("nonce_str");
         String reqBody = WxPayUtil.mapToXml(reqData);
-
         String resp = this.wxPayRequest.requestWithCert(urlSuffix, reqBody, connectTimeoutMs, readTimeoutMs,null);
         return resp;
     }
@@ -142,24 +141,21 @@ public class WxPay {
      * @throws Exception
      */
     private Map<String, String> processResponseXml(String xmlStr) throws Exception {
-        String RETURN_CODE = "return_code";
-        String return_code;
         Map<String, String> respData = WxPayUtil.xmlToMap(xmlStr);
-        if (respData.containsKey(RETURN_CODE)) {
-            return_code = respData.get(RETURN_CODE);
-        }else {
+        String returnCode = respData.get("return_code");
+        if (StringUtils.isBlank(returnCode)) {
             throw new Exception(String.format("No `return_code` in XML: %s", xmlStr));
         }
-        if (return_code.equals(WxPayConstants.FAIL)) {
+        if (returnCode.equals(WxPayConstants.FAIL)) {
             return respData;
-        }else if (return_code.equals(WxPayConstants.SUCCESS)) {
+        }else if (returnCode.equals(WxPayConstants.SUCCESS)) {
            if (this.isResponseSignatureValid(respData)) {
                return respData;
            }else {
                throw new Exception(String.format("Invalid sign value in XML: %s", xmlStr));
            }
         }else {
-            throw new Exception(String.format("return_code value %s is invalid in XML: %s", return_code, xmlStr));
+            throw new Exception(String.format("return_code value %s is invalid in XML: %s", returnCode, xmlStr));
         }
     }
 
