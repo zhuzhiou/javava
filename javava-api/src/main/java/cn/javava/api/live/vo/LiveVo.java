@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Data
 public class LiveVo implements Serializable {
 
-    private String roomId;
+    private String channelId;
 
     private String streamAlias;
 

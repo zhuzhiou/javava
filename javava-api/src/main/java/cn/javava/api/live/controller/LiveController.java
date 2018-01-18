@@ -1,7 +1,8 @@
 package cn.javava.api.live.controller;
 
 import cn.javava.api.commons.controller.BaseApiController;
-import cn.javava.api.live.facade.LiveFacade;
+import cn.javava.api.live.service.LiveRoomService;
+import cn.javava.api.live.service.LiveService;
 import cn.javava.api.live.vo.LiveCriteria;
 import cn.javava.api.live.vo.LiveRoomCriteria;
 import cn.javava.api.live.vo.LiveRoomVo;
@@ -14,20 +15,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("${javava.api.path}/lives")
+@RequestMapping("/api/lives")
 @RestController
 public class LiveController extends BaseApiController {
 
     @Autowired
-    private LiveFacade liveFacade;
+    private LiveRoomService liveRoomService;
+
+    @Autowired
+    private LiveService liveService;
 
     @GetMapping(path = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Page<LiveVo> getLives(LiveCriteria criteria, Pageable pageable) {
-        return liveFacade.findLives(criteria, pageable);
+        return liveService.findLives(criteria, pageable);
     }
 
     @GetMapping(path = "/rooms", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Page<LiveRoomVo> getLiveRooms(LiveRoomCriteria criteria, Pageable pageable) {
-        return liveFacade.findLiveRooms(criteria, pageable);
+        return liveRoomService.findLiveRooms(criteria, pageable);
     }
 }

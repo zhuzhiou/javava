@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-@RequestMapping("${javava.api.path}/users")
+@RequestMapping("/api/users")
 @RestController
 public class UserController extends BaseApiController {
 

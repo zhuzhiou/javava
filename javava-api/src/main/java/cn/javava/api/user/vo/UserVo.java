@@ -5,6 +5,8 @@ import java.io.Serializable;
 @lombok.Data
 public class UserVo implements Serializable {
 
+    private String userid;
+
     private String openid;
 
     private String nickname;

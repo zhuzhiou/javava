@@ -9,7 +9,7 @@ spring:
             connection-init-sqls: set names utf8mb4
 server:
     context-path: /
-    port: 8084
+    port: 8080
 wx:
     api:
         unifiedOrderUrl: https://api.mch.weixin.qq.com/pay/unifiedorder

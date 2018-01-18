@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static org.apache.commons.lang3.StringUtils.replaceAll;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -42,8 +43,24 @@ public class UserServiceImpl implements UserService {
     public Page<UserVo> findUsers(UserCriteria criteria, Pageable pageable) {
         Specification specification = (root, query, cb) -> {
             List<Predicate> list = new ArrayList<>();
+            if (isNotBlank(criteria.getNicknameLike())) {
+                Predicate predicate = cb.like(root.get(UserPo_.nickname), replaceAll(criteria.getNicknameLike(), "*", "%"));
+                list.add(predicate);
+            }
+            if (isNotBlank(criteria.getSexEq())) {
+                Predicate predicate = cb.equal(root.get(UserPo_.sex), criteria.getSexEq());
+                list.add(predicate);
+            }
             if (isNotBlank(criteria.getCountryEq())) {
                 Predicate predicate = cb.equal(root.get(UserPo_.country), criteria.getCountryEq());
+                list.add(predicate);
+            }
+            if (isNotBlank(criteria.getProvinceLike())) {
+                Predicate predicate = cb.like(root.get(UserPo_.province), replaceAll(criteria.getProvinceLike(), "*", "%"));
+                list.add(predicate);
+            }
+            if (isNotBlank(criteria.getCityLike())) {
+                Predicate predicate = cb.like(root.get(UserPo_.city), replaceAll(criteria.getCityLike(), "*", "%"));
                 list.add(predicate);
             }
             Predicate[] predicates = new Predicate[list.size()];
