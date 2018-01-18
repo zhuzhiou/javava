@@ -8,11 +8,11 @@ import java.time.LocalDateTime;
 @Data
 public class LiveCriteria implements Serializable {
 
-    private String streamAlias;
+    private String streamAliasEq;
 
-    private String publishName;
+    private String publishNameEq;
 
-    private LocalDateTime createDate;
+    private LocalDateTime createDateGe;
 
-    private String closeReason;
+    private String closeReasonEq;
 }

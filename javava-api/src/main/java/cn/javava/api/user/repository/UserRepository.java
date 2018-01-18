@@ -1,13 +1,10 @@
 package cn.javava.api.user.repository;
 
 import cn.javava.api.user.entity.UserPo;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.Repository;
 
-public interface UserRepository extends Repository<UserPo, String> {
+public interface UserRepository extends Repository<UserPo, String>, JpaSpecificationExecutor<UserPo> {
 
-    UserPo getUser(String userid);
-
-    Page<UserPo> findUsers(Pageable pageable);
+    UserPo getOne(String userid);
 }

@@ -5,15 +5,15 @@ import java.io.Serializable;
 @lombok.Data
 public class UserCriteria implements Serializable {
 
-    private String openid;
+    private String nicknameLike;
 
-    private String nickname;
+    private String sexEq;
 
-    private String sex;
+    private String countryEq;
 
-    private String province;
+    private String countryLike;
 
-    private String city;
+    private String provinceLike;
 
-    private String country;
+    private String cityLike;
 }

@@ -1,6 +1,7 @@
 package cn.javava.api.user.service;
 
 import cn.javava.api.user.entity.UserPo;
+import cn.javava.api.user.entity.UserPo_;
 import cn.javava.api.user.repository.UserRepository;
 import cn.javava.api.user.vo.UserCriteria;
 import cn.javava.api.user.vo.UserVo;
@@ -9,12 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -28,14 +33,25 @@ public class UserServiceImpl implements UserService {
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     @Override
     public UserVo getUser(String userid) {
-        UserPo userPo = userRepository.getUser(userid);
+        UserPo userPo = userRepository.getOne(userid);
         return mapperFacade.map(userPo, UserVo.class);
     }
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     @Override
     public Page<UserVo> findUsers(UserCriteria criteria, Pageable pageable) {
-        Page<UserPo> page = userRepository.findUsers(pageable);
+        Specification specification = (root, query, cb) -> {
+            List<Predicate> list = new ArrayList<>();
+            if (isNotBlank(criteria.getCountryEq())) {
+                Predicate predicate = cb.equal(root.get(UserPo_.country), criteria.getCountryEq());
+                list.add(predicate);
+            }
+            Predicate[] predicates = new Predicate[list.size()];
+			//return cb.and(predicates);
+            return query.where(list.toArray(predicates)).getRestriction();
+        };
+
+        Page<UserPo> page = userRepository.findAll(specification, pageable);
         List<UserVo> list = new ArrayList<>();
         UserVo vo;
         for (UserPo po : page.getContent()) {

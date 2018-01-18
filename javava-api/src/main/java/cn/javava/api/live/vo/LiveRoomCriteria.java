@@ -7,7 +7,9 @@ import java.io.Serializable;
 @Data
 public class LiveRoomCriteria implements Serializable {
 
-    private String roomName;
+    private String nameEq;
 
-    private String roomState;
+    private String nameLike;
+
+    private String stateEq;
 }

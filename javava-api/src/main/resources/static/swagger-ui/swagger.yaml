@@ -3,7 +3,7 @@ info:
   description: 加一联萌是一家文化传播的服务公司，我们通过产品与服务，帮助品牌在互联网时代用户对品牌记忆多元化需求及更有趣的互动传播方式，让品牌娱乐起来。
   version: '1.0.0'
   title: 加一联荫接口文档
-host: piggy.s1.natapp.cc
+host: localhost
 tags:
   - name: user
     description: 用户相关

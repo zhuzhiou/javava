@@ -23,14 +23,14 @@ public class LiveRoomPo implements Serializable {
     @Id
     private String id;
 
-    @Column(name = "ROOM_ID")
-    private String roomId;
+    @Column(name = "CHANNEL_ID")
+    private String channelId;
 
-    @Column(name = "ROOM_NAME")
-    private String roomName;
+    @Column(name = "NAME")
+    private String name;
 
-    @Column(name = "ROOM_STATE")
-    private String roomState;
+    @Column(name = "STATE")
+    private String state;
 
     @Column(name = "CREATE_DATE")
     private LocalDateTime createDate;

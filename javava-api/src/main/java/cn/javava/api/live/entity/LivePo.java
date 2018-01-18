@@ -23,8 +23,8 @@ public class LivePo implements Serializable {
     @Id
     private String id;
 
-    @Column(name = "ROOM_ID")
-    private String roomId;
+    @Column(name = "CHANNEL_ID")
+    private String channelId;
 
     @Column(name = "STREAM_ALIAS")
     private String streamAlias;
