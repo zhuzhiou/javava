@@ -160,6 +160,30 @@ paths:
       responses:
         200:
           description: OK
+  /generateCode:
+    post:
+      tags:
+        - pay
+      summary: 微信生成支付二维码
+      produces:
+        - "application/json"
+      description: 生成实时支付二维码内容和交易流水号，二维码有效期2小时，支付后二维码失效
+      parameters:
+        - name: userId
+          in: query
+          description: 用户ID
+          required: true
+          type: string
+        - name: money
+          in: query
+          description: 充值金额，单位为分
+          required: true
+          type: Integer
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#definitions/CodeVo'
 
 definitions:
   UserVo:
@@ -262,3 +286,12 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/LiveRoomVo'
+  CodeVo:
+    type: object
+    properties:
+      codeUrl:
+        type: string
+        description: 二维码内容
+      tradeNo:
+        type: string
+        description: 交易流水号
