@@ -160,11 +160,11 @@ paths:
       responses:
         200:
           description: OK
-  /generateCode:
+  /pay/generateQRCode:
     post:
       tags:
         - pay
-      summary: 微信生成支付二维码
+      summary: 生成微信支付二维码，用户扫码支付。
       produces:
         - "application/json"
       description: 生成实时支付二维码内容和交易流水号，二维码有效期2小时，支付后二维码失效
@@ -183,8 +183,26 @@ paths:
         200:
           description: OK
           schema:
-            $ref: '#definitions/CodeVo'
-
+            $ref: '#definitions/GenerateQRCodeResult'
+  /pay/payStatus/{tradeNo}:
+    get:
+      tags:
+        - pay
+      summary: 查询订单支付结果
+      produces:
+        - "application/json"
+      description:
+      parameters:
+        - name: tradeNo
+          in: path
+          description: 交易流水号，由接口/pay/generateQRCode返回
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#definitions/PaymentResult'
 definitions:
   UserVo:
     type: object
@@ -286,7 +304,7 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/LiveRoomVo'
-  CodeVo:
+  GenerateQRCodeResult:
     type: object
     properties:
       codeUrl:
@@ -295,3 +313,9 @@ definitions:
       tradeNo:
         type: string
         description: 交易流水号
+  PaymentResult:
+    type: object
+    properties:
+      resultCode:
+        type: string
+        description: DEALING 还在处理中，SUCCESS 交易成功，FAIL 交易失败

@@ -47,25 +47,4 @@ public class WeixinAuthenticationApplication {
 	public TimeBasedGenerator timeBasedGenerator() {
 		return Generators.timeBasedGenerator(EthernetAddress.fromInterface());
 	}
-
-/*	@Bean
-	public Docket docket() {
-		return new Docket(DocumentationType.SWAGGER_2)
-				.useDefaultResponseMessages(false)
-				.apiInfo(apiInfo())
-				.select()
-				.apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
-				.paths(PathSelectors.any())
-				.build();
-	}
-
-	@Bean
-	public ApiInfo apiInfo() {
-		return new ApiInfoBuilder()
-				.title("抓娃娃机用户登陆接口")
-				.description("第一个版本，只支付微信扫码登陆。")
-				.contact(new Contact("zhuzhiou", "https://github.com/zhuzhiou", "zhuzhiou@qq.com"))
-				.version("1.0")
-				.build();
-	}*/
 }

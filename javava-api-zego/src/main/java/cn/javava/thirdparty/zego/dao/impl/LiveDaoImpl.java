@@ -8,9 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Timestamp;
-
-import static java.time.Instant.ofEpochMilli;
 import static org.apache.commons.lang3.ArrayUtils.getLength;
 import static org.apache.commons.lang3.StringUtils.remove;
 
@@ -26,7 +23,7 @@ public class LiveDaoImpl implements LiveDao {
     @Override
     public int create(OpenLiveVo vo) {
         int rows = jdbcTemplate.update(
-                "insert into jww_live(ID, ROOM_ID, STREAM_ALIAS, PUBLISH_ID, PUBLISH_NAME, RTMP_URLS, HLS_URLS, HDL_URLS, PIC_URLS, CREATE_DATE) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                "insert into jww_live(ID, CHANNEL_ID, STREAM_ALIAS, PUBLISH_ID, PUBLISH_NAME, RTMP_URLS, HLS_URLS, HDL_URLS, PIC_URLS, CREATE_DATE) values(?, ?, ?, ?, ?, ?, ?, ?, ?, now())",
                 (pss) -> {
                     pss.setString(1, remove(timeBasedGenerator.generate().toString(), "-"));
                     pss.setString(2, vo.getChannelId());
@@ -37,7 +34,7 @@ public class LiveDaoImpl implements LiveDao {
                     pss.setInt(7, getLength(vo.getHdlUrl()));
                     pss.setInt(8, getLength(vo.getHlsUrl()));
                     pss.setInt(9, getLength(vo.getPicUrl()));
-                    pss.setTimestamp(10, Timestamp.from(ofEpochMilli(vo.getCreateTime()*1000)));
+                    //pss.setTimestamp(10, Timestamp.from(ofEpochMilli(vo.getCreateTime()*1000)));
                 }
         );
         return rows;

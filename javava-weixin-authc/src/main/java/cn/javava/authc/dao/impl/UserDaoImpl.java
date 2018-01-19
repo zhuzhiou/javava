@@ -21,7 +21,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public int save(UserVo userVo) {
         return jdbcTemplate.update(
-                "insert into jww_user(ID, OPENID, NICKNAME, SEX, PROVINCE, CITY, COUNTRY, HEADIMGURL, UNIONID, CREATE_DATE, UPDATE_COUNT) values(?, ?, ?, ?, ?, ?, ?, ?, ?, now(), 0) on duplicate key update NICKNAME = values(NICKNAME), SEX = values(SEX), PROVINCE = values(PROVINCE), CITY = values(CITY), COUNTRY = values(COUNTRY), HEADIMGURL = values(HEADIMGURL), UNIONID = values(UNIONID), UPDATE_COUNT = UPDATE_COUNT + 1, LAST_UPDATE_DATE = now()",
+                "insert into jww_user(USER_ID, OPENID, NICKNAME, SEX, PROVINCE, CITY, COUNTRY, HEADIMGURL, UNIONID, CREATE_DATE, UPDATE_COUNT) values(?, ?, ?, ?, ?, ?, ?, ?, ?, now(), 0) on duplicate key update NICKNAME = values(NICKNAME), SEX = values(SEX), PROVINCE = values(PROVINCE), CITY = values(CITY), COUNTRY = values(COUNTRY), HEADIMGURL = values(HEADIMGURL), UNIONID = values(UNIONID), UPDATE_COUNT = UPDATE_COUNT + 1, LAST_UPDATE_DATE = now()",
                 (pss) -> {
                     pss.setString(1, remove(timeBasedGenerator.generate().toString(), "-"));
                     pss.setString(2, userVo.getOpenid());

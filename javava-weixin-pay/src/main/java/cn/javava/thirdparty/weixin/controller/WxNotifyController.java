@@ -10,6 +10,7 @@ import cn.javava.thirdparty.weixin.util.WxPayUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,7 +25,7 @@ import java.util.Map;
  * Created by wlrllr on 2018/1/4.
  */
 @RestController
-@RequestMapping("notify")
+@RequestMapping("/qrcodepaySuccess")
 public class WxNotifyController {
 
     private static final Logger logger = LoggerFactory.getLogger(WxNotifyController.class);
@@ -41,7 +42,7 @@ public class WxNotifyController {
     /**
      * 支付结果通知
      */
-    @RequestMapping("/payedInfo")
+    @GetMapping("")
     public void notifyPayedInfo(HttpServletRequest request, HttpServletResponse response) {
         Map<String, String> result = new HashMap<>();
         result.put("return_code", WxPayConstants.SUCCESS);

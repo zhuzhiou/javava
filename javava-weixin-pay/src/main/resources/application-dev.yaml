@@ -5,11 +5,8 @@ spring:
         username: root
         password: iaFaI8ZdB%#s
 server:
-    servlet:
-        context-path: /wxpay
+    context-path: /wxpay
     port: 80
-    ip: 127.0.0.1
-    servlet-path:
 wx:
     api:
         shortUrl: https://api.mch.weixin.qq.com/tools/shorturl

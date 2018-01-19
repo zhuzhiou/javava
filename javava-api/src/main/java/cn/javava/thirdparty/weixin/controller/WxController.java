@@ -4,12 +4,12 @@ import cn.javava.api.commons.controller.BaseApiController;
 import cn.javava.thirdparty.weixin.constant.WxConstants;
 import cn.javava.thirdparty.weixin.entity.FlowRecord;
 import cn.javava.thirdparty.weixin.entity.Prepay;
-import cn.javava.thirdparty.weixin.sdk.WxPay;
-import com.alibaba.fastjson.JSONObject;
 import cn.javava.thirdparty.weixin.sdk.RequestDataBuilder;
+import cn.javava.thirdparty.weixin.sdk.WxPay;
 import cn.javava.thirdparty.weixin.service.FlowRecordService;
 import cn.javava.thirdparty.weixin.service.PrepayService;
 import cn.javava.thirdparty.weixin.util.WxPayUtil;
+import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,8 @@ import java.util.Map;
 /**
  * Created by wlrllr on 2018/1/11.
  */
-@RestController
+@RequestMapping("/pay")
+@RestController()
 public class WxController extends BaseApiController {
 
     @Autowired
@@ -36,12 +37,12 @@ public class WxController extends BaseApiController {
 
     private static final String DEFAULT_CLIENTID="0000001";
 
-    @PostMapping(value="/generateCode")
+    @PostMapping(value="/generateQRCode")
     public JSONObject generatePrepayUrl(String userId,Integer money){
         return generatePrepayUrl(userId,DEFAULT_CLIENTID,money);
     }
 
-    public JSONObject generatePrepayUrl(String userId,String clientId,Integer money){
+    private JSONObject generatePrepayUrl(String userId,String clientId,Integer money){
         JSONObject resp = new JSONObject();
         try {
             Map<String, String> data = requestDataBuilder.buildUnifiedOrderParam(money,clientId);
@@ -73,10 +74,10 @@ public class WxController extends BaseApiController {
     @GetMapping(value = "/payStatus/{tradeNo}")
     public JSONObject respStatus(@PathVariable String tradeNo){
         JSONObject resp = new JSONObject();
-        resp.put("result_code", WxConstants.DEALING);
+        resp.put("resultCode", WxConstants.DEALING);
         FlowRecord record = flowRecordService.findByOutTradeNo(tradeNo);
         if(record != null){
-            resp.put("result_code",record.getResultCode());
+            resp.put("resultCode",record.getResultCode());
         }
         return resp;
     }
