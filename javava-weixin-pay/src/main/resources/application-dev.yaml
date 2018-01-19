@@ -11,26 +11,12 @@ server:
     ip: 127.0.0.1
     servlet-path:
 wx:
-    pay:
-        unified-order-url: https://api.mch.weixin.qq.com/pay/unifiedorder
-        query-order-url: https://api.mch.weixin.qq.com/pay/orderquery
-        close-order-url: https://api.mch.weixin.qq.com/pay/closeorder
-        refund-url: https://api.mch.weixin.qq.com/secapi/pay/refund
-        refund-query-url: https://api.mch.weixin.qq.com/pay/refundquery
-        short-url: https://api.mch.weixin.qq.com/tools/shorturl
-        micro-pay: https://api.mch.weixin.qq.com/pay/micropay
-        reverse: https://api.mch.weixin.qq.com/secapi/pay/reverse
-        download-bill: https://api.mch.weixin.qq.com/pay/downloadbill
-        report: https://api.mch.weixin.qq.com/payitil/report
-        auth-code-to-openid: https://api.mch.weixin.qq.com//tools/authcodetoopenid
-        goods-body: 测试商品描述..
-        trade-type: NATIVE
     api:
+        shortUrl: https://api.mch.weixin.qq.com/tools/shorturl
+        report: https://api.mch.weixin.qq.com/payitil/report
         app-id: wxfe19480979014ade
         mch-id: 1461351402
         key: ouQ1s6moJu70mJJx7LuU82gbWaIR4s5D
-        notify-url: http://pppe6e.natappfree.cc/notify/payedInfo
-        sign-type: MD5
-http:
-    connect-timeout: 6000
-    read-timeout: 8000
+        signType: MD5
+        httpConnectTimeout: 6000
+        httpReadTimeout: 8000

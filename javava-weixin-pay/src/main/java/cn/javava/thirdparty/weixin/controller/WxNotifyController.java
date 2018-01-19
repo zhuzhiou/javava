@@ -1,15 +1,12 @@
 package cn.javava.thirdparty.weixin.controller;
 
 import cn.javava.thirdparty.weixin.constant.WxPayConstants;
-import cn.javava.thirdparty.weixin.sdk.RequestDataBuilder;
-import cn.javava.thirdparty.weixin.util.WxPayUtil;
-import cn.javava.thirdparty.weixin.entity.Goods;
 import cn.javava.thirdparty.weixin.entity.Prepay;
 import cn.javava.thirdparty.weixin.sdk.WxPay;
 import cn.javava.thirdparty.weixin.service.FlowRecordService;
-import cn.javava.thirdparty.weixin.service.GoodsService;
 import cn.javava.thirdparty.weixin.service.PrepayService;
 import cn.javava.thirdparty.weixin.service.WalletService;
+import cn.javava.thirdparty.weixin.util.WxPayUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,15 +32,11 @@ public class WxNotifyController {
     @Autowired
     private WxPay wxPay;
     @Autowired
-    private GoodsService goodsService;
-    @Autowired
     private PrepayService prepayService;
     @Autowired
     private WalletService walletService;
     @Autowired
     private FlowRecordService flowRecordService;
-    @Autowired
-    private RequestDataBuilder requestDataBuilder;
 
     /**
      * 支付结果通知
@@ -85,43 +78,6 @@ public class WxNotifyController {
         }
 
     }
-
-
-    /**
-     * 普通支付模式一
-     * 回调商户支付URL
-     *
-     * @param request
-     * @param response
-     */
-    @RequestMapping("/pay")
-    public void pay(HttpServletRequest request, HttpServletResponse response) {
-        //获取请求参数
-        Map<String, String> params = getParameter(request);
-        //签名校验
-        try {
-            String[] str = params.get("product_id").split(WxPayConstants.SPLIT_SYMBOL);
-            Goods goods = goodsService.findById(params.get(str[1]));
-            if (goods != null) {
-                Map<String, String> data = requestDataBuilder.buildUnifiedOrderParam(goods.getPrice(), str[0], goods.getId());
-                Map<String, String> result = wxPay.unifiedOrder(data);
-                if (WxPayUtil.isTure(WxPayConstants.SUCCESS, result, "return_code", "result_code")) {
-                    Prepay prepay = new Prepay();
-                    prepay.setDeviceInfo(str[0]);
-                    prepay.setOutTradeNo(data.get("out_trade_no"));
-                    prepay.setTotalFee(goods.getPrice());
-                    prepay.setPrepayId(result.get("prepay_id"));
-                    prepayService.save(prepay);
-                    PrintWriter writer = response.getWriter();
-                    writer.append(WxPayUtil.mapToXml(result));
-                    writer.flush();
-                }
-            }
-        } catch (Exception e) {
-            logger.error("回调支付异常....", e);
-        }
-    }
-
 
     private Map<String, String> getParameter(HttpServletRequest request) {
         StringBuffer xmlStr = new StringBuffer();

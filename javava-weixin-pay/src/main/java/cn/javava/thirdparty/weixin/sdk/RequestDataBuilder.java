@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -21,46 +20,6 @@ public class RequestDataBuilder {
 
     @Autowired
     private ApiConfig apiConfig;
-
-    public Map<String, String> buildUnifiedOrderParam(Integer money, String clientId, String productId) {
-        Map<String, String> data = new HashMap<>();
-        data.put("product_id", productId);
-        return buildUnifiedOrderParam(data, money, clientId);
-    }
-
-    /**
-     * 构建统一下单参数
-     *
-     * @return
-     */
-    public Map<String, String> buildUnifiedOrderParam(Integer money, String clientId) {
-        return buildUnifiedOrderParam(null, money, clientId);
-    }
-
-    /**
-     * 构建统一下单参数
-     *
-     * @return
-     */
-    public Map<String, String> buildUnifiedOrderParam(Map<String, String> data, Integer money, String clientId) {
-        if (data == null) {
-            data = new HashMap<>();
-        }
-        try {
-            data.put("body", apiConfig.getGoodsBody());
-            data.put("total_fee", money.toString());
-            data.put("spbill_create_ip", apiConfig.getIp());
-            data.put("out_trade_no", WxPayUtil.generateTradeNo());
-            data.put("notify_url", apiConfig.getNotifyUrl());
-            data.put("trade_type", apiConfig.getTradeType());
-            data.put("device_info", clientId);
-            data.put("fee_type", "CNY");
-            return fillRequestData(data);
-        } catch (Exception e) {
-            logger.error("=========组装请求数据异常======", e);
-        }
-        return data;
-    }
 
     /**
      * 向 Map 中添加 appid、mch_id、nonce_str、sign_type、sign <br>
