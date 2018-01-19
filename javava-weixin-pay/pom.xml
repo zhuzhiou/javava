@@ -56,7 +56,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>libs</classpathPrefix>
-							<mainClass>com.javava.thirdparty.weixin.WeixinPayApplication</mainClass>
+							<mainClass>cn.javava.thirdparty.weixin.WeixinPayApplication</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
