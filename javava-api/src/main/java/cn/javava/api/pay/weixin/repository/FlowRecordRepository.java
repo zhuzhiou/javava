@@ -1,6 +1,6 @@
-package cn.javava.thirdparty.weixin.repository;
+package cn.javava.api.pay.weixin.repository;
 
-import cn.javava.thirdparty.weixin.entity.FlowRecord;
+import cn.javava.api.pay.weixin.entity.FlowRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

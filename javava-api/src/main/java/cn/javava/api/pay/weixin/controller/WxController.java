@@ -1,14 +1,14 @@
-package cn.javava.thirdparty.weixin.controller;
+package cn.javava.api.pay.weixin.controller;
 
 import cn.javava.api.commons.controller.BaseApiController;
-import cn.javava.thirdparty.weixin.constant.WxConstants;
-import cn.javava.thirdparty.weixin.entity.FlowRecord;
-import cn.javava.thirdparty.weixin.entity.Prepay;
-import cn.javava.thirdparty.weixin.sdk.RequestDataBuilder;
-import cn.javava.thirdparty.weixin.sdk.WxPay;
-import cn.javava.thirdparty.weixin.service.FlowRecordService;
-import cn.javava.thirdparty.weixin.service.PrepayService;
-import cn.javava.thirdparty.weixin.util.WxPayUtil;
+import cn.javava.api.pay.weixin.constant.WxConstants;
+import cn.javava.api.pay.weixin.entity.FlowRecord;
+import cn.javava.api.pay.weixin.entity.Prepay;
+import cn.javava.api.pay.weixin.sdk.RequestDataBuilder;
+import cn.javava.api.pay.weixin.sdk.WxPay;
+import cn.javava.api.pay.weixin.service.FlowRecordService;
+import cn.javava.api.pay.weixin.service.PrepayService;
+import cn.javava.api.pay.weixin.util.WxPayUtil;
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * Created by wlrllr on 2018/1/11.
  */
-@RequestMapping("/pay")
+@RequestMapping("/pay/trades")
 @RestController()
 public class WxController extends BaseApiController {
 
@@ -71,7 +71,7 @@ public class WxController extends BaseApiController {
      * @param tradeNo
      * @return
      */
-    @GetMapping(value = "/payStatus/{tradeNo}")
+    @GetMapping(value = "/{tradeNo}")
     public JSONObject respStatus(@PathVariable String tradeNo){
         JSONObject resp = new JSONObject();
         resp.put("resultCode", WxConstants.DEALING);

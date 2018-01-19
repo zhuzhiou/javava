@@ -1,4 +1,4 @@
-package cn.javava.thirdparty.weixin.constant;
+package cn.javava.api.pay.weixin.constant;
 
 /**
  * 常量

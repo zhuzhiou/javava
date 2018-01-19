@@ -1,6 +1,6 @@
-package cn.javava.thirdparty.weixin.repository;
+package cn.javava.api.pay.weixin.repository;
 
-import cn.javava.thirdparty.weixin.entity.Wallet;
+import cn.javava.api.pay.weixin.entity.Wallet;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

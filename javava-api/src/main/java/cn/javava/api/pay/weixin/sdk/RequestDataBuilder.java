@@ -1,8 +1,8 @@
-package cn.javava.thirdparty.weixin.sdk;
+package cn.javava.api.pay.weixin.sdk;
 
-import cn.javava.thirdparty.weixin.config.ApiConfig;
-import cn.javava.thirdparty.weixin.constant.WxConstants;
-import cn.javava.thirdparty.weixin.util.WxPayUtil;
+import cn.javava.api.pay.weixin.config.ApiConfig;
+import cn.javava.api.pay.weixin.constant.WxConstants;
+import cn.javava.api.pay.weixin.util.WxPayUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

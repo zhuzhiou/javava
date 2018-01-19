@@ -1,6 +1,6 @@
-package cn.javava.thirdparty.weixin.util;
+package cn.javava.api.pay.weixin.util;
 
-import cn.javava.thirdparty.weixin.constant.WxConstants;
+import cn.javava.api.pay.weixin.constant.WxConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

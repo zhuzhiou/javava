@@ -1,6 +1,6 @@
-package cn.javava.thirdparty.weixin.service;
+package cn.javava.api.pay.weixin.service;
 
-import cn.javava.thirdparty.weixin.entity.Prepay;
+import cn.javava.api.pay.weixin.entity.Prepay;
 
 /**
  * Created by wlrllr on 2018/1/16.

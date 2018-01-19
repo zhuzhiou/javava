@@ -1,10 +1,10 @@
-package cn.javava.thirdparty.weixin.service.impl;
+package cn.javava.api.pay.weixin.service.impl;
 
-import cn.javava.thirdparty.weixin.config.ApiConfig;
-import cn.javava.thirdparty.weixin.entity.Prepay;
-import cn.javava.thirdparty.weixin.repository.PrepayRepository;
-import cn.javava.thirdparty.weixin.service.PrepayService;
-import cn.javava.thirdparty.weixin.util.WxPayUtil;
+import cn.javava.api.pay.weixin.config.ApiConfig;
+import cn.javava.api.pay.weixin.entity.Prepay;
+import cn.javava.api.pay.weixin.repository.PrepayRepository;
+import cn.javava.api.pay.weixin.service.PrepayService;
+import cn.javava.api.pay.weixin.util.WxPayUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

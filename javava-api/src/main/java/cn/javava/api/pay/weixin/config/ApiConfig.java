@@ -1,4 +1,4 @@
-package cn.javava.thirdparty.weixin.config;
+package cn.javava.api.pay.weixin.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

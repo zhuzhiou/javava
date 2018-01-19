@@ -25,7 +25,7 @@ import java.util.Map;
  * Created by wlrllr on 2018/1/4.
  */
 @RestController
-@RequestMapping("/qrcodepaySuccess")
+@RequestMapping("/pay/qrcodepaySuccess")
 public class WxNotifyController {
 
     private static final Logger logger = LoggerFactory.getLogger(WxNotifyController.class);

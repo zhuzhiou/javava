@@ -1,4 +1,4 @@
-package cn.javava.thirdparty.weixin.entity;
+package cn.javava.api.pay.weixin.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

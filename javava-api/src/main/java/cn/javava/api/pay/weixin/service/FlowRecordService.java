@@ -1,6 +1,6 @@
-package cn.javava.thirdparty.weixin.service;
+package cn.javava.api.pay.weixin.service;
 
-import cn.javava.thirdparty.weixin.entity.FlowRecord;
+import cn.javava.api.pay.weixin.entity.FlowRecord;
 
 import java.util.Map;
 

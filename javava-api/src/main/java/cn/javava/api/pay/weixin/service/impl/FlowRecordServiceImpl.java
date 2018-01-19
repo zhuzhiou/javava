@@ -1,13 +1,13 @@
-package cn.javava.thirdparty.weixin.service.impl;
+package cn.javava.api.pay.weixin.service.impl;
 
-import cn.javava.thirdparty.weixin.constant.WxConstants;
-import cn.javava.thirdparty.weixin.entity.Wallet;
-import cn.javava.thirdparty.weixin.repository.WalletRepository;
+import cn.javava.api.pay.weixin.constant.WxConstants;
+import cn.javava.api.pay.weixin.entity.FlowRecord;
+import cn.javava.api.pay.weixin.entity.Wallet;
+import cn.javava.api.pay.weixin.repository.FlowRecordRepository;
+import cn.javava.api.pay.weixin.repository.WalletRepository;
+import cn.javava.api.pay.weixin.service.FlowRecordService;
+import cn.javava.api.pay.weixin.util.WxPayUtil;
 import com.alibaba.fastjson.JSONObject;
-import cn.javava.thirdparty.weixin.entity.FlowRecord;
-import cn.javava.thirdparty.weixin.repository.FlowRecordRepository;
-import cn.javava.thirdparty.weixin.service.FlowRecordService;
-import cn.javava.thirdparty.weixin.util.WxPayUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

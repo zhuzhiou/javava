@@ -3,6 +3,3 @@ spring:
         name: javava-zego
     profiles:
         active: prod
-server:
-    context-path: /
-    port: 8082

@@ -29,5 +29,4 @@ public class AuthenticationController {
         return "authc";
     }
 
-
 }

@@ -8,7 +8,7 @@ spring:
             password: develop
             connection-init-sqls: set names utf8mb4
 server:
-    context-path: /
+    context-path: /api
     port: 8080
 wx:
     api:
@@ -18,7 +18,7 @@ wx:
         appId: wxfe19480979014ade
         mchId: 1461351402
         key: ouQ1s6moJu70mJJx7LuU82gbWaIR4s5D
-        notifyUrl: http://pppe6e.natappfree.cc/notify/payedInfo
+        notifyUrl: http://pppe6e.natappfree.cc/pay/qrcodepaySuccess
         signType: MD5
         httpConnectTimeout: 6000
         httpReadTimeout: 8000

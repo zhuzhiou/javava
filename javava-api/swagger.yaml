@@ -3,8 +3,7 @@ info:
   description: 加一联萌是一家文化传播的服务公司，我们通过产品与服务，帮助品牌在互联网时代用户对品牌记忆多元化需求及更有趣的互动传播方式，让品牌娱乐起来。
   version: '1.0.0'
   title: 加一联荫接口文档
-host: piggy.s1.natapp.cc
-basePath: /api
+host: api.javava.cn
 tags:
   - name: user
     description: 用户相关
@@ -17,6 +16,9 @@ tags:
       url: 'https://pay.weixin.qq.com/wiki/doc/api/index.html'
   - name: token
     description: 认证相关
+    externalDocs:
+      description: 该接口仅作文档说明，扫码登陆地址为
+      url: http://t.cn/RQNVpzW
 schemes:
   - http
 paths:
@@ -25,10 +27,8 @@ paths:
       tags:
         - user
       summary: 获取用户列表
-      consumes:
-        - application/json
       produces:
-        - '*/*'
+        - application/json
       parameters:
         - name: nicknameLike
           in: query
@@ -70,11 +70,13 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/UserVo'
-  '/users/{userid}':
+  /users/{userid}:
     get:
       tags:
         - user
       summary: 用户详细信息
+      produces:
+        - application/json
       parameters:
         - name: userid
           in: path
@@ -91,6 +93,8 @@ paths:
       tags:
         - user
       summary: 当前用户详细信息
+      produces:
+        - application/json
       responses:
         '200':
           description: OK
@@ -101,6 +105,8 @@ paths:
       tags:
         - live
       summary: 获取直播列表
+      produces:
+        - application/json
       parameters:
         - name: page
           in: query
@@ -145,7 +151,7 @@ paths:
       tags:
         - token
       summary: 微信扫码登陆
-      description: 微信网页授权开发文档：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842
+      description: app需要登陆请使用类webview技术打开网址http://t.cn/RQNVpzW
       parameters:
         - name: code
           in: query
@@ -154,7 +160,7 @@ paths:
           type: string
         - name: state
           in: query
-          description: b
+          description: 这个参数由开发人员设置
           required: false
           type: string
       responses:
@@ -165,25 +171,27 @@ paths:
       tags:
         - pay
       summary: 生成微信支付二维码，用户扫码支付。
+      consumes:
+        - 'application/x-www-form-urlencoded'
       produces:
-        - "application/json"
+        - 'application/json'
       description: 生成实时支付二维码内容和交易流水号，二维码有效期2小时，支付后二维码失效
       parameters:
         - name: userId
-          in: query
+          in: formData
           description: 用户ID
           required: true
           type: string
         - name: money
-          in: query
+          in: formData
           description: 充值金额，单位为分
           required: true
-          type: Integer
+          type: integer
       responses:
         200:
           description: OK
           schema:
-            $ref: '#definitions/GenerateQRCodeResult'
+            $ref: '#/definitions/GenerateQRCodeResult'
   /pay/payStatus/{tradeNo}:
     get:
       tags:
@@ -191,7 +199,6 @@ paths:
       summary: 查询订单支付结果
       produces:
         - "application/json"
-      description:
       parameters:
         - name: tradeNo
           in: path
@@ -202,7 +209,7 @@ paths:
         '200':
           description: OK
           schema:
-            $ref: '#definitions/PaymentResult'
+            $ref: '#/definitions/PaymentResult'
 definitions:
   UserVo:
     type: object

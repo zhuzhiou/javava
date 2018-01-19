@@ -19,6 +19,9 @@ spring:
                     auth: true
                     ssl:
                         enable: true
+server:
+    context-path: /
+    port: 8082
 zego:
     api:
         secret: 4a0af0daafe22ed2a7bd5661e87890aa
