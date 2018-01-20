@@ -166,7 +166,7 @@ paths:
       responses:
         200:
           description: OK
-  /pay/generateQRCode:
+  /pay/trades/generateQRCode:
     post:
       tags:
         - pay
@@ -192,7 +192,7 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/GenerateQRCodeResult'
-  /pay/payStatus/{tradeNo}:
+  /pay/trades/{tradeNo}:
     get:
       tags:
         - pay
