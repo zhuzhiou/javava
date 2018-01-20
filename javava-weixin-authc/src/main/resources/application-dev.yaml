@@ -18,4 +18,4 @@ javava:
         secret: JErH9l4oxxvsS6ktynDx0yB0IG6nhrXzAR7SSDkU53NPTrm8SoziOQOmUTCa46o0EpTfE3uODClWHGbRmfQd2g==
 server:
     context-path: /
-    port: 8080
+    port: 8087

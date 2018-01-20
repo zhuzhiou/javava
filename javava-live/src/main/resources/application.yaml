@@ -1,6 +1,6 @@
 spring:
     application:
-        name: LIVE-SERVICE
+        name: LIVE-SERVICES
     datasource:
         driver-class-name: com.mysql.jdbc.Driver
         url: jdbc:mysql://192.168.150.129:3306/javava?useUnicode=true&characterEncoding=utf-8&useSSL=false
@@ -14,4 +14,4 @@ spring:
 #                instance-port: ${server.port}
 #                instance-id: live
 server:
-    port: 8080
+    port: 8084

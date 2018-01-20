@@ -14,13 +14,16 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+        <spring-cloud.version>Edgware.SR1</spring-cloud.version>
     </properties>
 
     <modules>
-        <!--module>javava-live</module>
-        <module>javava-user</module>
-        <module>javava-pay</module-->
-        <module>javava-admin-webapp</module>
+        <module>javava-temp</module>
+        <module>javava-live</module>
+		<module>javava-gateway</module>
+        <!--module>javava-user</module>
+        <module>javava-pay</module>
+        <module>javava-admin-webapp</module-->
         <module>javava-api</module>
         <module>javava-api-zego</module>
         <module>javava-weixin-authc</module>
@@ -43,12 +46,13 @@
             <artifactId>commons-codec</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>log4j-over-slf4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -105,6 +109,13 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>3.7</version>
@@ -123,11 +134,6 @@
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpclient</artifactId>
                 <version>4.5.4</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>23.6-jre</version>
             </dependency>
             <dependency>
                 <groupId>ma.glasnost.orika</groupId>

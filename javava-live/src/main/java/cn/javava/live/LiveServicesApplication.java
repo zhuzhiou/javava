@@ -16,10 +16,10 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EntityScan("cn.javava.live.entity")
 @EnableAsync
 @EnableDiscoveryClient
-public class JavavaLiveApplication {
+public class LiveServicesApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(JavavaLiveApplication.class, args);
+		SpringApplication.run(LiveServicesApplication.class, args);
 	}
 
 	@Bean

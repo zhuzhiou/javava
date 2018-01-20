@@ -6,7 +6,7 @@ spring:
         password: iaFaI8ZdB%#s
 server:
     context-path: /wxpay
-    port: 80
+    port: 8088
 wx:
     api:
         shortUrl: https://api.mch.weixin.qq.com/tools/shorturl
