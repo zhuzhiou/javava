@@ -7,9 +7,9 @@ import java.io.Serializable;
 @Data
 public class LiveRoomVo implements Serializable {
 
-    private String roomId;
+    private String channelId;
 
-    private String roomName;
+    private String name;
 
-    private String roomState;
+    private String state;
 }

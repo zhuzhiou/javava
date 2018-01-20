@@ -1,11 +1,12 @@
 package cn.javava.live.service;
 
-import cn.javava.live.vo.LiveRoomVo;
+import cn.javava.live.vo.LiveCriteria;
 import cn.javava.live.vo.LiveVo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface LiveService {
 
-    void saveRoom(LiveRoomVo vo);
+    Page<LiveVo> findLives(LiveCriteria criteria, Pageable pageable);
 
-    void saveLive(LiveVo vo);
 }

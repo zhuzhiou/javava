@@ -17,14 +17,14 @@ import java.time.LocalDateTime;
 @Entity
 @DynamicUpdate
 @Data
-public class Live implements Serializable {
+public class LivePo implements Serializable {
 
     @Column(name = "ID")
     @Id
     private String id;
 
-    @Column(name = "ROOM_ID")
-    private String roomId;
+    @Column(name = "CHANNEL_ID")
+    private String channelId;
 
     @Column(name = "STREAM_ALIAS")
     private String streamAlias;
