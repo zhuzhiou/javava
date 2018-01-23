@@ -1,12 +1,40 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>微信扫码登陆</title>
+    <title>微信扫码登陆成功</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script th:inline="javascript">
+        function doTest1() {
+            android.loginSuccess("{'openid': [[${userVo.openid}]], 'nickname': [[${userVo.nickname}]], 'sex': [[${userVo.sex}]], 'province': [[${userVo.province}]], 'city': [[${userVo.city}]], 'country': [[${userVo.country}]], 'headimgurl': [[${userVo.headimgurl}]], 'unionid': [[${userVo.unionid}]]}");
+        }
+        function doTest2() {
+            android.loginSuccess({
+                'openid': [[${userVo.openid}]],
+                'nickname': [[${userVo.nickname}]],
+                'sex': [[${userVo.sex}]],
+                'province': [[${userVo.province}]],
+                'city': [[${userVo.city}]],
+                'country': [[${userVo.country}]],
+                'headimgurl': [[${userVo.headimgurl}]],
+                'unionid': [[${userVo.unionid}]]
+            });
+        }
+    </script>
 </head>
 <body>
-<p th:text="${userVo.nickname} + '，请您稍等，马上进入游戏...'" >温馨提示</p>
+<p th:text="'openid: ' + ${userVo.openid}" >openid</p>
+<p th:text="'nickname: ' +  ${userVo.nickname}" >nickname</p>
+<p th:text="'sex: ' +  ${userVo.sex}" >sex</p>
+<p th:text="'country: ' +  ${userVo.country}" >country</p>
+<p th:text="'province: ' +  ${userVo.province}" >province</p>
+<p th:text="'city: ' +  ${userVo.city}" >city</p>
+<p th:text="'headimgurl: ' +  ${userVo.headimgurl}" >headimgurl</p>
+<p th:text="'unionid: ' +  ${userVo.unionid}" >unionid</p>
 <p>执行函数：loginSuccess(/*String*/ jws)</p>
-<p>该方法由app提供，参数jws为服务端返回的token，app收到token后临时存储，因为后续的流程中涉及到服务端api，有可能要带上这个令牌，这样服务器就能识别身份了。注意，由于app的开放性，用户玩完游戏后最好消毁掉令牌，避免潜在的风险。</p>
+<form>
+    <button type="button" onclick="doTest1()">string</button>
+    <br />
+    <button type="button" onclick="doTest2()">object</button>
+</form>
 </body>
 </html>

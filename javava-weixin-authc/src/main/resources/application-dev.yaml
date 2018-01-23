@@ -9,13 +9,26 @@ spring:
             username: root
             password: develop
             connection-init-sqls: set names utf8mb4
+    mail:
+        host: smtp.exmail.qq.com
+        port: 465
+        username: debug@javava.cn
+        password: 123456
+        protocol: smtp
+        properties:
+            mail:
+                debug: false
+                smtp:
+                    auth: true
+                    ssl:
+                        enable: true
 weixin:
     api:
         appId: wx3c9fe7990504ee43
         appSecret: 86a03cf6061df50185eb49dfaf31cc59
 javava:
-    jwt:
-        secret: JErH9l4oxxvsS6ktynDx0yB0IG6nhrXzAR7SSDkU53NPTrm8SoziOQOmUTCa46o0EpTfE3uODClWHGbRmfQd2g==
+    notification:
+        email: zhuzhiou@qq.com
 server:
     context-path: /
     port: 8087
