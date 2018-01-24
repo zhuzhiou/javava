@@ -3,38 +3,19 @@
 <head>
     <title>微信扫码登陆成功</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <script th:inline="javascript">
-        function doTest1() {
-            android.loginSuccess("{'openid': [[${userVo.openid}]], 'nickname': [[${userVo.nickname}]], 'sex': [[${userVo.sex}]], 'province': [[${userVo.province}]], 'city': [[${userVo.city}]], 'country': [[${userVo.country}]], 'headimgurl': [[${userVo.headimgurl}]], 'unionid': [[${userVo.unionid}]]}");
-        }
-        function doTest2() {
-            android.loginSuccess({
-                'openid': [[${userVo.openid}]],
-                'nickname': [[${userVo.nickname}]],
-                'sex': [[${userVo.sex}]],
-                'province': [[${userVo.province}]],
-                'city': [[${userVo.city}]],
-                'country': [[${userVo.country}]],
-                'headimgurl': [[${userVo.headimgurl}]],
-                'unionid': [[${userVo.unionid}]]
-            });
-        }
-    </script>
 </head>
 <body>
-<p th:text="'openid: ' + ${userVo.openid}" >openid</p>
-<p th:text="'nickname: ' +  ${userVo.nickname}" >nickname</p>
-<p th:text="'sex: ' +  ${userVo.sex}" >sex</p>
-<p th:text="'country: ' +  ${userVo.country}" >country</p>
-<p th:text="'province: ' +  ${userVo.province}" >province</p>
-<p th:text="'city: ' +  ${userVo.city}" >city</p>
-<p th:text="'headimgurl: ' +  ${userVo.headimgurl}" >headimgurl</p>
-<p th:text="'unionid: ' +  ${userVo.unionid}" >unionid</p>
-<p>执行函数：loginSuccess(/*String*/ jws)</p>
-<form>
-    <button type="button" onclick="doTest1()">string</button>
-    <br />
-    <button type="button" onclick="doTest2()">object</button>
-</form>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    document.addEventListener("DOMContentLoaded", function () {
+        document.removeEventListener('DOMContentLoaded',arguments.callee, false);
+        var userinfo = [[${userJson}]];
+        if (typeof android  != 'undefined') {
+            android.loginSuccess(userinfo);
+        }
+    }, false);
+    /*]]>*/
+</script>
 </body>
 </html>
