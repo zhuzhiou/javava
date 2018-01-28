@@ -1,12 +1,11 @@
 spring:
     datasource:
-        type: com.alibaba.druid.pool.DruidDataSource
-        druid:
-            driver-class-name: com.mysql.jdbc.Driver
-            url: jdbc:mysql://192.168.150.129:3306/javava?useUnicode=true&characterEncoding=utf-8&useSSL=false
-            username: root
-            password: develop
-            connection-init-sqls: set names utf8mb4
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://192.168.150.129:3306/javava?useUnicode=true&characterEncoding=utf-8&useSSL=false
+        username: root
+        password: develop
+        tomcat:
+            init-s-q-l: set names utf8mb4
     cloud:
         inetutils:
             preferredNetworks:
@@ -15,9 +14,6 @@ spring:
                 - Microsoft.*
                 - Software.*
                 - VMware.*
-server:
-    context-path: /
-    port: 8091
 wx:
     api:
         unifiedOrderUrl: https://api.mch.weixin.qq.com/pay/unifiedorder
@@ -32,10 +28,6 @@ wx:
         httpReadTimeout: 8000
         ip: 127.0.0.1
 eureka:
-    instance:
-        instance-id: javava-api
     client:
-        register-with-eureka: false
-        fetch-registry: false
         service-url:
-            defaultZone: http://asrock:${server.port}/eureka/
+            defaultZone: http://localhost:8091/eureka/

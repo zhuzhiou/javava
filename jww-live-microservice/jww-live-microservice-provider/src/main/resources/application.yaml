@@ -1,0 +1,7 @@
+spring:
+    application:
+        name: jww-live-services
+    profiles:
+        active: prod
+server:
+    port: 8093

@@ -1,0 +1,7 @@
+spring:
+    application:
+        name: jww-eureka-server
+    profiles:
+        active: prod
+server:
+    port: 8091

@@ -1,0 +1,27 @@
+spring:
+    application:
+        name: live-services
+    datasource:
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://192.168.150.129:3306/javava?useUnicode=true&characterEncoding=utf-8&useSSL=false
+        username: root
+        password: develop
+    cloud:
+        inetutils:
+            ignored-interfaces:
+                - Microsoft.*
+                - Software.*
+                - VMware.*
+#    cloud:
+#        zookeeper:
+#            connect-string: 192.168.150.129:2181
+#            discovery:
+#                instance-host: 192.168.150.1
+#                instance-port: ${server.port}
+#                instance-id: live
+server:
+    port: 8093
+eureka:
+    client:
+        service-url:
+            defaultZone: http://asrock:8091/eureka/

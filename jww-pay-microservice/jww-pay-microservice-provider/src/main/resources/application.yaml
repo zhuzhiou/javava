@@ -1,0 +1,7 @@
+spring:
+    application:
+        name: jww-pay-services
+    profiles:
+        active: prod
+server:
+    port: 8094
