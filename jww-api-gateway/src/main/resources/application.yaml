@@ -1,0 +1,35 @@
+spring:
+    application:
+        name: jww-api-gateway
+server:
+    port: 8090
+zuul:
+    routes:
+        live:
+            path: /lives/**
+            serviceId: jww-live-services
+        user:
+            path: /users/**
+            serviceId: jww-user-services
+        pay:
+            path: /pay/**
+            serviceId: jww-pay-services
+#security:
+#    basic:
+#        enabled: false
+#        authorize-mode: none
+#    oauth2:
+#      authorization:
+#        check-token-access: false
+#security:
+#    oauth2:
+#        client:
+#            client-id: f
+#            client-secret: f
+#            grant-type:
+#        authorization:
+#            realm: test
+eureka:
+    client:
+        service-url:
+            defaultZone: http://asrock:8091/eureka/
