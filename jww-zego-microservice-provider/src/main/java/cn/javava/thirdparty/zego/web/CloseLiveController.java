@@ -1,6 +1,5 @@
 package cn.javava.thirdparty.zego.web;
 
-import cn.javava.thirdparty.zego.config.ApiConfig;
 import cn.javava.thirdparty.zego.service.CloseLiveHandler;
 import cn.javava.thirdparty.zego.service.NotificationService;
 import cn.javava.thirdparty.zego.vo.CloseLiveVo;
@@ -10,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,12 +24,12 @@ import static java.time.LocalDateTime.ofEpochSecond;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 @RestController
-public class CloseLiveController extends BaseController {
+public class CloseLiveController extends BaseLiveController {
 
     private Logger logger = LoggerFactory.getLogger(CloseLiveController.class);
 
-    @Autowired
-    private ApiConfig apiConfig;
+    @Value("${zego.api.secret}")
+    private String secret;
 
     @Autowired
     @Qualifier("closeLiveHandlerChain")
@@ -47,7 +47,7 @@ public class CloseLiveController extends BaseController {
             notificationService.sendMail("[加一联萌] 时间调整通知", "关闭流回调的娃娃机时间与业务服务器的时间不一致，请运维人员调整娃娃机、服务器的时间。");
             return CODE_DATETIME_MISMATCH;
         }
-        String signature = createSign(apiConfig.getSecret(), vo.getTimestamp(), vo.getNonce());
+        String signature = createSign(secret, vo.getTimestamp(), vo.getNonce());
         if (isNotBlank(signature) && signature.equals(vo.getSignature())) {
             closeLiveHandler.handle(vo);
             notificationService.sendMail("[加一联萌] 娃娃机关闭通知", "娃娃机已关闭，请知晓。");

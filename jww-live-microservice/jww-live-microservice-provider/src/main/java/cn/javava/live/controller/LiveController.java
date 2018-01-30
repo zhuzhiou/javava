@@ -1,5 +1,7 @@
 package cn.javava.live.controller;
 
+import cn.javava.live.api.ApiResult;
+import cn.javava.live.api.LiveApi;
 import cn.javava.live.service.LiveRoomService;
 import cn.javava.live.service.LiveService;
 import cn.javava.live.vo.LiveCriteria;
@@ -12,7 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class LiveControllerImpl implements LiveController {
+public class LiveController implements LiveApi {
 
     @Autowired
     private LiveRoomService liveRoomService;
@@ -21,12 +23,14 @@ public class LiveControllerImpl implements LiveController {
     private LiveService liveService;
 
     @Override
-    public Page<LiveVo> getLives(LiveCriteria criteria, Pageable pageable) {
-        return liveService.findLives(criteria, pageable);
+    public ApiResult getLives(LiveCriteria criteria, Pageable pageable) {
+        Page<LiveVo> page = liveService.findLives(criteria, pageable);
+        return ApiResult.success(page);
     }
 
     @Override
-    public Page<LiveRoomVo> getLiveRooms(LiveRoomCriteria criteria, Pageable pageable) {
-        return liveRoomService.findLiveRooms(criteria, pageable);
+    public ApiResult getLiveRooms(LiveRoomCriteria criteria, Pageable pageable) {
+        Page<LiveRoomVo> page = liveRoomService.findLiveRooms(criteria, pageable);
+        return ApiResult.success(page);
     }
 }

@@ -23,6 +23,9 @@ public class LiveRoomPo implements Serializable {
     @Id
     private String id;
 
+    @Column(name = "LIVE_ID")
+    private String liveId;
+
     @Column(name = "CHANNEL_ID")
     private String channelId;
 

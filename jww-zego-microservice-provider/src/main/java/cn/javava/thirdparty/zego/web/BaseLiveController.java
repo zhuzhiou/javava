@@ -3,7 +3,7 @@ package cn.javava.thirdparty.zego.web;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping("/")
-public abstract class BaseController {
+public abstract class BaseLiveController {
 
     protected final int CODE_SUCCESS = 1;
 

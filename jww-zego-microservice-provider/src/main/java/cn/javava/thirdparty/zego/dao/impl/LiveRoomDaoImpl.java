@@ -32,11 +32,12 @@ public class LiveRoomDaoImpl implements LiveRoomDao {
     @Override
     public int create(OpenLiveVo vo) {
         int rows = jdbcTemplate.update(
-                "insert into jww_live_room(ID, CHANNEL_ID, STATE, CREATE_DATE) values(?, ?, ?, now())",
+                "insert into jww_live_room(ID, LIVE_ID, CHANNEL_ID, STATE, CREATE_DATE) values(?, ?, ?, ?, now())",
                 (pss) -> {
                     pss.setString(1, remove(timeBasedGenerator.generate().toString(), "-"));
-                    pss.setString(2, vo.getChannelId());
-                    pss.setString(3, "DeviceOnline");
+                    pss.setString(2, vo.getLiveId());
+                    pss.setString(3, vo.getChannelId());
+                    pss.setString(4, "DeviceOnline");
                 }
         );
         return rows;
@@ -45,7 +46,8 @@ public class LiveRoomDaoImpl implements LiveRoomDao {
     @Override
     public int update(OpenLiveVo vo) {
         int rows = jdbcTemplate.update(
-                "update jww_live_room set ROOM_STATE = 'DeviceOnline' where CHANNEL_ID = ?",
+                "update jww_live_room set STATE = 'DeviceOnline', LIVE_ID = ? where CHANNEL_ID = ?",
+                vo.getLiveId(),
                 vo.getChannelId()
         );
         return rows;
@@ -77,7 +79,7 @@ public class LiveRoomDaoImpl implements LiveRoomDao {
     @Override
     public int update(CloseLiveVo vo) {
         int rows = jdbcTemplate.update(
-                "update jww_live_room set ROOM_STATE = 'DeviceOffline' where CHANNEL_ID = ?",
+                "update jww_live_room set STATE = 'DeviceOffline' where CHANNEL_ID = ?",
                 vo.getChannelId()
         );
         return rows;

@@ -23,6 +23,9 @@ public class LivePo implements Serializable {
     @Id
     private String id;
 
+    @Column(name = "LIVE_ID")
+    private String liveId;
+
     @Column(name = "CHANNEL_ID")
     private String channelId;
 
@@ -35,17 +38,17 @@ public class LivePo implements Serializable {
     @Column(name = "PUBLISH_NAME")
     private String publishName;
 
-    @Column(name = "RTMP_URLS")
-    private int rtmpUrls;
+    @Column(name = "RTMP_URL")
+    private String rtmpUrl;
 
-    @Column(name = "HLS_URLS")
-    private int hlsUrls;
+    @Column(name = "HLS_URL")
+    private String hlsUrl;
 
-    @Column(name = "HDL_URLS")
-    private int hdlUrls;
+    @Column(name = "HDL_URL")
+    private String hdlUrl;
 
-    @Column(name = "PIC_URLS")
-    private int picUrls;
+    @Column(name = "PIC_URL")
+    private String picUrl;
 
     @Column(name = "CREATE_DATE")
     private LocalDateTime createDate;

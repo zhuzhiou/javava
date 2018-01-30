@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 @StaticMetamodel(LivePo.class)
 public class LivePo_ {
 
+    public static volatile SingularAttribute<LivePo, String> liveId;
+
     public static volatile SingularAttribute<LivePo, String> channelId;
 
     public static volatile SingularAttribute<LivePo, String> streamAlias;

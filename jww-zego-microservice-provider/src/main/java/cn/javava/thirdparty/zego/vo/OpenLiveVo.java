@@ -13,7 +13,7 @@ public class OpenLiveVo implements Serializable {
 
     //Server端参数
     @JsonProperty("live_id")
-    private Integer liveId;
+    private String liveId;
 
     //频道ID，对应客户端RoomID，不超过255字节
     @JsonProperty("channel_id")

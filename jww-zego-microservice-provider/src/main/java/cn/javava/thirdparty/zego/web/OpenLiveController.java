@@ -1,15 +1,16 @@
 package cn.javava.thirdparty.zego.web;
 
-import cn.javava.thirdparty.zego.config.ApiConfig;
 import cn.javava.thirdparty.zego.service.NotificationService;
 import cn.javava.thirdparty.zego.service.OpenLiveHandler;
 import cn.javava.thirdparty.zego.vo.OpenLiveVo;
+import com.fasterxml.uuid.impl.TimeBasedGenerator;
 import com.google.common.primitives.Ints;
 import com.google.common.primitives.Longs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,15 +24,16 @@ import static java.lang.Math.abs;
 import static java.time.LocalDateTime.ofEpochSecond;
 import static org.apache.commons.lang3.ArrayUtils.isNotEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static org.apache.commons.lang3.StringUtils.remove;
 
 
 @RestController
-public class OpenLiveController extends BaseController {
+public class OpenLiveController extends BaseLiveController {
 
     private Logger logger = LoggerFactory.getLogger(OpenLiveController.class);
 
-    @Autowired
-    private ApiConfig apiConfig;
+    @Value("${zego.api.secret}")
+    private String secret;
 
     @Autowired
     @Qualifier("openLiveHandlerChain")
@@ -49,7 +51,7 @@ public class OpenLiveController extends BaseController {
             notificationService.sendMail("[加一联萌] 时间调整通知", "创建流回调的娃娃机时间与业务服务器的时间不一致，请运维人员调整娃娃机、服务器的时间。");
             return CODE_DATETIME_MISMATCH;
         }
-        String signature = createSign(apiConfig.getSecret(), vo.getTimestamp(), vo.getNonce());
+        String signature = createSign(secret, vo.getTimestamp(), vo.getNonce());
         if (isNotBlank(signature) && signature.equals(vo.getSignature())) {
             openLiveHandler.handle(vo);
         } else {
@@ -70,10 +72,10 @@ public class OpenLiveController extends BaseController {
             vo.setId(Ints.tryParse(id));
         }
 
-        String live_id = request.getParameter("live_id");
+        /*String live_id = request.getParameter("live_id");
         if (isNotBlank(live_id)) {
             vo.setLiveId(Ints.tryParse(live_id));
-        }
+        }*/
 
         String channel_id = request.getParameter("channel_id");
         if (isNotBlank(channel_id)) {
@@ -140,6 +142,10 @@ public class OpenLiveController extends BaseController {
             vo.setSignature(signature);
         }
 
+        vo.setLiveId(remove(timeBasedGenerator.generate().toString(), "-"));
         return vo;
     }
+
+    @Autowired
+    private TimeBasedGenerator timeBasedGenerator;
 }

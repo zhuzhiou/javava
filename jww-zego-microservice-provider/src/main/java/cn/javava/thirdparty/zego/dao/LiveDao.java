@@ -5,7 +5,7 @@ import cn.javava.thirdparty.zego.vo.OpenLiveVo;
 
 public interface LiveDao {
 
-    int create(OpenLiveVo vo);
+    void create(OpenLiveVo vo);
 
-    int update(CloseLiveVo vo);
+    void update(CloseLiveVo vo);
 }
