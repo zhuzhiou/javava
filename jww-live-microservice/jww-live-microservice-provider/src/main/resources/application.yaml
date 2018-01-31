@@ -1,6 +1,6 @@
 spring:
     application:
-        name: jww-live-services
+        name: live-services
     profiles:
         active: prod
 server:

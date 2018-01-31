@@ -1,19 +1,24 @@
 spring:
     application:
-        name: jww-api-gateway
+        name: api-gateway
 server:
     port: 8090
 zuul:
+    ignored-services: '*'
+    prefix: /api
     routes:
         live:
             path: /lives/**
-            serviceId: jww-live-services
+            serviceId: live-services
+            stripPrefix: false
         user:
             path: /users/**
-            serviceId: jww-user-services
+            serviceId: user-services
+            stripPrefix: false
         pay:
             path: /pay/**
-            serviceId: jww-pay-services
+            serviceId: pay-services
+            stripPrefix: false
 #security:
 #    basic:
 #        enabled: false

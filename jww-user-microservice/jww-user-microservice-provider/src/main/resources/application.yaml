@@ -1,5 +1,5 @@
 spring:
     application:
-        name: jww-user-services
+        name: user-services
     profiles:
         active: prod

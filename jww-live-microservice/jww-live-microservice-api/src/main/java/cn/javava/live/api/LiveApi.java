@@ -7,7 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequestMapping("/")
+@RequestMapping("/lives")
 public interface LiveApi {
 
     @GetMapping(path = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

@@ -1,5 +1,5 @@
 spring:
     application:
-        name: javava-zego
+        name: zego-services
     profiles:
         active: prod

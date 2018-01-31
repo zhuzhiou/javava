@@ -1,6 +1,6 @@
 spring:
     application:
-        name: jww-pay-services
+        name: pay-services
     profiles:
         active: prod
 server:
