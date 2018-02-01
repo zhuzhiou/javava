@@ -3,3 +3,5 @@ spring:
         name: zego-services
     profiles:
         active: prod
+server:
+    port: 8083
