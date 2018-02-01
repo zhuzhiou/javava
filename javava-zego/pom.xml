@@ -9,7 +9,7 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>jww-zego-microservice-provider</artifactId>
+	<artifactId>javava-zego</artifactId>
 	<packaging>jar</packaging>
 
 	<dependencies>
@@ -44,6 +44,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

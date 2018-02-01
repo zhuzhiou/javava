@@ -1,7 +1,22 @@
 spring:
     application:
-        name: jww-eureka-server
-    profiles:
-        active: prod
+        name: eureka-server
+    cloud:
+        inetutils:
+            ignored-interfaces:
+                - Microsoft.*
+                - Software.*
+                - VMware.*
+eureka:
+    server:
+        enable-self-preservation: true
+    client:
+        register-with-eureka: false
+        fetch-registry: false
+        service-url:
+            defaultZone: http://localhost:${server.port}/eureka/
+    instance:
+        lease-expiration-duration-in-seconds: 10
+        lease-renewal-interval-in-seconds: 10
 server:
-    port: 8091
+    port: 8000

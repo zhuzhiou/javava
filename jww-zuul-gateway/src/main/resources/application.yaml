@@ -1,11 +1,10 @@
 spring:
     application:
-        name: api-gateway
+        name: zuul-gateway
 server:
-    port: 8090
+    port: 8001
 zuul:
     ignored-services: '*'
-    prefix: /api
     routes:
         live:
             path: /lives/**
@@ -19,22 +18,7 @@ zuul:
             path: /pay/**
             serviceId: pay-services
             stripPrefix: false
-#security:
-#    basic:
-#        enabled: false
-#        authorize-mode: none
-#    oauth2:
-#      authorization:
-#        check-token-access: false
-#security:
-#    oauth2:
-#        client:
-#            client-id: f
-#            client-secret: f
-#            grant-type:
-#        authorization:
-#            realm: test
 eureka:
     client:
         service-url:
-            defaultZone: http://asrock:8091/eureka/
+            defaultZone: http://localhost:8000/eureka/
