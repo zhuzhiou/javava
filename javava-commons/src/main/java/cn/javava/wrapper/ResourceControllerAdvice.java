@@ -16,7 +16,7 @@ public class ResourceControllerAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-        return !Page.class.isAssignableFrom(returnType.getParameterType()) && !Collection.class.isAssignableFrom(returnType.getParameterType());
+        return !Collection.class.isAssignableFrom(returnType.getParameterType());
     }
 
     @Override

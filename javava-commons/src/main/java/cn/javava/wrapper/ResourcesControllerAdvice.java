@@ -16,19 +16,13 @@ public class ResourcesControllerAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-        return Page.class.isAssignableFrom(returnType.getParameterType()) || Collection.class.isAssignableFrom(returnType.getParameterType());
+        return Collection.class.isAssignableFrom(returnType.getParameterType());
     }
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         Resources resources = new Resources(0, "成功");
-        if (Page.class.isAssignableFrom(returnType.getParameterType())) {
-            Page page = (Page) body;
-            resources.setMetadata(new Resources.PageMetadata(page.getNumber(), page.getSize(), page.getTotalElements(), page.getTotalPages()));
-            resources.setContent(page.getContent());
-        } else if (Iterable.class.isAssignableFrom(returnType.getParameterType())) {
-            resources.setContent((Collection) body);
-        }
+        resources.setContent((Collection) body);
         return resources;
     }
 }
