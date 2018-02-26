@@ -5,15 +5,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 
 @lombok.Data
-public class OpenLiveVo implements Serializable {
+public class OpenStreamVo implements Serializable {
 
     //Server端参数
     @JsonProperty("id")
     private Integer id;
-
-    //Server端参数
-    @JsonProperty("live_id")
-    private String liveId;
 
     //频道ID，对应客户端RoomID，不超过255字节
     @JsonProperty("channel_id")

@@ -13,10 +13,10 @@ import java.util.concurrent.Executor;
 
 @SpringBootApplication
 @EnableAsync
-public class JavavaZegoApplication {
+public class ZegoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(JavavaZegoApplication.class, args);
+		SpringApplication.run(ZegoApplication.class, args);
 	}
 
 	@Bean

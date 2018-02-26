@@ -1,22 +1,22 @@
 package cn.javava.thirdparty.zego.service.impl;
 
-import cn.javava.thirdparty.zego.dao.LiveDao;
-import cn.javava.thirdparty.zego.service.OpenLiveHandler;
-import cn.javava.thirdparty.zego.vo.OpenLiveVo;
+import cn.javava.thirdparty.zego.dao.StreamDao;
+import cn.javava.thirdparty.zego.service.OpenStreamHandler;
+import cn.javava.thirdparty.zego.vo.OpenStreamVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service("openLiveHandler_live")
-public class OpenLiveHandler_live implements OpenLiveHandler {
+@Service("openStreamHandler_stream")
+public class OpenStreamHandler_stream implements OpenStreamHandler {
 
     @Autowired
-    private LiveDao liveDao;
+    private StreamDao streamDao;
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     @Override
-    public void handle(OpenLiveVo vo) {
-        liveDao.create(vo);
+    public void handle(OpenStreamVo vo) {
+        streamDao.insert(vo);
     }
 }

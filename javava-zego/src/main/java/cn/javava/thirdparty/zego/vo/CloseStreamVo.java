@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 
 @lombok.Data
-public class CloseLiveVo implements Serializable {
+public class CloseStreamVo implements Serializable {
 
     @JsonProperty("id")
     private int id;

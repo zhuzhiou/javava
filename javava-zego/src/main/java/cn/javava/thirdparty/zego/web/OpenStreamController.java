@@ -1,9 +1,8 @@
 package cn.javava.thirdparty.zego.web;
 
 import cn.javava.thirdparty.zego.service.NotificationService;
-import cn.javava.thirdparty.zego.service.OpenLiveHandler;
-import cn.javava.thirdparty.zego.vo.OpenLiveVo;
-import com.fasterxml.uuid.impl.TimeBasedGenerator;
+import cn.javava.thirdparty.zego.service.OpenStreamHandler;
+import cn.javava.thirdparty.zego.vo.OpenStreamVo;
 import com.google.common.primitives.Ints;
 import com.google.common.primitives.Longs;
 import org.slf4j.Logger;
@@ -19,32 +18,30 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
-import static cn.javava.thirdparty.zego.util.ZegoUtil.createSign;
 import static java.lang.Math.abs;
 import static java.time.LocalDateTime.ofEpochSecond;
 import static org.apache.commons.lang3.ArrayUtils.isNotEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
-import static org.apache.commons.lang3.StringUtils.remove;
 
 
 @RestController
-public class OpenLiveController extends BaseLiveController {
+public class OpenStreamController extends ControllerBase {
 
-    private Logger logger = LoggerFactory.getLogger(OpenLiveController.class);
+    private Logger logger = LoggerFactory.getLogger(OpenStreamController.class);
 
     @Value("${zego.api.secret}")
     private String secret;
 
     @Autowired
-    @Qualifier("openLiveHandlerChain")
-    private OpenLiveHandler openLiveHandler;
+    @Qualifier("openStreamHandlerChain")
+    private OpenStreamHandler openStreamHandler;
 
     @Autowired
     private NotificationService notificationService;
 
-    @PostMapping("/open-live")
+    @PostMapping("/open_stream")
     public int openStream(HttpServletRequest request) {
-        OpenLiveVo vo = assignVo(request);
+        OpenStreamVo vo = assignVo(request);
         LocalDateTime timestamp = ofEpochSecond(Longs.tryParse(vo.getTimestamp()), 0, ZoneOffset.of("+8"));
         Duration duration = Duration.between(LocalDateTime.now(), timestamp);
         if (abs(duration.toDays()) > 1) {
@@ -53,7 +50,7 @@ public class OpenLiveController extends BaseLiveController {
         }
         String signature = createSign(secret, vo.getTimestamp(), vo.getNonce());
         if (isNotBlank(signature) && signature.equals(vo.getSignature())) {
-            openLiveHandler.handle(vo);
+            openStreamHandler.handle(vo);
         } else {
             notificationService.sendMail("[加一联萌] 签名错误通知", "创建流回调的签名不正确，请核查密钥是否已修改。");
             if (logger.isErrorEnabled()) {
@@ -64,18 +61,13 @@ public class OpenLiveController extends BaseLiveController {
         return CODE_SUCCESS;
     }
 
-    private OpenLiveVo assignVo(HttpServletRequest request) {
-        OpenLiveVo vo = new OpenLiveVo();
+    private OpenStreamVo assignVo(HttpServletRequest request) {
+        OpenStreamVo vo = new OpenStreamVo();
 
         String id = request.getParameter("id");
         if (isNotBlank(id)) {
             vo.setId(Ints.tryParse(id));
         }
-
-        /*String live_id = request.getParameter("live_id");
-        if (isNotBlank(live_id)) {
-            vo.setLiveId(Ints.tryParse(live_id));
-        }*/
 
         String channel_id = request.getParameter("channel_id");
         if (isNotBlank(channel_id)) {
@@ -142,10 +134,6 @@ public class OpenLiveController extends BaseLiveController {
             vo.setSignature(signature);
         }
 
-        vo.setLiveId(remove(timeBasedGenerator.generate().toString(), "-"));
         return vo;
     }
-
-    @Autowired
-    private TimeBasedGenerator timeBasedGenerator;
 }

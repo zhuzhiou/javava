@@ -1,7 +1,7 @@
 package cn.javava.thirdparty.zego.service.impl;
 
-import cn.javava.thirdparty.zego.service.OpenLiveHandler;
-import cn.javava.thirdparty.zego.vo.OpenLiveVo;
+import cn.javava.thirdparty.zego.service.OpenStreamHandler;
+import cn.javava.thirdparty.zego.vo.OpenStreamVo;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -13,42 +13,42 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
-@Service("openLiveHandlerChain")
-public class OpenLiveHandlerChain implements InitializingBean, OpenLiveHandler {
+@Service("openStreamHandlerChain")
+public class OpenStreamHandlerChain implements InitializingBean, OpenStreamHandler {
 
     @Autowired
     private ApplicationContext applicationContext;
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     @Override
-    public void handle(OpenLiveVo vo) {
-        if (openLiveHandlers == null) {
+    public void handle(OpenStreamVo vo) {
+        if (openStreamHandlers == null) {
             return;
         }
         if (vo.getCreateTime() == null) {
             vo.setCreateTime(System.currentTimeMillis() / 1000);
         }
-        for (OpenLiveHandler openLiveHandler : openLiveHandlers) {
-            openLiveHandler.handle(vo);
+        for (OpenStreamHandler openStreamHandler : openStreamHandlers) {
+            openStreamHandler.handle(vo);
         }
     }
 
-    private Collection<OpenLiveHandler> openLiveHandlers;
+    private Collection<OpenStreamHandler> openStreamHandlers;
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        Map<String, OpenLiveHandler> map = applicationContext.getBeansOfType(OpenLiveHandler.class);
+        Map<String, OpenStreamHandler> map = applicationContext.getBeansOfType(OpenStreamHandler.class);
         if (map != null) {
-            if (openLiveHandlers == null) {
-                openLiveHandlers = new ArrayList<>();
+            if (openStreamHandlers == null) {
+                openStreamHandlers = new ArrayList<>();
             } else {
-                openLiveHandlers.clear();
+                openStreamHandlers.clear();
             }
-            for (OpenLiveHandler handler : map.values()) {
-                if (handler instanceof OpenLiveHandlerChain) {
+            for (OpenStreamHandler handler : map.values()) {
+                if (handler instanceof OpenStreamHandlerChain) {
                     continue;
                 }
-                openLiveHandlers.add(handler);
+                openStreamHandlers.add(handler);
             }
         }
     }

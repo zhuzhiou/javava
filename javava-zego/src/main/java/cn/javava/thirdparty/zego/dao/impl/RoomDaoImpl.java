@@ -1,8 +1,8 @@
 package cn.javava.thirdparty.zego.dao.impl;
 
-import cn.javava.thirdparty.zego.dao.LiveRoomDao;
-import cn.javava.thirdparty.zego.vo.CloseLiveVo;
-import cn.javava.thirdparty.zego.vo.OpenLiveVo;
+import cn.javava.thirdparty.zego.dao.RoomDao;
+import cn.javava.thirdparty.zego.vo.CloseStreamVo;
+import cn.javava.thirdparty.zego.vo.OpenStreamVo;
 import com.fasterxml.uuid.impl.TimeBasedGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import static org.apache.commons.lang3.StringUtils.remove;
 
 @Repository
-public class LiveRoomDaoImpl implements LiveRoomDao {
+public class RoomDaoImpl implements RoomDao {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -20,7 +20,7 @@ public class LiveRoomDaoImpl implements LiveRoomDao {
     private TimeBasedGenerator timeBasedGenerator;
 
     @Override
-    public int count(OpenLiveVo vo) {
+    public int count(OpenStreamVo vo) {
         int rows = jdbcTemplate.queryForObject(
                 "select count(1) from jww_live_room where CHANNEL_ID = ?",
                 Integer.class,
@@ -30,31 +30,29 @@ public class LiveRoomDaoImpl implements LiveRoomDao {
     }
 
     @Override
-    public int create(OpenLiveVo vo) {
+    public int insert(OpenStreamVo vo) {
         int rows = jdbcTemplate.update(
-                "insert into jww_live_room(ID, LIVE_ID, CHANNEL_ID, STATE, CREATE_DATE) values(?, ?, ?, ?, now())",
+                "insert into jww_live_room(ID, CHANNEL_ID, STATE, CREATE_DATE) values(?, ?, ?, now())",
                 (pss) -> {
                     pss.setString(1, remove(timeBasedGenerator.generate().toString(), "-"));
-                    pss.setString(2, vo.getLiveId());
-                    pss.setString(3, vo.getChannelId());
-                    pss.setString(4, "DeviceOnline");
+                    pss.setString(2, vo.getChannelId());
+                    pss.setString(3, "DeviceOnline");
                 }
         );
         return rows;
     }
 
     @Override
-    public int update(OpenLiveVo vo) {
+    public int update(OpenStreamVo vo) {
         int rows = jdbcTemplate.update(
-                "update jww_live_room set STATE = 'DeviceOnline', LIVE_ID = ? where CHANNEL_ID = ?",
-                vo.getLiveId(),
+                "update jww_live_room set STATE = 'DeviceOnline' where CHANNEL_ID = ?",
                 vo.getChannelId()
         );
         return rows;
     }
 
     @Override
-    public int count(CloseLiveVo vo) {
+    public int count(CloseStreamVo vo) {
         int rows = jdbcTemplate.queryForObject(
                 "select count(1) from jww_live_room where CHANNEL_ID = ?",
                 Integer.class,
@@ -64,7 +62,7 @@ public class LiveRoomDaoImpl implements LiveRoomDao {
     }
 
     @Override
-    public int create(CloseLiveVo vo) {
+    public int insert(CloseStreamVo vo) {
         int rows = jdbcTemplate.update(
                 "insert into jww_live_room(ID, CHANNEL_ID, STATE) values(?, ?, ?)",
                 (pss) -> {
@@ -77,7 +75,7 @@ public class LiveRoomDaoImpl implements LiveRoomDao {
     }
 
     @Override
-    public int update(CloseLiveVo vo) {
+    public int update(CloseStreamVo vo) {
         int rows = jdbcTemplate.update(
                 "update jww_live_room set STATE = 'DeviceOffline' where CHANNEL_ID = ?",
                 vo.getChannelId()

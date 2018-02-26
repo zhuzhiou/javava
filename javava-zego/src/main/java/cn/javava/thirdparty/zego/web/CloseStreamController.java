@@ -1,8 +1,8 @@
 package cn.javava.thirdparty.zego.web;
 
-import cn.javava.thirdparty.zego.service.CloseLiveHandler;
 import cn.javava.thirdparty.zego.service.NotificationService;
-import cn.javava.thirdparty.zego.vo.CloseLiveVo;
+import cn.javava.thirdparty.zego.service.impl.CloseStreamHandlerChain;
+import cn.javava.thirdparty.zego.vo.CloseStreamVo;
 import com.google.common.primitives.Ints;
 import com.google.common.primitives.Longs;
 import org.slf4j.Logger;
@@ -18,29 +18,28 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
-import static cn.javava.thirdparty.zego.util.ZegoUtil.createSign;
 import static java.lang.Math.abs;
 import static java.time.LocalDateTime.ofEpochSecond;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 @RestController
-public class CloseLiveController extends BaseLiveController {
+public class CloseStreamController extends ControllerBase {
 
-    private Logger logger = LoggerFactory.getLogger(CloseLiveController.class);
+    private Logger logger = LoggerFactory.getLogger(CloseStreamController.class);
 
     @Value("${zego.api.secret}")
     private String secret;
 
     @Autowired
-    @Qualifier("closeLiveHandlerChain")
-    private CloseLiveHandler closeLiveHandler;
+    @Qualifier("closeStreamHandlerChain")
+    private CloseStreamHandlerChain closeStreamHandler;
 
     @Autowired
     private NotificationService notificationService;
 
-    @PostMapping("/close-live")
+    @PostMapping("/close_stream")
     public int closeStream(HttpServletRequest request) {
-        CloseLiveVo vo = assignVo(request);
+        CloseStreamVo vo = assignVo(request);
         LocalDateTime timestamp = ofEpochSecond(Longs.tryParse(vo.getTimestamp()), 0, ZoneOffset.of("+8"));
         Duration duration = Duration.between(LocalDateTime.now(), timestamp);
         if (abs(duration.toDays()) > 1) {
@@ -49,7 +48,7 @@ public class CloseLiveController extends BaseLiveController {
         }
         String signature = createSign(secret, vo.getTimestamp(), vo.getNonce());
         if (isNotBlank(signature) && signature.equals(vo.getSignature())) {
-            closeLiveHandler.handle(vo);
+            closeStreamHandler.handle(vo);
             notificationService.sendMail("[加一联萌] 娃娃机关闭通知", "娃娃机已关闭，请知晓。");
         } else {
             notificationService.sendMail("[加一联萌] 签名错误通知", "关闭流回调的签名不正确，请核查密钥是否已修改。");
@@ -61,8 +60,8 @@ public class CloseLiveController extends BaseLiveController {
         return CODE_SUCCESS;
     }
 
-    private CloseLiveVo assignVo(HttpServletRequest request) {
-        CloseLiveVo vo = new CloseLiveVo();
+    private CloseStreamVo assignVo(HttpServletRequest request) {
+        CloseStreamVo vo = new CloseStreamVo();
 
         String id = request.getParameter("id");
         if (isNotBlank(id)) {
@@ -94,7 +93,6 @@ public class CloseLiveController extends BaseLiveController {
             vo.setSignature(signature);
         }
 
-        System.out.println(vo.toString());
         return vo;
     }
 }
