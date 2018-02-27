@@ -1,7 +1,6 @@
 package cn.javava.wrapper;
 
 import org.springframework.core.MethodParameter;
-import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
@@ -12,7 +11,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import java.util.Collection;
 
 @RestControllerAdvice
-public class ResourceControllerAdvice implements ResponseBodyAdvice<Object> {
+public class ResourceAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
