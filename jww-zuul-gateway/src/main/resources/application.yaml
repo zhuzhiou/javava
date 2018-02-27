@@ -6,8 +6,12 @@ server:
 zuul:
     ignored-services: '*'
     routes:
-        live:
-            path: /lives/**
+        room:
+            path: /rooms/**
+            serviceId: live-services
+            stripPrefix: false
+        stream:
+            path: /streams/**
             serviceId: live-services
             stripPrefix: false
         user:

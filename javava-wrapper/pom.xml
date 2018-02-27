@@ -9,7 +9,7 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>javava-commons</artifactId>
+	<artifactId>javava-wrapper</artifactId>
 	<packaging>jar</packaging>
 
 	<dependencies>
