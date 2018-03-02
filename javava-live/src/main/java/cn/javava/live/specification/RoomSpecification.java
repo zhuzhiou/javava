@@ -25,16 +25,12 @@ public class RoomSpecification implements Specification<Room> {
     @Override
     public Predicate toPredicate(Root<Room> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
         List<Predicate> predicates = new ArrayList<>();
-        if (isNotBlank(criteria.getNameEq())) {
-            Predicate predicate = cb.equal(root.get(Room_.name), criteria.getNameEq());
+        if (isNotBlank(criteria.getName())) {
+            Predicate predicate = cb.equal(root.get(Room_.name), criteria.getName());
             predicates.add(predicate);
         }
-        if (isNotBlank(criteria.getNameLike())) {
-            Predicate predicate = cb.like(root.get(Room_.name), criteria.getNameLike());
-            predicates.add(predicate);
-        }
-        if (isNotBlank(criteria.getStateEq())) {
-            Predicate predicate = cb.equal(root.get(Room_.state), criteria.getStateEq());
+        if (isNotBlank(criteria.getState())) {
+            Predicate predicate = cb.equal(root.get(Room_.state), criteria.getState());
             predicates.add(predicate);
         }
         CriteriaQuery<?> cq = query.where(predicates.toArray(new Predicate[predicates.size()]));
