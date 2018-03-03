@@ -4,4 +4,4 @@ spring:
     profiles:
         active: prod
 server:
-    port: 8084
+    port: 8083

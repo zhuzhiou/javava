@@ -18,9 +18,7 @@
     </properties>
 
     <modules>
-        <module>jww-eureka-server</module>
-        <module>jww-zuul-gateway</module>
-        <module>javava-wrapper</module>
+        <module>javava-infrastructure</module>
         <module>javava-user</module>
         <module>javava-live</module>
 		<module>javava-pay</module>

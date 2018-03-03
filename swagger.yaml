@@ -130,11 +130,11 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: channel_id
+        - name: channelId
           in: query
           description: 频道标识
           required: false
-          type: integer
+          type: string
         - name: page
           in: query
           description: 页码
@@ -183,7 +183,7 @@ paths:
         - 'application/json'
       description: 生成实时支付二维码内容和交易流水号，二维码有效期2小时，支付后二维码失效
       parameters:
-        - name: user_id
+        - name: userId
           in: formData
           description: 用户ID
           required: true

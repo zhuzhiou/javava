@@ -1,0 +1,681 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "加一联萌是一家文化传播的服务公司，我们通过产品与服务，帮助品牌在互联网时代用户对品牌记忆多元化需求及更有趣的互动传播方式，让品牌娱乐起来。",
+    "version": "1.0.0",
+    "title": "加一联荫接口文档"
+  },
+  "host": "api.javava.cn",
+  "tags": [
+    {
+      "name": "user",
+      "description": "用户相关"
+    },
+    {
+      "name": "live",
+      "description": "直播相关"
+    },
+    {
+      "name": "pay",
+      "description": "支付相关",
+      "externalDocs": {
+        "description": "微信支付文档",
+        "url": "https://pay.weixin.qq.com/wiki/doc/api/index.html"
+      }
+    },
+    {
+      "name": "authorization",
+      "description": "授权相关",
+      "externalDocs": {
+        "description": "该接口仅作文档说明，扫码登陆地址为",
+        "url": "http://t.cn/RQNVpzW"
+      }
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/users": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "获取用户列表",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "nickname",
+            "in": "query",
+            "description": "用户昵称，支持模糊查询",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "sex",
+            "in": "query",
+            "description": "用户的性别，值为1时是男性，值为2时是女性，值为0时是未知",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "province",
+            "in": "query",
+            "description": "用户个人资料填写的省份，支持模糊查询",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "city",
+            "in": "query",
+            "description": "普通用户个人资料填写的城市，支持模糊查询",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "description": "国家，如中国为CN",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "页码",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "每页记录数，默认20条",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/UserPagedWrapper"
+            }
+          }
+        }
+      }
+    },
+    "/users/{userid}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "用户详细信息",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userid",
+            "in": "path",
+            "description": "userid",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/UserBeanWrapper"
+            }
+          }
+        }
+      }
+    },
+    "/rooms": {
+      "get": {
+        "tags": [
+          "live"
+        ],
+        "summary": "获取房间列表",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "state",
+            "in": "query",
+            "description": "设备状态:\n  `DeviceOnline` 上线\n  `DeviceOffline` 下线\n",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "DeviceOnline",
+              "DeviceOffline"
+            ]
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "页码",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "每页记录数，默认20条",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/RoomPagedWrapper"
+            }
+          }
+        }
+      }
+    },
+    "/streams": {
+      "get": {
+        "tags": [
+          "live"
+        ],
+        "summary": "获取直播列表",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "channelId",
+            "in": "query",
+            "description": "频道标识",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "页码",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "每页记录数，默认100条",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/StreamPagedWrapper"
+            }
+          }
+        }
+      }
+    },
+    "/authorizations/scanQRCodeComplete": {
+      "get": {
+        "tags": [
+          "authorization"
+        ],
+        "summary": "微信扫码登陆",
+        "description": "app需要登陆请使用类webview技术打开网址http://t.cn/RQNVpzW，微信扫码授权成功后跳转到页面（服务端提供），在该页面上调用这个函数即可。",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "query",
+            "description": "换取access_token的票据",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "description": "这个参数由开发人员设置",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AuthorizationBeanWrapper"
+            }
+          }
+        }
+      }
+    },
+    "/trades/generateQRCode": {
+      "post": {
+        "tags": [
+          "pay"
+        ],
+        "summary": "生成微信支付二维码，用户扫码支付。",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "description": "生成实时支付二维码内容和交易流水号，二维码有效期2小时，支付后二维码失效",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "formData",
+            "description": "用户ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "money",
+            "in": "formData",
+            "description": "充值金额，单位为分",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/GenerateQRCodeResult"
+            }
+          }
+        }
+      }
+    },
+    "/trades/{tradeNo}": {
+      "get": {
+        "tags": [
+          "pay"
+        ],
+        "summary": "查询订单支付结果",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "tradeNo",
+            "in": "path",
+            "description": "交易流水号，由接口/trades/generateQRCode返回",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PaymentResult"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "PageMixin": {
+      "type": "object",
+      "description": "抽象对象，PagedWrapper需要继承该对象。",
+      "properties": {
+        "total_pages": {
+          "type": "integer",
+          "format": "int32",
+          "description": "总页数"
+        },
+        "total_elements": {
+          "type": "integer",
+          "format": "int64",
+          "description": "总记录数"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": "当前页码"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32",
+          "description": "每页条数"
+        }
+      }
+    },
+    "Wrapper": {
+      "type": "object",
+      "description": "所有对象都需要继承该对象",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "description": "0为成功，非0为失败"
+        },
+        "message": {
+          "type": "string",
+          "description": "失败时该字段描述失败原因"
+        }
+      }
+    },
+    "UserPagedWrapper": {
+      "description": "返回分页：用户列表",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Wrapper"
+        },
+        {
+          "properties": {
+            "content": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        },
+        {
+          "$ref": "#/definitions/PageMixin"
+        }
+      ]
+    },
+    "UserBeanWrapper": {
+      "description": "返回对象：用户详情",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Wrapper"
+        },
+        {
+          "$ref": "#/definitions/User"
+        }
+      ]
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "userid": {
+          "type": "string",
+          "description": "用户标识"
+        },
+        "openid": {
+          "type": "string",
+          "description": "公众号的用户标识"
+        },
+        "nickname": {
+          "type": "string",
+          "description": "用户的昵称"
+        },
+        "sex": {
+          "type": "string",
+          "description": "用户的性别，值为1时是男性，值为2时是女性，值为0时是未知"
+        },
+        "province": {
+          "type": "string",
+          "description": "用户所在省份"
+        },
+        "city": {
+          "type": "string",
+          "description": "用户所在城市"
+        },
+        "country": {
+          "type": "string",
+          "description": "用户所在国家"
+        },
+        "headimgurl": {
+          "type": "string",
+          "description": "用户头像，最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空。若用户更换头像，原有头像URL将失效。"
+        },
+        "unionid": {
+          "type": "string",
+          "description": "只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段。"
+        }
+      }
+    },
+    "RoomPagedWrapper": {
+      "description": "返回分页：房间列表",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Wrapper"
+        },
+        {
+          "properties": {
+            "content": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Room"
+              }
+            }
+          }
+        },
+        {
+          "$ref": "#/definitions/PageMixin"
+        }
+      ]
+    },
+    "RoomBeanWrapper": {
+      "description": "返回对象：房间详情",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Wrapper"
+        },
+        {
+          "$ref": "#/definitions/Room"
+        }
+      ]
+    },
+    "Room": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string",
+          "description": "频道标识"
+        },
+        "name": {
+          "type": "string",
+          "description": "频道的名称"
+        },
+        "state": {
+          "type": "string",
+          "description": "房间状态：DeviceOnline表示设备在线，DeviceOffline表示设备离线。"
+        }
+      }
+    },
+    "StreamPagedWrapper": {
+      "description": "返回分页：房间列表",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Wrapper"
+        },
+        {
+          "properties": {
+            "content": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Stream"
+              }
+            }
+          }
+        },
+        {
+          "$ref": "#/definitions/PageMixin"
+        }
+      ]
+    },
+    "Stream": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string",
+          "description": "频道标识"
+        },
+        "stream_alias": {
+          "type": "string",
+          "description": "流名"
+        },
+        "publish_id": {
+          "type": "string",
+          "description": "发布者的标识"
+        },
+        "publish_name": {
+          "type": "string",
+          "description": "发布者的名字"
+        },
+        "rtmp_url": {
+          "type": "string",
+          "description": "rtmp_url"
+        },
+        "hls_url": {
+          "type": "string",
+          "description": "hls_url"
+        },
+        "hdl_url": {
+          "type": "string",
+          "description": "hdl_url"
+        },
+        "pic_url": {
+          "type": "string",
+          "description": "pic_url"
+        },
+        "create_date": {
+          "type": "string",
+          "description": "创建日期（2018-03-02 23:06:23）"
+        }
+      }
+    },
+    "StreamHis": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string",
+          "description": "频道标识"
+        },
+        "stream_alias": {
+          "type": "string",
+          "description": "流名"
+        },
+        "publish_id": {
+          "type": "string",
+          "description": "发布者的标识"
+        },
+        "publish_name": {
+          "type": "string",
+          "description": "发布者的名字"
+        },
+        "create_date": {
+          "type": "string",
+          "description": "创建日期"
+        },
+        "close_date": {
+          "type": "string",
+          "description": "关闭日期"
+        },
+        "close_reason": {
+          "type": "string",
+          "description": "关闭类型，值为0是正常关闭，值为1是后台超时关闭，值为2是同一主播直播关闭之前没有关闭的流"
+        }
+      }
+    },
+    "GenerateQRCodeResult": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Wrapper"
+        },
+        {
+          "properties": {
+            "code_url": {
+              "type": "string",
+              "description": "二维码内容"
+            },
+            "trade_no": {
+              "type": "string",
+              "description": "交易流水号"
+            }
+          }
+        }
+      ]
+    },
+    "TransactionBeanWrapper": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Wrapper"
+        },
+        {
+          "$ref": "#/definitions/Transaction"
+        }
+      ]
+    },
+    "Transaction": {
+      "type": "object",
+      "properties": {
+        "result_code": {
+          "type": "string",
+          "description": "交易状态:\n  `DEALING` - 还在处理中\n  `SUCCESS` - 交易成功\n  `FAIL` - 交易失败\n",
+          "enum": [
+            "DEALING",
+            "SUCCESS",
+            "FAIL"
+          ]
+        }
+      }
+    },
+    "AuthorizationBeanWrapper": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Wrapper"
+        },
+        {
+          "$ref": "#/definitions/Authorization"
+        }
+      ]
+    },
+    "Authorization": {
+      "type": "object",
+      "properties": {
+        "open_id": {
+          "type": "string",
+          "description": "微信用户标识"
+        },
+        "nickname": {
+          "type": "string",
+          "description": "昵称"
+        },
+        "sex": {
+          "type": "string",
+          "description": "性别"
+        },
+        "province": {
+          "type": "string",
+          "description": "省份"
+        },
+        "city": {
+          "type": "string",
+          "description": "城市"
+        },
+        "country": {
+          "type": "string",
+          "description": "国家"
+        },
+        "headingurl": {
+          "type": "string",
+          "description": "头像"
+        },
+        "privilege": {
+          "type": "array",
+          "description": "权限集",
+          "items": {
+            "type": "string"
+          }
+        },
+        "unionid": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

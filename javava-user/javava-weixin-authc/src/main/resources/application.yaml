@@ -3,3 +3,6 @@ spring:
         name: javava-weixin-authc
     profiles:
         active: prod
+server:
+    context-path: /
+    port: 8084

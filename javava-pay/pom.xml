@@ -12,7 +12,7 @@
     <packaging>pom</packaging>
 
     <modules>
-		<module>javava-pay-api</module>
+		<module>javava-pay-services</module>
         <module>javava-weixin-pay</module>
     </modules>
 

@@ -1,0 +1,21 @@
+spring:
+    datasource:
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://192.168.150.129:3306/javava?useUnicode=true&characterEncoding=utf-8&useSSL=false
+        username: root
+        password: develop
+        tomcat:
+            init-s-q-l: set names utf8mb4
+wx:
+    api:
+        unifiedOrderUrl: https://api.mch.weixin.qq.com/pay/unifiedorder
+        goodsBody: 测试商品描述..
+        tradeType: NATIVE
+        appId: wxfe19480979014ade
+        mchId: 1461351402
+        key: ouQ1s6moJu70mJJx7LuU82gbWaIR4s5D
+        notifyUrl: http://qrcodepay.javava.cn/qrcodepaySuccess
+        signType: MD5
+        httpConnectTimeout: 6000
+        httpReadTimeout: 8000
+        ip: 127.0.0.1

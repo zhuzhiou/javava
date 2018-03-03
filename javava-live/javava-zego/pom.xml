@@ -54,7 +54,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>libs</classpathPrefix>
-							<mainClass>cn.javava.thirdparty.zego.JavavaZegoApplication</mainClass>
+							<mainClass>cn.javava.thirdparty.zego.ZegoApplication</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

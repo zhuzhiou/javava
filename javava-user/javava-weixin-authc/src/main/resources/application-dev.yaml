@@ -29,6 +29,3 @@ weixin:
 javava:
     notification:
         email: zhuzhiou@qq.com
-server:
-    context-path: /
-    port: 8087

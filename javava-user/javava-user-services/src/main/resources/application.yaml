@@ -1,0 +1,27 @@
+spring:
+    application:
+        name: user-services
+    profiles:
+        active: prod
+    cloud:
+        inetutils:
+            ignored-interfaces:
+                - Microsoft.*
+                - Software.*
+                - VMware.*
+    data:
+        rest:
+            page-param-name: page
+            limit-param-name: page_size
+            default-page-size: 100
+            max-page-size: 1000
+server:
+    port: 8089
+
+eureka:
+    client:
+        service-url:
+            defaultZone: http://localhost:8000/eureka/
+    instance:
+        lease-expiration-duration-in-seconds: 10
+        lease-renewal-interval-in-seconds: 10

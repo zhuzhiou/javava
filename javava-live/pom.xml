@@ -13,7 +13,7 @@
 
     <modules>
 		<module>javava-zego</module>
-        <module>javava-live-api</module>
+        <module>javava-live-services</module>
     </modules>
 
 </project>
