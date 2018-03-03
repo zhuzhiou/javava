@@ -8,12 +8,12 @@
         <artifactId>javava</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>javava-live</artifactId>
+    <artifactId>javava-user</artifactId>
     <packaging>pom</packaging>
 
     <modules>
-		<module>javava-zego</module>
-        <module>javava-live-api</module>
+		<module>javava-weixin-authc</module>
+        <module>javava-user-api</module>
     </modules>
 
 </project>

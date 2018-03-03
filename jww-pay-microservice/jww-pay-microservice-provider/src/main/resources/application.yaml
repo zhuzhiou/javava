@@ -1,7 +1,0 @@
-spring:
-    application:
-        name: pay-services
-    profiles:
-        active: prod
-server:
-    port: 8094

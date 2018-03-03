@@ -20,14 +20,10 @@
     <modules>
         <module>jww-eureka-server</module>
         <module>jww-zuul-gateway</module>
-        <!--module>jww-live-microservice</module>
-        <module>jww-pay-microservice</module>
-        <module>jww-user-microservice</module-->
         <module>javava-wrapper</module>
+        <module>javava-user</module>
         <module>javava-live</module>
-        <module>javava-zego</module>
-        <module>javava-weixin-authc</module>
-		<module>javava-weixin-pay</module>
+		<module>javava-pay</module>
     </modules>
 
     <dependencies>

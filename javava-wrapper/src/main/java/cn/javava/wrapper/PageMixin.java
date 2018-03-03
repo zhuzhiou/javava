@@ -16,9 +16,6 @@ public interface PageMixin<T> extends Page<T> {
     @JsonProperty("page")
     int getNumber();
 
-    @JsonProperty("page_size")
-    int getSize();
-
     @JsonIgnore
     int getNumberOfElements();
 }
