@@ -8,6 +8,10 @@
   "host": "api.javava.cn",
   "tags": [
     {
+      "name": "token",
+      "description": "访问令牌"
+    },
+    {
       "name": "user",
       "description": "用户相关"
     },
@@ -24,18 +28,63 @@
       }
     },
     {
-      "name": "authorization",
-      "description": "授权相关",
-      "externalDocs": {
-        "description": "该接口仅作文档说明，扫码登陆地址为",
-        "url": "http://t.cn/RQNVpzW"
-      }
+      "name": "shelf",
+      "description": "自动售卖机相关（暂定）"
+    },
+    {
+      "name": "lottery",
+      "description": "上机相关（暂定）"
     }
   ],
   "schemes": [
     "http"
   ],
   "paths": {
+    "/token": {
+      "post": {
+        "tags": [
+          "token"
+        ],
+        "summary": "授权",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "grant_type",
+            "in": "formData",
+            "description": "值为client_credentials",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "client_id",
+            "in": "formData",
+            "description": "client_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "client_secret",
+            "in": "formData",
+            "description": "client_secret",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AccessTokenBeanWrapper"
+            }
+          }
+        }
+      }
+    },
     "/users": {
       "get": {
         "tags": [
@@ -46,6 +95,13 @@
           "application/json"
         ],
         "parameters": [
+          {
+            "name": "access_token",
+            "in": "query",
+            "description": "凭证",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "nickname",
             "in": "query",
@@ -117,6 +173,13 @@
         ],
         "parameters": [
           {
+            "name": "access_token",
+            "in": "query",
+            "description": "凭证",
+            "required": true,
+            "type": "string"
+          },
+          {
             "name": "userid",
             "in": "path",
             "description": "userid",
@@ -144,6 +207,13 @@
           "application/json"
         ],
         "parameters": [
+          {
+            "name": "access_token",
+            "in": "query",
+            "description": "凭证",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "state",
             "in": "query",
@@ -191,6 +261,13 @@
         ],
         "parameters": [
           {
+            "name": "access_token",
+            "in": "query",
+            "description": "凭证",
+            "required": true,
+            "type": "string"
+          },
+          {
             "name": "channelId",
             "in": "query",
             "description": "频道标识",
@@ -222,39 +299,6 @@
         }
       }
     },
-    "/authorizations/scanQRCodeComplete": {
-      "get": {
-        "tags": [
-          "authorization"
-        ],
-        "summary": "微信扫码登陆",
-        "description": "app需要登陆请使用类webview技术打开网址http://t.cn/RQNVpzW，微信扫码授权成功后跳转到页面（服务端提供），在该页面上调用这个函数即可。",
-        "parameters": [
-          {
-            "name": "code",
-            "in": "query",
-            "description": "换取access_token的票据",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "state",
-            "in": "query",
-            "description": "这个参数由开发人员设置",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/AuthorizationBeanWrapper"
-            }
-          }
-        }
-      }
-    },
     "/trades/generateQRCode": {
       "post": {
         "tags": [
@@ -269,6 +313,13 @@
         ],
         "description": "生成实时支付二维码内容和交易流水号，二维码有效期2小时，支付后二维码失效",
         "parameters": [
+          {
+            "name": "access_token",
+            "in": "query",
+            "description": "凭证",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "userId",
             "in": "formData",
@@ -305,6 +356,13 @@
         ],
         "parameters": [
           {
+            "name": "access_token",
+            "in": "query",
+            "description": "凭证",
+            "required": true,
+            "type": "string"
+          },
+          {
             "name": "tradeNo",
             "in": "path",
             "description": "交易流水号，由接口/trades/generateQRCode返回",
@@ -316,7 +374,389 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/PaymentResult"
+              "$ref": "#/definitions/TradeBeanWrapper"
+            }
+          }
+        }
+      }
+    },
+    "/shelfs": {
+      "get": {
+        "tags": [
+          "shelf"
+        ],
+        "summary": "货架列表",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "query",
+            "description": "凭证",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Wrapper"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "shelf"
+        ],
+        "summary": "新建货架",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "query",
+            "description": "凭证",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Wrapper"
+            }
+          }
+        }
+      }
+    },
+    "/shelfs/{shelf_id}": {
+      "parameters": [
+        {
+          "name": "shelf_id",
+          "in": "path",
+          "description": "货架标识",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "shelf"
+        ],
+        "summary": "货架详情",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "query",
+            "description": "凭证",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Wrapper"
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "shelf"
+        ],
+        "summary": "修改货架",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "query",
+            "description": "凭证",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Wrapper"
+            }
+          }
+        }
+      }
+    },
+    "/shelfs/{shelf_id}/up": {
+      "parameters": [
+        {
+          "name": "shelf_id",
+          "in": "path",
+          "description": "货架标识",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "post": {
+        "tags": [
+          "shelf"
+        ],
+        "summary": "上线",
+        "description": "初始化货架库存，货架上线后不可进行修改",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "query",
+            "description": "凭证",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "position",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "货架位置"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Wrapper"
+            }
+          }
+        }
+      }
+    },
+    "/shelfs/{shelf_id}/down": {
+      "parameters": [
+        {
+          "name": "shelf_id",
+          "in": "path",
+          "description": "货架标识",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "post": {
+        "tags": [
+          "shelf"
+        ],
+        "summary": "下线",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "query",
+            "description": "凭证",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Wrapper"
+            }
+          }
+        }
+      }
+    },
+    "/shelfs/{shelf_id}/deliver": {
+      "parameters": [
+        {
+          "name": "shelf_id",
+          "in": "path",
+          "description": "货架标识",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "post": {
+        "tags": [
+          "shelf"
+        ],
+        "summary": "出货",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "query",
+            "description": "凭证",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "position",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "货架位置"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Wrapper"
+            }
+          }
+        }
+      }
+    },
+    "/shelfs/{shelf_id}/restock": {
+      "post": {
+        "tags": [
+          "shelf"
+        ],
+        "summary": "补货",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "query",
+            "description": "凭证",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "shelf_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "货架标识"
+          },
+          {
+            "name": "positions",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": "货架位置，多个使用英文逗号串起来"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Wrapper"
+            }
+          }
+        }
+      }
+    },
+    "/lottery/request": {
+      "post": {
+        "tags": [
+          "lottery"
+        ],
+        "summary": "预约上机",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "query",
+            "description": "凭证",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Wrapper"
+            }
+          }
+        }
+      }
+    },
+    "/lottery/start": {
+      "post": {
+        "tags": [
+          "lottery"
+        ],
+        "summary": "上机确认",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "query",
+            "description": "凭证",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Wrapper"
+            }
+          }
+        }
+      }
+    },
+    "/lottery/finish": {
+      "post": {
+        "tags": [
+          "lottery"
+        ],
+        "summary": "游戏结束",
+        "description": "中奖，返回要打开的格口，没中奖仅记录。",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "query",
+            "description": "凭证",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Wrapper"
             }
           }
         }
@@ -361,6 +801,30 @@
         "message": {
           "type": "string",
           "description": "失败时该字段描述失败原因"
+        }
+      }
+    },
+    "AccessTokenBeanWrapper": {
+      "description": "返回对象：用户详情",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Wrapper"
+        },
+        {
+          "$ref": "#/definitions/AccessToken"
+        }
+      ]
+    },
+    "AccessToken": {
+      "type": "object",
+      "properties": {
+        "access_token": {
+          "type": "string",
+          "description": "凭证"
+        },
+        "expires_in": {
+          "type": "string",
+          "description": "凭证的有效时间（单位秒）"
         }
       }
     },
@@ -600,17 +1064,17 @@
         }
       ]
     },
-    "TransactionBeanWrapper": {
+    "TradeBeanWrapper": {
       "allOf": [
         {
           "$ref": "#/definitions/Wrapper"
         },
         {
-          "$ref": "#/definitions/Transaction"
+          "$ref": "#/definitions/Trade"
         }
       ]
     },
-    "Transaction": {
+    "Trade": {
       "type": "object",
       "properties": {
         "result_code": {
@@ -621,59 +1085,6 @@
             "SUCCESS",
             "FAIL"
           ]
-        }
-      }
-    },
-    "AuthorizationBeanWrapper": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/Wrapper"
-        },
-        {
-          "$ref": "#/definitions/Authorization"
-        }
-      ]
-    },
-    "Authorization": {
-      "type": "object",
-      "properties": {
-        "open_id": {
-          "type": "string",
-          "description": "微信用户标识"
-        },
-        "nickname": {
-          "type": "string",
-          "description": "昵称"
-        },
-        "sex": {
-          "type": "string",
-          "description": "性别"
-        },
-        "province": {
-          "type": "string",
-          "description": "省份"
-        },
-        "city": {
-          "type": "string",
-          "description": "城市"
-        },
-        "country": {
-          "type": "string",
-          "description": "国家"
-        },
-        "headingurl": {
-          "type": "string",
-          "description": "头像"
-        },
-        "privilege": {
-          "type": "array",
-          "description": "权限集",
-          "items": {
-            "type": "string"
-          }
-        },
-        "unionid": {
-          "type": "string"
         }
       }
     }
