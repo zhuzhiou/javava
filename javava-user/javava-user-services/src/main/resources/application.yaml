@@ -19,9 +19,6 @@ server:
     port: 8089
 
 eureka:
-    client:
-        service-url:
-            defaultZone: http://localhost:8000/eureka/
     instance:
         lease-expiration-duration-in-seconds: 10
         lease-renewal-interval-in-seconds: 10
