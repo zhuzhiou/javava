@@ -48,6 +48,12 @@ public class ShelfBox {
     @Column(name="IS_AVAILABLE")
     private String isAvailable;
 
+    /**
+     * 格口状态损坏/正常
+     */
+    @Column(name="STATUS")
+    private String status;
+
     public List<ShelfBox> create(int num, String shelfId){
         List<ShelfBox> bins = new ArrayList<>();
         for(int i=1;i<=num;i++){
@@ -62,6 +68,7 @@ public class ShelfBox {
         this.isAvailable= ShelfConstants.COMMON_Y;
         this.location= column;
         this.name=String.format("%03d",column);
+        this.status = ShelfConstants.BOX_STATUS_NORMAL;
     }
 
     public ShelfBox() {

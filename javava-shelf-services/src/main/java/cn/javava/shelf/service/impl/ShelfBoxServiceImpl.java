@@ -20,7 +20,7 @@ public class ShelfBoxServiceImpl implements ShelfBoxService {
     private ShelfBoxRepository shelfBoxRepository;
 
     @Override
-    public void online(int boxNum, String shelfId) {
+    public int online(int boxNum, String shelfId) {
         //查询是否已经存在box
         ShelfBox box = new ShelfBox();
         box.setShelfId(shelfId);
@@ -29,14 +29,16 @@ public class ShelfBoxServiceImpl implements ShelfBoxService {
             list = new ShelfBox().create(boxNum, shelfId);
         } else {
             for (ShelfBox b : list) {
-                b.setIsAvailable(ShelfConstants.COMMON_Y);
+                if (ShelfConstants.BOX_STATUS_NORMAL.equals(b.getStatus()))
+                    b.setIsAvailable(ShelfConstants.COMMON_Y);
             }
         }
-        shelfBoxRepository.save(list);
+        List<ShelfBox> boxes = shelfBoxRepository.save(list);
+        return boxes != null ? boxes.size() : 0;
     }
 
     @Override
-    public void offline(String shelfId) {
+    public int offline(String shelfId) {
         ShelfBox box = new ShelfBox();
         box.setShelfId(shelfId);
         List<ShelfBox> list = shelfBoxRepository.findAll(Example.of(box));
@@ -44,24 +46,30 @@ public class ShelfBoxServiceImpl implements ShelfBoxService {
             for (ShelfBox b : list) {
                 b.setIsAvailable(ShelfConstants.COMMON_N);
             }
-            shelfBoxRepository.save(list);
+            List<ShelfBox> boxes = shelfBoxRepository.save(list);
+            return boxes != null ? boxes.size() : 0;
         }
+        return 0;
     }
 
     @Override
     public void deliver(String boxId) {
-        updateStatus(boxId,ShelfConstants.COMMON_N);
+        ShelfBox box = shelfBoxRepository.findOne(boxId);
+        box.setIsAvailable(ShelfConstants.COMMON_N);
+        shelfBoxRepository.saveAndFlush(box);
     }
 
     @Override
     public void restock(String boxId) {
-        updateStatus(boxId,ShelfConstants.COMMON_Y);
+        ShelfBox box = shelfBoxRepository.findOne(boxId);
+        box.setIsAvailable(ShelfConstants.COMMON_Y);
+        shelfBoxRepository.saveAndFlush(box);
     }
 
     @Override
-    public void updateStatus(String boxId,String isAvailable) {
+    public void updateStatus(String boxId, String status) {
         ShelfBox box = shelfBoxRepository.findOne(boxId);
-        box.setIsAvailable(isAvailable);
+        box.setStatus(status);
         shelfBoxRepository.saveAndFlush(box);
     }
 }

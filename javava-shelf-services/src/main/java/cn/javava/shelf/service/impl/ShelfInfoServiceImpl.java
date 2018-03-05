@@ -56,9 +56,8 @@ public class ShelfInfoServiceImpl implements ShelfInfoService {
     }
 
     @Override
-    public boolean update(ShelfInfo info) {
-        shelfInfoRepository.save(info);
-        return true;
+    public ShelfInfo update(ShelfInfo info) {
+        return shelfInfoRepository.save(info);
     }
 
     @Override
@@ -89,24 +88,41 @@ public class ShelfInfoServiceImpl implements ShelfInfoService {
         //上线/下线
         if (StringUtils.isNotBlank(online)) {
             info.setIsAvailable(online);
-            shelfInfoRepository.save(info);
-            if(ShelfConstants.COMMON_Y.equals(online)){
-                shelfBoxService.online(info.getBoxNum(),shelfId);
-            }else{
+            if (ShelfConstants.COMMON_Y.equals(online)) {
+                int boxNum = shelfBoxService.online(info.getBoxNum(), shelfId);
+                info.setGoodsNum(info.getGoodsNum() + boxNum);
+            } else {
                 //下线
-                shelfBoxService.offline(shelfId);
+                int boxNum = shelfBoxService.offline(shelfId);
+                info.setGoodsNum(info.getGoodsNum() - boxNum);
+
             }
+            shelfInfoRepository.save(info);
         }
         //补货/出货
         if (num != 0) {
             info.setGoodsNum(info.getGoodsNum() + num);
             shelfInfoRepository.save(info);
-            if(num>0){
+            if (num > 0) {
                 shelfBoxService.restock(boxId);
-            }else{
+            } else {
                 shelfBoxService.deliver(boxId);
             }
         }
+        return true;
+    }
+
+    @Override
+    public boolean updateBoxStatus(String shelfId, String boxId, String status) {
+        ShelfInfo info = find(shelfId);
+        shelfBoxService.updateStatus(boxId,status);
+        if(ShelfConstants.BOX_STATUS_DAMAGED.equals(status)){
+            if(info.getGoodsNum()>0){
+                info.setGoodsNum(info.getGoodsNum()-1);
+                shelfInfoRepository.save(info);
+            }
+        }
+        shelfRecordService.saveRecord(shelfId,boxId,ShelfConstants.OPERATE_BOX_DAMAGED,"格口损坏");
         return true;
     }
 }

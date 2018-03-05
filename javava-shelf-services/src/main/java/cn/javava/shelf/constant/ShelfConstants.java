@@ -13,5 +13,10 @@ public class ShelfConstants {
     public static final String OPERATE_SHELF_OFFLINE = "offline";
     public static final String OPERATE_BOX_RESTOCK = "restock";
     public static final String OPERATE_BOX_DELIVER = "deliver";
+    public static final String OPERATE_BOX_DAMAGED = "damaged_remark";
+
+    public static final String BOX_STATUS_NORMAL = "normal";
+
+    public static final String BOX_STATUS_DAMAGED = "damaged";
 }
 

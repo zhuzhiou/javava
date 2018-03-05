@@ -26,7 +26,7 @@ public interface ShelfInfoService {
 
     ShelfInfo find(String shelfId);
 
-    boolean update(ShelfInfo info);
+    ShelfInfo update(ShelfInfo info);
 
     /**
      * 上线/下线,出货/补货
@@ -36,4 +36,6 @@ public interface ShelfInfoService {
      * @return
      */
     boolean update(String shelfId,String boxId, String operate);
+
+    boolean updateBoxStatus(String shelfId,String boxId, String status);
 }
