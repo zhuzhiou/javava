@@ -42,8 +42,4 @@ public class ShelfInfo {
      */
     @Column(name="REMARK")
     private String remark;
-    /**
-     * 格口
-     */
-    private List<ShelfBox> boxs;
 }
