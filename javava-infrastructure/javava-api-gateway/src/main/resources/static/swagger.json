@@ -677,7 +677,7 @@
         }
       }
     },
-    "/lottery/request": {
+    "/lotteries/request": {
       "post": {
         "tags": [
           "lottery"
@@ -705,7 +705,7 @@
         }
       }
     },
-    "/lottery/start": {
+    "/lotteries/start": {
       "post": {
         "tags": [
           "lottery"
@@ -733,7 +733,7 @@
         }
       }
     },
-    "/lottery/finish": {
+    "/lotteries/finish": {
       "post": {
         "tags": [
           "lottery"
