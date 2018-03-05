@@ -16,7 +16,7 @@ spring:
             default-page-size: 100
             max-page-size: 1000
 server:
-    port: 8089
+    port: 8087
 
 eureka:
     instance:

@@ -5,11 +5,11 @@
 
 	<parent>
 		<groupId>cn.javava</groupId>
-		<artifactId>javava</artifactId>
+		<artifactId>javava-admin</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>javava-admin-webapp</artifactId>
+	<artifactId>javava-admin-backend</artifactId>
 	<packaging>jar</packaging>
 
 </project>

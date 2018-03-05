@@ -5,4 +5,4 @@ spring:
         active: prod
 server:
     context-path: /
-    port: 8084
+    port: 8093

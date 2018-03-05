@@ -21,7 +21,10 @@
         <module>javava-infrastructure</module>
         <module>javava-user</module>
         <module>javava-live</module>
+        <module>javava-lottery-services</module>
+        <module>javava-shelf-services</module>
 		<module>javava-pay</module>
+        <module>javava-admin</module>
     </modules>
 
     <dependencies>

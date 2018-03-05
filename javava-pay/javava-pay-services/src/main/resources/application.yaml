@@ -10,7 +10,7 @@ spring:
                 - Software.*
                 - VMware.*
 server:
-    port: 8088
+    port: 8085
 eureka:
     instance:
         lease-expiration-duration-in-seconds: 10

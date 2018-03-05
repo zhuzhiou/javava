@@ -450,7 +450,7 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/Wrapper'
-  /lottery/request:
+  /lotteries/request:
     post:
       tags:
         - lottery
@@ -468,7 +468,7 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/Wrapper'
-  /lottery/start:
+  /lotteries/start:
     post:
       tags:
         - lottery
@@ -486,7 +486,7 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/Wrapper'
-  /lottery/finish:
+  /lotteries/finish:
     post:
       tags:
         - lottery
