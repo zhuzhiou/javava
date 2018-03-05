@@ -255,7 +255,7 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/TradeBeanWrapper'
-  /shelfs:
+  /shelves:
     get:
       tags:
         - shelf
@@ -272,7 +272,7 @@ paths:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/Wrapper'
+            $ref: '#/definitions/ShelfPagedWrapper'
     post:
       tags:
         - shelf
@@ -290,7 +290,7 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/Wrapper'
-  /shelfs/{shelf_id}:
+  /shelves/{shelf_id}:
     parameters:
       - name: shelf_id
         in: path
@@ -313,7 +313,7 @@ paths:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/Wrapper'
+            $ref: '#/definitions/ShelfBeanWrapper'
     patch:
       tags:
         - shelf
@@ -331,29 +331,7 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/Wrapper'
-  /shelfs/{shelf_id}/lattices:
-    get:
-      tags:
-        - shelf
-      produces:
-        - "application/json"
-      parameters:
-        - name: access_token
-          in: query
-          description: 凭证
-          required: true
-          type: string
-        - name: shelf_id
-          in: path
-          description: 货架标识
-          required: true
-          type: string
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/LatticePagedWrapper'
-  /shelfs/{shelf_id}/up:
+  /shelves/{shelf_id}/maintain:
     parameters:
       - name: shelf_id
         in: path
@@ -363,7 +341,7 @@ paths:
     post:
       tags:
         - shelf
-      summary: 上线
+      summary: 上线、下线
       description: 初始化货架库存，货架上线后不可进行修改
       consumes:
         - 'application/x-www-form-urlencoded'
@@ -385,64 +363,7 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/Wrapper'
-  /shelfs/{shelf_id}/down:
-    parameters:
-      - name: shelf_id
-        in: path
-        description: 货架标识
-        required: true
-        type: string
-    post:
-      tags:
-        - shelf
-      summary: 下线
-      consumes:
-        - 'application/x-www-form-urlencoded'
-      produces:
-        - "application/json"
-      parameters:
-        - name: access_token
-          in: query
-          description: 凭证
-          required: true
-          type: string
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/Wrapper'
-  /shelfs/{shelf_id}/deliver:
-    parameters:
-      - name: shelf_id
-        in: path
-        description: 货架标识
-        required: true
-        type: string
-    post:
-      tags:
-        - shelf
-      summary: 出货
-      consumes:
-        - 'application/x-www-form-urlencoded'
-      produces:
-        - "application/json"
-      parameters:
-        - name: access_token
-          in: query
-          description: 凭证
-          required: true
-          type: string
-        - name: position
-          in: formData
-          required: true
-          type: string
-          description: 货架位置
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/Wrapper'
-  /shelfs/{shelf_id}/restock:
+  /shelves/{shelf_id}/restock:
     post:
       tags:
         - shelf
@@ -736,19 +657,72 @@ definitions:
           - DEALING
           - SUCCESS
           - FAIL
-  LatticePagedWrapper:
-    description: 返回分页：房间列表
+  ShelfPagedWrapper:
+    description: 返回分页：货架列表
     allOf:
       - $ref: '#/definitions/Wrapper'
       - properties:
           content:
             type: array
             items:
-              $ref: '#/definitions/Lattice'
+              $ref: '#/definitions/Shelf'
       - $ref: '#/definitions/PageMixin'
-  Lattice:
+  ShelfBeanWrapper:
+    description: 返回对象：货架详情
+    allOf:
+      - $ref: '#/definitions/Wrapper'
+      - $ref: '#/definitions/Shelf'
+      - properties:
+          lattices:
+            type: array
+            items:
+              $ref: '#/definitions/Lattice'
+  Shelf:
+    description: 货架
     type: object
     properties:
+      id:
+        type: string
+        description: 唯一标识
+      name:
+        type: string
+        description: 货架名字
+      boxNum:
+        type: string
+        description: 格口数量
+      goodsNum:
+        type: string
+        description: 货物数量
+      isAvailable:
+        type: string
+        description: >
+          是否可用: `Y` 是 `N` 否
+        enum:
+          - Y
+          - N
+      remark:
+        type: string
+        description: 描述
+  Lattice:
+    description: 格口
+    type: object
+    properties:
+      id:
+        type: string
+        description: 唯一标识
+      name:
+        type: string
+        description: 格口名字
       position:
         type: integer
-        description: 位置
+        description: 格口位置
+      isAvailable:
+        type: string
+        description: >
+          是否可用: `Y` 是 `N` 否
+        enum:
+          - Y
+          - N
+      remark:
+        type: string
+        description: 描述
