@@ -331,6 +331,28 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/Wrapper'
+  /shelfs/{shelf_id}/lattices:
+    get:
+      tags:
+        - shelf
+      produces:
+        - "application/json"
+      parameters:
+        - name: access_token
+          in: query
+          description: 凭证
+          required: true
+          type: string
+        - name: shelf_id
+          in: path
+          description: 货架标识
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/LatticePagedWrapper'
   /shelfs/{shelf_id}/up:
     parameters:
       - name: shelf_id
@@ -714,3 +736,19 @@ definitions:
           - DEALING
           - SUCCESS
           - FAIL
+  LatticePagedWrapper:
+    description: 返回分页：房间列表
+    allOf:
+      - $ref: '#/definitions/Wrapper'
+      - properties:
+          content:
+            type: array
+            items:
+              $ref: '#/definitions/Lattice'
+      - $ref: '#/definitions/PageMixin'
+  Lattice:
+    type: object
+    properties:
+      position:
+        type: integer
+        description: 位置
