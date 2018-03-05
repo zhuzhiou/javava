@@ -19,13 +19,13 @@ public class ShelfRecordServiceImpl implements ShelfRecordService {
     private ShelfRecordRepository shelfRecordRepository;
 
     @Override
-    public void saveRecord(String shelfId,String binId, String operate, String remark) {
+    public void saveRecord(String shelfId,String boxId, String operate, String remark) {
         ShelfRecord record = new ShelfRecord();
         record.setId(Generators.timeBasedGenerator().generate().toString());
         record.setRemark(remark);
         record.setOperateType(operate);
         record.setShelfId(shelfId);
-        record.setBinId(binId);
+        record.setBoxId(boxId);
         record.setOperateTime(new Date());
         shelfRecordRepository.save(record);
     }

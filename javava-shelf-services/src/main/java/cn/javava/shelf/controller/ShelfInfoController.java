@@ -53,9 +53,9 @@ public class ShelfInfoController {
         boolean flag = shelfInfoService.update(shelfId, null, ShelfConstants.OPERATE_SHELF_ONLINE);
         resp.put("status", flag);
         if (flag) {
-            resp.put("message", "下线成功");
+            resp.put("message", "上线成功");
         } else {
-            resp.put("message", "下线失败");
+            resp.put("message", "上线失败");
         }
         return resp;
     }

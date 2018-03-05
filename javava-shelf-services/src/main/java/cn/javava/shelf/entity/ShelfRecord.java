@@ -25,8 +25,8 @@ public class ShelfRecord {
     /**
      * 格口ID
      */
-    @Column(name="BIN_ID")
-    private String binId;
+    @Column(name="BOX_ID")
+    private String boxId;
     /**
      * 操作人
      */
