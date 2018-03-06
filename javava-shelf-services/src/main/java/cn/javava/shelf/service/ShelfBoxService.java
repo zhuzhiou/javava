@@ -11,26 +11,28 @@ import java.util.List;
  */
 public interface ShelfBoxService {
 
-    int online(int boxNum, String shelfId);
+    int online(int boxNum, Long shelfId);
 
-    int offline(String shelfId);
+    int offline(Long shelfId);
 
     /**
      * 出货
      * @param boxId
      */
-    void deliver(String boxId);
+    void deliver(Long boxId);
 
     /**
      * 补货
      * @param boxId
      */
-    void restock(String boxId);
+    void restock(Long boxId);
 
     /**
      * 更新格口状态损坏/正常
      * @param boxId
      * @param status
      */
-    void updateStatus(String boxId,String status);
+    ShelfBox updateStatus(Long boxId,String status);
+
+    List<ShelfBox> findByShelfId(Long shelfId);
 }

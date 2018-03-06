@@ -1,7 +1,7 @@
 package cn.javava.shelf.entity;
 
 import cn.javava.shelf.constant.ShelfConstants;
-import com.fasterxml.uuid.Generators;
+import cn.javava.shelf.util.ShelfUtils;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,12 +21,12 @@ public class ShelfBox {
 
     @Id
     @Column(name="ID")
-    private String id;
+    private Long id;
     /**
      * 货架ID
      */
     @Column(name="SHELF_ID")
-    private String shelfId;
+    private Long shelfId;
     /**
      * 格口名字
      */
@@ -54,16 +54,16 @@ public class ShelfBox {
     @Column(name="STATUS")
     private String status;
 
-    public List<ShelfBox> create(int num, String shelfId){
-        List<ShelfBox> bins = new ArrayList<>();
+    public static List<ShelfBox> create(int num, Long shelfId){
+        List<ShelfBox> boxes = new ArrayList<>();
         for(int i=1;i<=num;i++){
-            bins.add(new ShelfBox(i,shelfId));
+            boxes.add(new ShelfBox(i,shelfId));
         }
-        return bins;
+        return boxes;
     }
 
-    public ShelfBox(int column, String shelfId) {
-        this.id = Generators.timeBasedGenerator().generate().toString();
+    private ShelfBox(int column, Long shelfId) {
+        this.id = ShelfUtils.generateId();
         this.shelfId = shelfId;
         this.isAvailable= ShelfConstants.COMMON_Y;
         this.location= column;

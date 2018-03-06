@@ -15,9 +15,4 @@ public class ShelfServicesMain {
 	public static void main(String[] args) {
 		SpringApplication.run(ShelfServicesMain.class, args);
 	}
-
-	@Bean
-	public TimeBasedGenerator timeBasedGenerator() {
-		return Generators.timeBasedGenerator(EthernetAddress.fromInterface());
-	}
 }

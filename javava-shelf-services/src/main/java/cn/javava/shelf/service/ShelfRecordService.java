@@ -12,7 +12,8 @@ public interface ShelfRecordService {
      * @param shelfId
      * @param boxId
      * @param operate
+     * @param result
      * @param remark
      */
-    void saveRecord(String shelfId,String boxId,String operate,String remark);
+    void saveRecord(Long shelfId,Long boxId,String operate,String result,String remark);
 }

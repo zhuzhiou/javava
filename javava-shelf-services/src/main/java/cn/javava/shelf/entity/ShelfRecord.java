@@ -16,17 +16,17 @@ import java.util.Date;
 public class ShelfRecord {
     @Id
     @Column(name="ID")
-    private String id;
+    private Long id;
     /**
      * 货架ID
      */
     @Column(name="SHELF_ID")
-    private String shelfId;
+    private Long shelfId;
     /**
      * 格口ID
      */
     @Column(name="BOX_ID")
-    private String boxId;
+    private Long boxId;
     /**
      * 操作人
      */
@@ -42,6 +42,13 @@ public class ShelfRecord {
      */
     @Column(name="OPERATE_TYPE")
     private String operateType;
+
+    /**
+     * 操作结果
+     */
+    @Column(name="OPERATE_RESULT")
+    private String operateResult;
+
     /**
      * 描述
      */

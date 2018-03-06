@@ -16,7 +16,7 @@ public class ShelfInfo {
 
     @Id
     @Column(name="ID")
-    private String id;
+    private Long id;
     /**
      * 货架名字
      */
@@ -42,4 +42,7 @@ public class ShelfInfo {
      */
     @Column(name="REMARK")
     private String remark;
+
+    @Transient
+    private List<ShelfBox> boxes;
 }

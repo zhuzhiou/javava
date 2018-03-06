@@ -18,5 +18,8 @@ public class ShelfConstants {
     public static final String BOX_STATUS_NORMAL = "normal";
 
     public static final String BOX_STATUS_DAMAGED = "damaged";
+
+    public static final String COMMON_SUCCESS = "SUCCESS";
+    public static final String COMMON_FAILURE = "FAILURE";
 }
 

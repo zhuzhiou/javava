@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
  * Created by wlrllr on 2018/3/5.
  */
 @Repository
-public interface ShelfRecordRepository extends JpaRepository<ShelfRecord,String> {
+public interface ShelfRecordRepository extends JpaRepository<ShelfRecord,Long> {
 
 }

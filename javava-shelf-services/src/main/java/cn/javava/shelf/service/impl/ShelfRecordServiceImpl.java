@@ -3,7 +3,7 @@ package cn.javava.shelf.service.impl;
 import cn.javava.shelf.entity.ShelfRecord;
 import cn.javava.shelf.repository.ShelfRecordRepository;
 import cn.javava.shelf.service.ShelfRecordService;
-import com.fasterxml.uuid.Generators;
+import cn.javava.shelf.util.ShelfUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +19,14 @@ public class ShelfRecordServiceImpl implements ShelfRecordService {
     private ShelfRecordRepository shelfRecordRepository;
 
     @Override
-    public void saveRecord(String shelfId,String boxId, String operate, String remark) {
+    public void saveRecord(Long shelfId,Long boxId, String operate,String result, String remark) {
         ShelfRecord record = new ShelfRecord();
-        record.setId(Generators.timeBasedGenerator().generate().toString());
+        record.setId(ShelfUtils.generateId());
         record.setRemark(remark);
         record.setOperateType(operate);
         record.setShelfId(shelfId);
         record.setBoxId(boxId);
+        record.setOperateResult(result);
         record.setOperateTime(new Date());
         shelfRecordRepository.save(record);
     }

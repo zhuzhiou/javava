@@ -24,7 +24,7 @@ public interface ShelfInfoService {
      */
     ShelfInfo createShelf(ShelfInfo info);
 
-    ShelfInfo find(String shelfId);
+    ShelfInfo find(Long shelfId);
 
     ShelfInfo update(ShelfInfo info);
 
@@ -35,7 +35,7 @@ public interface ShelfInfoService {
      * @param operate
      * @return
      */
-    boolean update(String shelfId,String boxId, String operate);
+    boolean update(Long shelfId,Long boxId, String operate);
 
-    boolean updateBoxStatus(String shelfId,String boxId, String status);
+    boolean updateBoxStatus(Long shelfId,Long boxId, String status);
 }

@@ -20,13 +20,13 @@ public class ShelfBoxServiceImpl implements ShelfBoxService {
     private ShelfBoxRepository shelfBoxRepository;
 
     @Override
-    public int online(int boxNum, String shelfId) {
+    public int online(int boxNum, Long shelfId) {
         //查询是否已经存在box
         ShelfBox box = new ShelfBox();
         box.setShelfId(shelfId);
         List<ShelfBox> list = shelfBoxRepository.findAll(Example.of(box));
         if (list == null || list.size() <= 0) {
-            list = new ShelfBox().create(boxNum, shelfId);
+            list = ShelfBox.create(boxNum, shelfId);
         } else {
             for (ShelfBox b : list) {
                 if (ShelfConstants.BOX_STATUS_NORMAL.equals(b.getStatus()))
@@ -38,7 +38,7 @@ public class ShelfBoxServiceImpl implements ShelfBoxService {
     }
 
     @Override
-    public int offline(String shelfId) {
+    public int offline(Long shelfId) {
         ShelfBox box = new ShelfBox();
         box.setShelfId(shelfId);
         List<ShelfBox> list = shelfBoxRepository.findAll(Example.of(box));
@@ -53,23 +53,28 @@ public class ShelfBoxServiceImpl implements ShelfBoxService {
     }
 
     @Override
-    public void deliver(String boxId) {
+    public void deliver(Long boxId) {
         ShelfBox box = shelfBoxRepository.findOne(boxId);
         box.setIsAvailable(ShelfConstants.COMMON_N);
         shelfBoxRepository.saveAndFlush(box);
     }
 
     @Override
-    public void restock(String boxId) {
+    public void restock(Long boxId) {
         ShelfBox box = shelfBoxRepository.findOne(boxId);
         box.setIsAvailable(ShelfConstants.COMMON_Y);
         shelfBoxRepository.saveAndFlush(box);
     }
 
     @Override
-    public void updateStatus(String boxId, String status) {
+    public ShelfBox updateStatus(Long boxId, String status) {
         ShelfBox box = shelfBoxRepository.findOne(boxId);
         box.setStatus(status);
-        shelfBoxRepository.saveAndFlush(box);
+        return shelfBoxRepository.save(box);
+    }
+
+    @Override
+    public List<ShelfBox> findByShelfId(Long shelfId) {
+        return shelfBoxRepository.findByShelfId(shelfId);
     }
 }
