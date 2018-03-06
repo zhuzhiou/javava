@@ -673,10 +673,10 @@ definitions:
       - $ref: '#/definitions/Wrapper'
       - $ref: '#/definitions/Shelf'
       - properties:
-          lattices:
+          boxes:
             type: array
             items:
-              $ref: '#/definitions/Lattice'
+              $ref: '#/definitions/Box'
   Shelf:
     description: 货架
     type: object
@@ -703,7 +703,7 @@ definitions:
       remark:
         type: string
         description: 描述
-  Lattice:
+  Box:
     description: 格口
     type: object
     properties:
