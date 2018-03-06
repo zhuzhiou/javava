@@ -18,6 +18,10 @@ tags:
       url: 'https://pay.weixin.qq.com/wiki/doc/api/index.html'
   - name: shelf
     description: 自动售卖机相关（暂定）
+  - name: machine
+    description: 娃娃机客房端
+  - name: queue
+    description: 排队
   - name: lottery
     description: 上机相关（暂定）
 schemes:
@@ -277,12 +281,29 @@ paths:
       tags:
         - shelf
       summary: 新建货架
+      consumes:
+        - 'application/x-www-form-urlencoded'
       produces:
-        - "application/json"
+        - application/json
       parameters:
         - name: access_token
           in: query
           description: 凭证
+          required: true
+          type: string
+        - name: name
+          in: formData
+          description: 货架名称
+          required: true
+          type: string
+        - name: boxNum
+          in: formData
+          description: 格口数量
+          required: true
+          type: integer
+        - name: remark
+          in: formData
+          description: 备注
           required: true
           type: string
       responses:
@@ -318,12 +339,34 @@ paths:
       tags:
         - shelf
       summary: 修改货架
+      consumes:
+        - 'application/x-www-form-urlencoded'
       produces:
         - "application/json"
       parameters:
         - name: access_token
           in: query
           description: 凭证
+          required: true
+          type: string
+        - name: shelfName
+          in: formData
+          description: 货架名称
+          required: true
+          type: string
+        - name: boxNum
+          in: formData
+          description: 格口数量
+          required: true
+          type: integer
+        - name: goodsNum
+          in: formData
+          description: 库存
+          required: true
+          type: integer
+        - name: remark
+          in: formData
+          description: 备注
           required: true
           type: string
       responses:
@@ -353,11 +396,14 @@ paths:
           description: 凭证
           required: true
           type: string
-        - name: position
+        - name: operateType
           in: formData
           required: true
           type: string
-          description: 货架位置
+          description: 操作类型
+          enum:
+            - online
+            - offline
       responses:
         '200':
           description: OK
@@ -388,6 +434,105 @@ paths:
           required: true
           type: string
           description: 货架位置，多个使用英文逗号串起来
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Wrapper'
+  /machines:
+    get:
+      tags:
+        - machine
+      summary: 娃娃机列表
+      produces:
+        - application/json
+      parameters:
+        - name: access_token
+          in: query
+          description: 凭证
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Wrapper'
+  /machines/{machine_id}:
+    get:
+      tags:
+        - machine
+      summary: 娃娃机详情
+      produces:
+        - application/json
+      parameters:
+        - name: access_token
+          in: query
+          description: 凭证
+          required: true
+          type: string
+        - name: machine_id
+          in: path
+          description: 标识
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Wrapper'
+  /queues/{room_id}:
+    parameters:
+      - name: room_id
+        in: path
+        description: 货架标识
+        required: true
+        type: string
+    get:
+      tags:
+        - queue
+      summary: 队列
+      produces:
+        - application/json
+      parameters:
+        - name: access_token
+          in: query
+          description: 凭证
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Wrapper'
+    post:
+      tags:
+        - queue
+      summary: 排队
+      produces:
+        - application/json
+      parameters:
+        - name: access_token
+          in: query
+          description: 凭证
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Wrapper'
+    delete:
+      tags:
+        - queue
+      summary: 出队
+      produces:
+        - application/json
+      parameters:
+        - name: access_token
+          in: query
+          description: 凭证
+          required: true
+          type: string
       responses:
         '200':
           description: OK
@@ -682,18 +827,19 @@ definitions:
     type: object
     properties:
       id:
-        type: string
+        type: integer
+        format: int64
         description: 唯一标识
       name:
         type: string
         description: 货架名字
-      boxNum:
-        type: string
+      box_num:
+        type: integer
         description: 格口数量
-      goodsNum:
-        type: string
+      goods_num:
+        type: integer
         description: 货物数量
-      isAvailable:
+      is_available:
         type: string
         description: >
           是否可用: `Y` 是 `N` 否
@@ -708,7 +854,8 @@ definitions:
     type: object
     properties:
       id:
-        type: string
+        type: integer
+        format: int64
         description: 唯一标识
       name:
         type: string
@@ -716,13 +863,15 @@ definitions:
       position:
         type: integer
         description: 格口位置
-      isAvailable:
+      is_available:
         type: string
         description: >
           是否可用: `Y` 是 `N` 否
         enum:
           - Y
           - N
-      remark:
+      status:
         type: string
         description: 描述
+          - normal
+          - damaged
