@@ -78,7 +78,7 @@ public class WxController {
         if(record != null){
             resp.put("code", 0);
             resp.put("message", "成功");
-            resp.put("result_code",record.getResultCode());
+            resp.put("result",record);
         } else {
             resp.put("code", 1);
             resp.put("message", "订单号不存在");
