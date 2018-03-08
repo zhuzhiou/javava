@@ -12,7 +12,6 @@
     <packaging>pom</packaging>
 
     <modules>
-		<module>javava-pay-services</module>
         <module>javava-weixin-pay</module>
     </modules>
 

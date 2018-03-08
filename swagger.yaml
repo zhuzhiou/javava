@@ -538,42 +538,59 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/Wrapper'
-  /lotteries/request:
-    post:
-      tags:
-        - lottery
-      summary: 预约上机
-      produces:
-        - "application/json"
-      parameters:
-        - name: access_token
-          in: query
-          description: 凭证
-          required: true
-          type: string
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/Wrapper'
   /lotteries/start:
     post:
       tags:
         - lottery
       summary: 上机确认
+      externalDocs:
+        description: 信令交互
+        url: https://www.zego.im/html/document/#Application_Scenes/WaWaJiClient/CommandFlow
+      consumes:
+        - application/json
       produces:
-        - "application/json"
+        - application/json
       parameters:
         - name: access_token
           in: query
           description: 凭证
           required: true
           type: string
+        - name: authority_info
+          in: body
+          schema:
+            type: object
+            properties:
+              session_id:
+                type: string
+                description: 同信令中 session_id 值
+              confirm:
+                type: integer
+                description: 同信令中 confirm 值
+              time_stamp:
+                type: integer
+                format: int64
+                description: 同信令中 time_stamp 值
+              custom_token:
+                type: string
+                description: 业务侧自定义鉴权信息，会在游戏结果加密串中带回
+            example:
+                session_id: xxx
+                confirm: 1
+                time_stamp: 1515508734166
+                custom_token: xxx
       responses:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/Wrapper'
+            type: object
+            properties:
+              config:
+                type: string
+                description: 游戏初始化配置信息及付费校验信息
+          examples:
+            application/json:
+              config: encrypted-by-shared-secret-key
   /lotteries/finish:
     post:
       tags:

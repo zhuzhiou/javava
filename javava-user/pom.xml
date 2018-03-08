@@ -13,7 +13,6 @@
 
     <modules>
 		<module>javava-weixin-authc</module>
-        <module>javava-user-services</module>
     </modules>
 
 </project>

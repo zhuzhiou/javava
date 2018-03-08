@@ -32,6 +32,14 @@
       "description": "自动售卖机相关（暂定）"
     },
     {
+      "name": "machine",
+      "description": "娃娃机客房端"
+    },
+    {
+      "name": "queue",
+      "description": "排队"
+    },
+    {
       "name": "lottery",
       "description": "上机相关（暂定）"
     }
@@ -380,7 +388,7 @@
         }
       }
     },
-    "/shelfs": {
+    "/shelves": {
       "get": {
         "tags": [
           "shelf"
@@ -402,7 +410,7 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Wrapper"
+              "$ref": "#/definitions/ShelfPagedWrapper"
             }
           }
         }
@@ -412,6 +420,9 @@
           "shelf"
         ],
         "summary": "新建货架",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
         "produces": [
           "application/json"
         ],
@@ -420,6 +431,27 @@
             "name": "access_token",
             "in": "query",
             "description": "凭证",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "货架名称",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "boxNum",
+            "in": "formData",
+            "description": "格口数量",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "remark",
+            "in": "formData",
+            "description": "备注",
             "required": true,
             "type": "string"
           }
@@ -434,7 +466,7 @@
         }
       }
     },
-    "/shelfs/{shelf_id}": {
+    "/shelves/{shelf_id}": {
       "parameters": [
         {
           "name": "shelf_id",
@@ -465,7 +497,7 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Wrapper"
+              "$ref": "#/definitions/ShelfBeanWrapper"
             }
           }
         }
@@ -475,32 +507,8 @@
           "shelf"
         ],
         "summary": "修改货架",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "access_token",
-            "in": "query",
-            "description": "凭证",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Wrapper"
-            }
-          }
-        }
-      }
-    },
-    "/shelfs/{shelf_id}/lattices": {
-      "get": {
-        "tags": [
-          "shelf"
+        "consumes": [
+          "application/x-www-form-urlencoded"
         ],
         "produces": [
           "application/json"
@@ -514,9 +522,30 @@
             "type": "string"
           },
           {
-            "name": "shelf_id",
-            "in": "path",
-            "description": "货架标识",
+            "name": "shelfName",
+            "in": "formData",
+            "description": "货架名称",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "boxNum",
+            "in": "formData",
+            "description": "格口数量",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "goodsNum",
+            "in": "formData",
+            "description": "库存",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "remark",
+            "in": "formData",
+            "description": "备注",
             "required": true,
             "type": "string"
           }
@@ -525,13 +554,13 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/LatticePagedWrapper"
+              "$ref": "#/definitions/Wrapper"
             }
           }
         }
       }
     },
-    "/shelfs/{shelf_id}/up": {
+    "/shelves/{shelf_id}/maintain": {
       "parameters": [
         {
           "name": "shelf_id",
@@ -545,7 +574,7 @@
         "tags": [
           "shelf"
         ],
-        "summary": "上线",
+        "summary": "上线、下线",
         "description": "初始化货架库存，货架上线后不可进行修改",
         "consumes": [
           "application/x-www-form-urlencoded"
@@ -562,11 +591,15 @@
             "type": "string"
           },
           {
-            "name": "position",
+            "name": "operateType",
             "in": "formData",
             "required": true,
             "type": "string",
-            "description": "货架位置"
+            "description": "操作类型",
+            "enum": [
+              "online",
+              "offline"
+            ]
           }
         ],
         "responses": {
@@ -579,94 +612,7 @@
         }
       }
     },
-    "/shelfs/{shelf_id}/down": {
-      "parameters": [
-        {
-          "name": "shelf_id",
-          "in": "path",
-          "description": "货架标识",
-          "required": true,
-          "type": "string"
-        }
-      ],
-      "post": {
-        "tags": [
-          "shelf"
-        ],
-        "summary": "下线",
-        "consumes": [
-          "application/x-www-form-urlencoded"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "access_token",
-            "in": "query",
-            "description": "凭证",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Wrapper"
-            }
-          }
-        }
-      }
-    },
-    "/shelfs/{shelf_id}/deliver": {
-      "parameters": [
-        {
-          "name": "shelf_id",
-          "in": "path",
-          "description": "货架标识",
-          "required": true,
-          "type": "string"
-        }
-      ],
-      "post": {
-        "tags": [
-          "shelf"
-        ],
-        "summary": "出货",
-        "consumes": [
-          "application/x-www-form-urlencoded"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "access_token",
-            "in": "query",
-            "description": "凭证",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "position",
-            "in": "formData",
-            "required": true,
-            "type": "string",
-            "description": "货架位置"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Wrapper"
-            }
-          }
-        }
-      }
-    },
-    "/shelfs/{shelf_id}/restock": {
+    "/shelves/{shelf_id}/restock": {
       "post": {
         "tags": [
           "shelf"
@@ -699,6 +645,158 @@
             "required": true,
             "type": "string",
             "description": "货架位置，多个使用英文逗号串起来"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Wrapper"
+            }
+          }
+        }
+      }
+    },
+    "/machines": {
+      "get": {
+        "tags": [
+          "machine"
+        ],
+        "summary": "娃娃机列表",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "query",
+            "description": "凭证",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Wrapper"
+            }
+          }
+        }
+      }
+    },
+    "/machines/{machine_id}": {
+      "get": {
+        "tags": [
+          "machine"
+        ],
+        "summary": "娃娃机详情",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "query",
+            "description": "凭证",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "machine_id",
+            "in": "path",
+            "description": "标识",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Wrapper"
+            }
+          }
+        }
+      }
+    },
+    "/queues/{room_id}": {
+      "parameters": [
+        {
+          "name": "room_id",
+          "in": "path",
+          "description": "货架标识",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "queue"
+        ],
+        "summary": "队列",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "query",
+            "description": "凭证",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Wrapper"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "queue"
+        ],
+        "summary": "排队",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "query",
+            "description": "凭证",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Wrapper"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "queue"
+        ],
+        "summary": "出队",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "query",
+            "description": "凭证",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
@@ -1122,8 +1220,8 @@
         }
       }
     },
-    "LatticePagedWrapper": {
-      "description": "返回分页：房间列表",
+    "ShelfPagedWrapper": {
+      "description": "返回分页：货架列表",
       "allOf": [
         {
           "$ref": "#/definitions/Wrapper"
@@ -1133,7 +1231,7 @@
             "content": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/Lattice"
+                "$ref": "#/definitions/Shelf"
               }
             }
           }
@@ -1143,12 +1241,90 @@
         }
       ]
     },
-    "Lattice": {
+    "ShelfBeanWrapper": {
+      "description": "返回对象：货架详情",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Wrapper"
+        },
+        {
+          "$ref": "#/definitions/Shelf"
+        },
+        {
+          "properties": {
+            "boxes": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Box"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Shelf": {
+      "description": "货架",
       "type": "object",
       "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "唯一标识"
+        },
+        "name": {
+          "type": "string",
+          "description": "货架名字"
+        },
+        "box_num": {
+          "type": "integer",
+          "description": "格口数量"
+        },
+        "goods_num": {
+          "type": "integer",
+          "description": "货物数量"
+        },
+        "is_available": {
+          "type": "string",
+          "description": "是否可用: `Y` 是 `N` 否\n",
+          "enum": [
+            "Y",
+            "N"
+          ]
+        },
+        "remark": {
+          "type": "string",
+          "description": "描述"
+        }
+      }
+    },
+    "Box": {
+      "description": "格口",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "唯一标识"
+        },
+        "name": {
+          "type": "string",
+          "description": "格口名字"
+        },
         "position": {
           "type": "integer",
-          "description": "位置"
+          "description": "格口位置"
+        },
+        "is_available": {
+          "type": "string",
+          "description": "是否可用: `Y` 是 `N` 否\n",
+          "enum": [
+            "Y",
+            "N"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "description": "描述 - normal - damaged"
         }
       }
     }

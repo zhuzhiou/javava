@@ -25,6 +25,7 @@
         <module>javava-shelf-services</module>
 		<module>javava-pay</module>
         <module>javava-admin</module>
+        <module>javava-api</module>
     </modules>
 
     <dependencies>
@@ -156,6 +157,11 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>1.1.6</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk15on</artifactId>
+                <version>1.59</version>
             </dependency>
             <dependency>
                 <groupId>mysql</groupId>
