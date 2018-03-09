@@ -33,22 +33,18 @@
     },
     {
       "name": "machine",
-      "description": "娃娃机客房端"
+      "description": "娃娃机客房端（暂定）"
     },
     {
-      "name": "queue",
-      "description": "排队"
-    },
-    {
-      "name": "lottery",
-      "description": "上机相关（暂定）"
+      "name": "game",
+      "description": "上机相关"
     }
   ],
   "schemes": [
     "http"
   ],
   "paths": {
-    "/token": {
+    "/oauth/token": {
       "post": {
         "tags": [
           "token"
@@ -170,7 +166,7 @@
         }
       }
     },
-    "/users/{userid}": {
+    "/users/{user_id}": {
       "get": {
         "tags": [
           "user"
@@ -188,9 +184,9 @@
             "type": "string"
           },
           {
-            "name": "userid",
+            "name": "user_id",
             "in": "path",
-            "description": "userid",
+            "description": "用户标识",
             "required": true,
             "type": "string"
           }
@@ -720,99 +716,10 @@
         }
       }
     },
-    "/queues/{room_id}": {
-      "parameters": [
-        {
-          "name": "room_id",
-          "in": "path",
-          "description": "货架标识",
-          "required": true,
-          "type": "string"
-        }
-      ],
-      "get": {
-        "tags": [
-          "queue"
-        ],
-        "summary": "队列",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "access_token",
-            "in": "query",
-            "description": "凭证",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Wrapper"
-            }
-          }
-        }
-      },
+    "/games": {
       "post": {
         "tags": [
-          "queue"
-        ],
-        "summary": "排队",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "access_token",
-            "in": "query",
-            "description": "凭证",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Wrapper"
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "queue"
-        ],
-        "summary": "出队",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "access_token",
-            "in": "query",
-            "description": "凭证",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Wrapper"
-            }
-          }
-        }
-      }
-    },
-    "/lotteries/start": {
-      "post": {
-        "tags": [
-          "lottery"
+          "game"
         ],
         "summary": "上机确认",
         "externalDocs": {
@@ -820,7 +727,7 @@
           "url": "https://www.zego.im/html/document/#Application_Scenes/WaWaJiClient/CommandFlow"
         },
         "consumes": [
-          "application/json"
+          "application/x-www-form-urlencoded"
         ],
         "produces": [
           "application/json"
@@ -834,36 +741,18 @@
             "type": "string"
           },
           {
-            "name": "authority_info",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "session_id": {
-                  "type": "string",
-                  "description": "同信令中 session_id 值"
-                },
-                "confirm": {
-                  "type": "integer",
-                  "description": "同信令中 confirm 值"
-                },
-                "time_stamp": {
-                  "type": "integer",
-                  "format": "int64",
-                  "description": "同信令中 time_stamp 值"
-                },
-                "custom_token": {
-                  "type": "string",
-                  "description": "业务侧自定义鉴权信息，会在游戏结果加密串中带回"
-                }
-              },
-              "example": {
-                "session_id": "xxx",
-                "confirm": 1,
-                "time_stamp": 1515508734166,
-                "custom_token": "xxx"
-              }
-            }
+            "name": "session_id",
+            "in": "formData",
+            "description": "同信令中 session_id 值",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "confirm",
+            "in": "formData",
+            "description": "同信令中 confirm 值",
+            "required": true,
+            "type": "integer"
           }
         ],
         "responses": {
@@ -872,6 +761,16 @@
             "schema": {
               "type": "object",
               "properties": {
+                "code": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "time_stamp": {
+                  "type": "integer",
+                  "format": "int64"
+                },
                 "config": {
                   "type": "string",
                   "description": "游戏初始化配置信息及付费校验信息"
@@ -880,20 +779,26 @@
             },
             "examples": {
               "application/json": {
-                "config": "encrypted-by-shared-secret-key"
+                "code": 0,
+                "message": "成功",
+                "time_stamp": "1520610493675,",
+                "config": "kByOIudxkPf7DbYVUFPci+01Qx6Zwh6zmuW858pNFCHfJiDcgWzM5XHTDWAcnywiWdkuA1gAHA8zZ92Z3rxnXdHz0m4GwIvir05ilOCy+WEFe3KlPN8iGDoA6E+IuVN7TxPE8nCp1F7Wj5FNX3XDruCVS8qI/T7A1RS0cXUp5kcf9uuXa+n4cTYxMzhEnVuU0xZQoW1RZ8qLq7Bt0d3SzbOYGn0q/UwQ73i2h+bCYarvLBW8t/O+VL7MFpDUUrJZkDOVA/ZA95ZE/ByBV/dOCJ2l6CiwuydVw+HKvXHoF0S3yBPQ9+ZDtEc0MivITLgn+/4ffJ2zM9TYHHSvmmyaFQ=="
               }
             }
           }
         }
       }
     },
-    "/lotteries/finish": {
+    "/games/lottery": {
       "post": {
         "tags": [
-          "lottery"
+          "game"
         ],
-        "summary": "游戏结束",
-        "description": "中奖，返回要打开的格口，没中奖仅记录。",
+        "summary": "开奖",
+        "description": "中奖需返回要打开的格口，没中奖仅记录即可。",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
         "produces": [
           "application/json"
         ],
@@ -904,13 +809,27 @@
             "description": "凭证",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "session_id",
+            "in": "formData",
+            "description": "同信令中 session_id 值",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "custom_token",
+            "in": "formData",
+            "description": "业务侧自定义鉴权信息，会在游戏结果加密串中带回",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Wrapper"
+              "$ref": "#/definitions/LotteryResultBeanWrapper"
             }
           }
         }
@@ -1349,6 +1268,23 @@
           "description": "描述 - normal - damaged"
         }
       }
+    },
+    "LotteryResultBeanWrapper": {
+      "description": "返回对象：开奖结果",
+      "allOf": [
+        {
+          "$ref": "#/definitions/Wrapper"
+        },
+        {
+          "properties": {
+            "position": {
+              "type": "integer",
+              "format": "int32",
+              "description": "格口"
+            }
+          }
+        }
+      ]
     }
   }
 }

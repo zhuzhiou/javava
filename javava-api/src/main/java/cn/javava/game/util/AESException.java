@@ -1,4 +1,4 @@
-package cn.javava.lottery.util;
+package cn.javava.game.util;
 
 public class AESException extends RuntimeException
 {

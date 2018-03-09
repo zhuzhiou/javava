@@ -1,4 +1,4 @@
-package cn.javava.lottery.util;
+package cn.javava.game.util;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;

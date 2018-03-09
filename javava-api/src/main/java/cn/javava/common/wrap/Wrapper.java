@@ -1,4 +1,4 @@
-package cn.javava.common;
+package cn.javava.common.wrap;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
@@ -10,6 +10,7 @@ public class Wrapper<T> implements Serializable {
 
     private String message;
 
+    //当 T 为基础类型时，该类没有作用。
     @JsonUnwrapped
     private T content;
 

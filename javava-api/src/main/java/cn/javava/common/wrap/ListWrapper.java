@@ -1,4 +1,4 @@
-package cn.javava.common;
+package cn.javava.common.wrap;
 
 import java.util.Iterator;
 

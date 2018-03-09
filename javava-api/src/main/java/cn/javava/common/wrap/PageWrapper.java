@@ -1,4 +1,4 @@
-package cn.javava.common;
+package cn.javava.common.wrap;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import org.springframework.data.domain.Page;

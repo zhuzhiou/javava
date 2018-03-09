@@ -19,3 +19,5 @@ wx:
         httpConnectTimeout: 6000
         httpReadTimeout: 8000
         ip: 127.0.0.1
+server:
+    port: 8080

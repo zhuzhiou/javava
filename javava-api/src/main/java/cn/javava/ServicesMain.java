@@ -1,6 +1,6 @@
 package cn.javava;
 
-import cn.javava.common.PageMixin;
+import cn.javava.common.wrap.PageMixin;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;

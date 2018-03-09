@@ -1,4 +1,4 @@
-package cn.javava.common;
+package cn.javava.common.wrap;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
