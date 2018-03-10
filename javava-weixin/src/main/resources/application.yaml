@@ -1,0 +1,13 @@
+spring:
+    application:
+        name: javava-weixin-authc
+    profiles:
+        active: prod
+    jpa:
+        open-in-view: true
+        show-sql: true
+        hibernate:
+            ddl-auto: update
+server:
+    context-path: /
+    port: 8093

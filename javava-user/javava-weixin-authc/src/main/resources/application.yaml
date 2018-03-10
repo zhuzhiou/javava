@@ -1,8 +1,0 @@
-spring:
-    application:
-        name: javava-weixin-authc
-    profiles:
-        active: prod
-server:
-    context-path: /
-    port: 8093
