@@ -14,7 +14,9 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-        resources.resourceId(JAVAVA_RESOURCE_ID);
+        resources.resourceId(JAVAVA_RESOURCE_ID)
+            /*.authenticationEntryPoint(authenticationEntryPoint())
+            .accessDeniedHandler(accessDeniedHandler())*/;
     }
 
     @Override
@@ -26,9 +28,17 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     }
 
     /*@Bean
-    public OAuth2AccessDeniedHandler oauth2AccessDeniedHandler() {
+    public AuthenticationEntryPoint authenticationEntryPoint() {
+        OAuth2AuthenticationEntryPoint authenticationEntryPoint = new OAuth2AuthenticationEntryPoint();
+        authenticationEntryPoint.setExceptionTranslator(webResponseExceptionTranslator());
+        return authenticationEntryPoint;
+    }
+
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
         OAuth2AccessDeniedHandler oauth2AccessDeniedHandler = new OAuth2AccessDeniedHandler();
-        oauth2AccessDeniedHandler.setExceptionTranslator();
+        oauth2AccessDeniedHandler.setExceptionTranslator(webResponseExceptionTranslator());
+        return oauth2AccessDeniedHandler;
     }
 
     @Bean
