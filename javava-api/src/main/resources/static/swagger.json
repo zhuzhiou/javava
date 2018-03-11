@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "title": "加一联荫接口文档"
   },
-  "host": "api.javava.cn",
+  "host": "localhost:8080",
   "tags": [
     {
       "name": "token",

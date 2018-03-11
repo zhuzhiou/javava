@@ -1,6 +1,7 @@
 package cn.javava.common.config;
 
 import com.google.common.collect.ImmutableMap;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,6 +14,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 
+import java.security.SecureRandom;
 import java.util.Map;
 
 @Configuration
@@ -34,6 +36,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 .secret("b");
     }
 
+    private SecureRandom secureRandom = new SecureRandom();
+
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         //endpoints.pathMapping("/oauth/token", "/token");
@@ -50,6 +54,10 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
             builder.put("message", "成功");
 
             DefaultOAuth2AccessToken accessToken_copy = new DefaultOAuth2AccessToken(accessToken);
+            byte[] bytes = new byte[96];
+            secureRandom.nextBytes(bytes);
+
+            accessToken_copy.setValue(Base64.encodeBase64URLSafeString(bytes));
             accessToken_copy.setAdditionalInformation(builder.build());
             return accessToken_copy;
         });

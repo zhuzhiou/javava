@@ -11,7 +11,10 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.security.*;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 
 /**
  * 供数据库加密解密用，加密解密对维护也会带来不便，请酌情使用。
@@ -21,9 +24,9 @@ import java.security.*;
  */
 public final class AES
 {
-    static final String ALGORITHM = "AES";
-
     static final String SECRET = "12345678901234561234567890123456";
+
+    static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     public static String decrypt(final String input) throws AESException
     {
@@ -44,11 +47,11 @@ public final class AES
             SecretKeySpec key = new SecretKeySpec(AES.SECRET.getBytes(StandardCharsets.US_ASCII), "AES");
             IvParameterSpec iv = new IvParameterSpec(ivBytes);
 
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding", "BC");
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             cipher.init(Cipher.DECRYPT_MODE, key, iv);
             return new String(cipher.doFinal(contentBytes), Charset.forName("utf-8"));
         }
-        catch (NoSuchAlgorithmException | NoSuchProviderException | NoSuchPaddingException | InvalidKeyException | BadPaddingException | IllegalBlockSizeException | InvalidAlgorithmParameterException e)
+        catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | BadPaddingException | IllegalBlockSizeException | InvalidAlgorithmParameterException e)
         {
             throw new AESException(e);
         }
@@ -62,16 +65,16 @@ public final class AES
         }
         try
         {
-            SecureRandom rnd = new SecureRandom();
-            byte[] newSeed = rnd.generateSeed(16);
-            rnd.setSeed(newSeed);
+            //如果使用/dev/random获取种子数，可能会导致很慢
+            byte[] newSeed = SECURE_RANDOM.generateSeed(16);
+            SECURE_RANDOM.setSeed(newSeed);
             byte[] ivBytes = new byte[16];
-            rnd.nextBytes(ivBytes);
+            SECURE_RANDOM.nextBytes(ivBytes);
 
             IvParameterSpec iv = new IvParameterSpec(ivBytes);
             SecretKeySpec key = new SecretKeySpec(AES.SECRET.getBytes(), "AES");
 
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding", "BC");
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             cipher.init(Cipher.ENCRYPT_MODE, key, iv);
             byte[] contentBytes = cipher.doFinal(input.getBytes(StandardCharsets.UTF_8));
 
@@ -81,7 +84,7 @@ public final class AES
 
             return Base64.encodeBase64String(encryptedBytes);
         }
-        catch (NoSuchAlgorithmException | NoSuchProviderException | NoSuchPaddingException | InvalidKeyException | BadPaddingException | IllegalBlockSizeException | InvalidAlgorithmParameterException e)
+        catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | BadPaddingException | IllegalBlockSizeException | InvalidAlgorithmParameterException e)
         {
             throw new AESException(e);
         }

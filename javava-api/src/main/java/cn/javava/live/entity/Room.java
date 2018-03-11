@@ -32,6 +32,9 @@ public class Room implements Serializable {
     @Column(name = "STATE")
     private String state;
 
+    @Column(name = "DOLL_TYPE")
+    private Long dollType;
+
     @Column(name = "CREATE_DATE")
     private LocalDateTime createDate;
 }

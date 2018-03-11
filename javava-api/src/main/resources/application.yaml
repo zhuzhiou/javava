@@ -3,3 +3,7 @@ spring:
         name: javava-services
     profiles:
         active: prod
+security:
+    basic:
+        enabled: false
+    enable-csrf: false
