@@ -22,7 +22,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "/**/*.js", "/**/*.css", "/**/*.html", "/**/*.json", "/**/*.png")
+                .antMatchers("/", "/**/*.js", "/**/*.css", "/**/*.html","/trades/*", "/**/*.json", "/**/*.png")
                 .permitAll()
                 .anyRequest().authenticated();
     }

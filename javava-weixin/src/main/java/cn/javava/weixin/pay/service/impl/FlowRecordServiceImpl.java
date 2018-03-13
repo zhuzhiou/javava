@@ -1,5 +1,6 @@
 package cn.javava.weixin.pay.service.impl;
 
+
 import cn.javava.weixin.pay.constant.WxPayConstants;
 import cn.javava.weixin.pay.entity.FlowRecord;
 import cn.javava.weixin.pay.entity.Wallet;
@@ -36,7 +37,7 @@ public class FlowRecordServiceImpl implements FlowRecordService {
         flowRecord.setOperateTime(new Date());
         flowRecord.setOutTradeNo(data.get("out_trade_no"));
         flowRecord.setRemark(JSONObject.toJSONString(data));
-        if (WxPayUtil.isTure(WxPayConstants.SUCCESS, data, "return_code", "result_code")){
+        if (WxPayUtil.isTrue(WxPayConstants.SUCCESS, data, "return_code", "result_code")){
             flowRecord.setResultCode(WxPayConstants.SUCCESS);
         }else{
             flowRecord.setResultCode(WxPayConstants.FAIL);

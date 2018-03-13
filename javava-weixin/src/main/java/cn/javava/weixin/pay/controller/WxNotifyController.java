@@ -52,7 +52,7 @@ public class WxNotifyController {
         try (PrintWriter writer = response.getWriter()) {
             String userId = "";
             if (wxPay.isPayResultNotifySignatureValid(params)) {
-                if (WxPayUtil.isTure(WxPayConstants.SUCCESS, params, "return_code", "result_code")) {
+                if (WxPayUtil.isTrue(WxPayConstants.SUCCESS, params, "return_code", "result_code")) {
                     //校验支付金额
                     String outTradeNo = params.get("out_trade_no");
                     Prepay prepay = prepayService.findByOutTradeNo(outTradeNo);

@@ -9,7 +9,5 @@ import java.util.Map;
  */
 public interface FlowRecordService {
 
-    FlowRecord save(Map<String, String> data, String userId);
-
     FlowRecord findByOutTradeNo(String outTradeNo);
 }
