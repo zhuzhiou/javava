@@ -12,6 +12,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.client.RestTemplate;
 
+import javax.xml.stream.XMLInputFactory;
 import java.util.Arrays;
 import java.util.concurrent.Executor;
 
@@ -46,5 +47,10 @@ public class WeixinApplication {
 	@Bean
 	public TimeBasedGenerator timeBasedGenerator() {
 		return Generators.timeBasedGenerator(EthernetAddress.fromInterface());
+	}
+
+	@Bean
+	public XMLInputFactory xmlInputFactory() {
+		return XMLInputFactory.newFactory();
 	}
 }
