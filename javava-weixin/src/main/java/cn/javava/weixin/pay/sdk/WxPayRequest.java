@@ -1,6 +1,6 @@
 package cn.javava.weixin.pay.sdk;
 
-import cn.javava.weixin.pay.config.ApiConfig;
+import cn.javava.weixin.pay.config.ApiPayConfig;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -28,7 +28,7 @@ import java.security.SecureRandom;
 public class WxPayRequest {
 
     @Autowired
-    private ApiConfig apiConfig;
+    private ApiPayConfig apiPayConfig;
 
     private String request(final String url, String data, int connectTimeoutMs, int readTimeoutMs, SSLConnectionSocketFactory sslConnectionSocketFactory) throws Exception {
         BasicHttpClientConnectionManager connManager = new BasicHttpClientConnectionManager(
@@ -79,7 +79,7 @@ public class WxPayRequest {
      * @throws Exception
      */
     public String request(final String url, String data, int connectTimeoutMs, int readTimeoutMs, InputStream certStream) throws Exception {
-        char[] password = apiConfig.getMchId().toCharArray();
+        char[] password = apiPayConfig.getMchId().toCharArray();
         KeyStore ks = KeyStore.getInstance("PKCS12");
         ks.load(certStream, password);
         // 实例化密钥库 & 初始化密钥工厂

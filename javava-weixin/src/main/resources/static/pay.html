@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta>
+    <title>充值界面</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="expires" content="0"/>
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body>
+<div id="app">
+    <input type="number" id="money"/>
+    <button id="chargeBtn">充值</button>
+</div>
+
+</body>
+<script src="jquery.min.js"></script>
+<script src="wxPay.js"></script>
+<script>
+    $('#chargeBtn').on('click', function () {
+        var money = $('#money').val();
+        if (money == 0) {
+            alert('金额不能为空');
+            return;
+        }
+        wx.unifiedOrder({money:money},"trades/prePay","");
+    });
+</script>
+</html>

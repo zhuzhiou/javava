@@ -11,8 +11,9 @@ public class WxPayConstants {
 
     public static final String SPLIT_SYMBOL = "_";
 
-    public static final String RESPONSE_CODE = "codeUrl";
-    public static final String RESPONSE_TRADE_NO = "tradeNo";
+    public static final String RESPONSE_CODE_URL = "code_url";
+    public static final String RESPONSE_TRADE_NO = "trade_no";
+
     /**
      * 充值
      */

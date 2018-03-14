@@ -278,7 +278,7 @@ public class WxPayUtil {
      * @return
      */
     public static long getCurrentTimestampMs() {
-        return System.currentTimeMillis();
+        return System.currentTimeMillis()/1000;
     }
 
     /**
@@ -295,7 +295,7 @@ public class WxPayUtil {
         return s+  (int)((Math.random()*9+1)*10000);
     }
 
-    public static boolean isTure(String value,Map<String,String> resouces, String... keys){
+    public static boolean isTrue(String value, Map<String,String> resouces, String... keys){
         if(StringUtils.isBlank(value) || resouces == null || resouces.isEmpty()){
             return false;
         }

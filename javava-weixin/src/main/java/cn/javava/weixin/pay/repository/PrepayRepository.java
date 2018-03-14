@@ -1,5 +1,6 @@
 package cn.javava.weixin.pay.repository;
 
+
 import cn.javava.weixin.pay.entity.Prepay;
 import org.springframework.data.jpa.repository.JpaRepository;
 

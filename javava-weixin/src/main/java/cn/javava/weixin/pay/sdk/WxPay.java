@@ -1,6 +1,6 @@
 package cn.javava.weixin.pay.sdk;
 
-import cn.javava.weixin.pay.config.ApiConfig;
+import cn.javava.weixin.pay.config.ApiPayConfig;
 import cn.javava.weixin.pay.constant.WxPayConstants;
 import cn.javava.weixin.pay.util.WxPayUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -22,7 +22,24 @@ public class WxPay {
     private WxPayRequest wxPayRequest;
 
     @Autowired
-    private ApiConfig apiConfig;
+    private ApiPayConfig apiPayConfig;
+
+
+    /**
+     * 作用：统一下单<br>
+     * 场景：公共号支付、扫码支付、APP支付
+     * @param reqData 向wxpay post的请求数据
+     * @return API返回数据
+     * @throws Exception
+     */
+    public Map<String, String> unifiedOrder(Map<String, String> reqData) throws Exception {
+        return this.unifiedOrder(reqData, apiPayConfig.getHttpConnectTimeout(), apiPayConfig.getHttpReadTimeout());
+    }
+
+    public Map<String, String> unifiedOrder(Map<String, String> reqData, int connectTimeoutMs, int readTimeoutMs) throws Exception {
+        String respXml = this.requestWithoutCert(apiPayConfig.getUnifiedOrderUrl(), reqData, connectTimeoutMs, readTimeoutMs);
+        return this.processResponseXml(respXml);
+    }
 
 
     /**
@@ -33,7 +50,7 @@ public class WxPay {
      */
     public boolean isResponseSignatureValid(Map<String, String> reqData) throws Exception {
         // 返回数据的签名方式和请求中给定的签名方式是一致的
-        return WxPayUtil.isSignatureValid(reqData, apiConfig.getKey(), this.signType);
+        return WxPayUtil.isSignatureValid(reqData, apiPayConfig.getKey(), this.signType);
     }
 
     /**
@@ -63,7 +80,7 @@ public class WxPay {
                 throw new Exception(String.format("Unsupported sign_type: %s", signTypeInData));
             }
         }
-        return WxPayUtil.isSignatureValid(reqData, apiConfig.getKey(), signType);
+        return WxPayUtil.isSignatureValid(reqData, apiPayConfig.getKey(), signType);
     }
 
 
@@ -133,7 +150,7 @@ public class WxPay {
      * @throws Exception
      */
     public Map<String, String> report(Map<String, String> reqData) throws Exception {
-        return this.report(reqData, apiConfig.getHttpConnectTimeout(), apiConfig.getHttpReadTimeout());
+        return this.report(reqData, apiPayConfig.getHttpConnectTimeout(), apiPayConfig.getHttpReadTimeout());
     }
 
 
@@ -147,7 +164,7 @@ public class WxPay {
      * @throws Exception
      */
     public Map<String, String> report(Map<String, String> reqData, int connectTimeoutMs, int readTimeoutMs) throws Exception {
-        String respXml = this.requestWithoutCert(apiConfig.getReport(), reqData, connectTimeoutMs, readTimeoutMs);
+        String respXml = this.requestWithoutCert(apiPayConfig.getReport(), reqData, connectTimeoutMs, readTimeoutMs);
         return WxPayUtil.xmlToMap(respXml);
     }
 
@@ -160,7 +177,7 @@ public class WxPay {
      * @throws Exception
      */
     public Map<String, String> shortUrl(Map<String, String> reqData) throws Exception {
-        return this.shortUrl(reqData, apiConfig.getHttpConnectTimeout(), apiConfig.getHttpReadTimeout());
+        return this.shortUrl(reqData, apiPayConfig.getHttpConnectTimeout(), apiPayConfig.getHttpReadTimeout());
     }
 
 
@@ -172,7 +189,7 @@ public class WxPay {
      * @throws Exception
      */
     public Map<String, String> shortUrl(Map<String, String> reqData, int connectTimeoutMs, int readTimeoutMs) throws Exception {
-        String respXml = this.requestWithoutCert(apiConfig.getShortUrl(), reqData, connectTimeoutMs, readTimeoutMs);
+        String respXml = this.requestWithoutCert(apiPayConfig.getShortUrl(), reqData, connectTimeoutMs, readTimeoutMs);
         return this.processResponseXml(respXml);
     }
 
