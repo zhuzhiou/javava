@@ -22,10 +22,10 @@ public class GameController {
         long time_stamp = Instant.now().toEpochMilli();
         JSONObject game_config = new JSONObject();
         game_config.put("game_time", 30); //游戏总时长
-        game_config.put("claw_power_grab", 67); // 表示抓起爪力(1—100)，指下爪时，抓住娃娃的爪力，建议这个值设置大一点
-        game_config.put("claw_power_up", 33); // 表示到顶爪力(1—100)，指天车提起娃娃到 up_height 指定的高度后将使用该爪力值直至天车到达顶部
-        game_config.put("claw_power_move", 21); // 表示移动爪力(1—100)，指天车到达顶部后，移动过程中的爪力
-        game_config.put("up_height", 7); // 抓起高度（0–10）底部到顶部分成10份，爪子到达该值指定的高度时就会将爪力减小至到顶爪力
+        game_config.put("claw_power_grab", 100); // 67，表示抓起爪力(1—100)，指下爪时，抓住娃娃的爪力，建议这个值设置大一点
+        game_config.put("claw_power_up", 100); // 33，表示到顶爪力(1—100)，指天车提起娃娃到 up_height 指定的高度后将使用该爪力值直至天车到达顶部
+        game_config.put("claw_power_move", 100); // 21，表示移动爪力(1—100)，指天车到达顶部后，移动过程中的爪力
+        game_config.put("up_height", 10); // 7，抓起高度（0–10）底部到顶部分成10份，爪子到达该值指定的高度时就会将爪力减小至到顶爪力
 
         JSONObject authority_info = new JSONObject();
         authority_info.put("session_id", session_id);

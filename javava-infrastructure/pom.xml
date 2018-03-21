@@ -14,7 +14,7 @@
     <modules>
 		<module>javava-eureka-server</module>
         <module>javava-api-gateway</module>
-        <module>javava-api-wrapper</module>
+        <!--module>javava-api-wrapper</module-->
     </modules>
 
 </project>

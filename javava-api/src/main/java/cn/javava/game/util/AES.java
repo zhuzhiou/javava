@@ -24,7 +24,7 @@ import java.security.SecureRandom;
  */
 public final class AES
 {
-    static final String SECRET = "12345678901234561234567890123456";
+    static final String SECRET = "4a0af0daafe22ed2a7bd5661e87890aa";
 
     static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
