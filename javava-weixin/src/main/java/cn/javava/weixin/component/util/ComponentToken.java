@@ -1,6 +1,11 @@
 package cn.javava.weixin.component.util;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
+import java.util.Date;
 
 public class ComponentToken implements Serializable {
 
@@ -13,7 +18,7 @@ public class ComponentToken implements Serializable {
     private Date expiration;
 
     @JsonCreator
-    public AccessToken(
+    public ComponentToken(
             @JsonProperty("errcode") int errcode,
             @JsonProperty("errmsg") String errmsg,
             @JsonProperty("access_tocken") String access_tocken,

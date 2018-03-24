@@ -1,4 +1,4 @@
-package com.infinitus.cs.emaster.qyweixin.accesstoken;
+package cn.javava.weixin.component.util;
 
 import java.io.Serializable;
 
@@ -12,21 +12,20 @@ import java.io.Serializable;
  */
 public class ComponentClientContext implements Serializable {
 
-    private AccessToken accessToken;
+    private ComponentToken componentToken;
 
     public ComponentClientContext() {
     }
 
-    public ComponentClientContext(AccessToken accessToken) {
-        this.accessToken = accessToken;
+    public ComponentClientContext(ComponentToken componentToken) {
+        this.componentToken = componentToken;
     }
 
-    public AccessToken getAccessToken() {
-        return accessToken;
+    public ComponentToken getComponentToken() {
+        return componentToken;
     }
 
-    public void setAccessToken(AccessToken accessToken) {
-        this.accessToken = accessToken;
+    public void setComponentToken(ComponentToken componentToken) {
+        this.componentToken = componentToken;
     }
-
 }
