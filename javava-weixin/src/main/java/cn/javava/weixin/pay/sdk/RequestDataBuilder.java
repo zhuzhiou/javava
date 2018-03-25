@@ -46,12 +46,12 @@ public class RequestDataBuilder {
             data.put("total_fee", money.toString());
             if (StringUtils.isNotBlank(openId))
                 data.put("openid", openId);
-            if (StringUtils.isBlank(ip)) {
+            /*if (StringUtils.isBlank(ip)) {
                 data.put("spbill_create_ip", apiPayConfig.getIp());
             } else {
                 data.put("spbill_create_ip", ip);
 
-            }
+            }*/
             data.put("out_trade_no", WxPayUtil.generateTradeNo());
             data.put("notify_url", apiPayConfig.getNotifyUrl());
             data.put("trade_type", apiPayConfig.getTradeType());
