@@ -6,9 +6,9 @@ spring:
         suffix: .html
     datasource:
         driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://192.168.200.229:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false
+        url: jdbc:mysql://192.168.150.129:3306/javava?useUnicode=true&characterEncoding=utf-8&useSSL=false
         username: root
-        password: iaFaI8ZdB%#s
+        password: develop
     jpa:
         show-sql: true
         hibernate:
@@ -42,9 +42,26 @@ wx:
         signType: MD5
         httpConnectTimeout: 6000
         httpReadTimeout: 8000
-        ip: 127.0.0.1
         shortUrl: https://api.mch.weixin.qq.com/tools/shorturl
         report: https://api.mch.weixin.qq.com/payitil/report
 javava:
     notification:
         email: zhuzhiou@qq.com
+weixin:
+    component:
+        app_id: wx72013888560db55f
+        app_secret: 5ca4660f75f7eb9d17f65fc3db3a7919
+        token: hlUmF2UCfEpMYTqjiyBH9ko3lQLqP
+        encodingAESKey: FZrmoDTOibaXFnRa4Fl8cGUffwPF3PUuAUXuKy7gkHE
+security:
+    oauth2:
+        client:
+            client-id: wxfe19480979014ade
+            client-secret: 812505ef922ba6f91ce63a16
+            authorized-grant-types: authorization_code,refresh_token
+            access-token-uri: https://api.weixin.qq.com/sns/oauth2/access_token?appid={client_id}&secret={client_secret}&code={code}&grant_type={authorization_code}
+            user-authorization-uri: https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect
+            use-current-uri: true
+            authentication-scheme: query
+        resource:
+            user-info-uri: https://api.weixin.qq.com/sns/userinfo

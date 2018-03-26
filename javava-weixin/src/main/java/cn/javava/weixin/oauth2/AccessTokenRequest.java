@@ -4,7 +4,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.Map;
 
 public class AccessTokenRequest implements Serializable {
@@ -16,6 +16,17 @@ public class AccessTokenRequest implements Serializable {
     private Object state;
 
     private String preservedState;
+
+    public AccessTokenRequest() {
+    }
+
+    public AccessTokenRequest(Map<String, String[]> parameters) {
+        if (parameters!=null) {
+            for (Map.Entry<String,String[]> entry : parameters.entrySet()) {
+                this.parameters.put(entry.getKey(), Arrays.asList(entry.getValue()));
+            }
+        }
+    }
 
     public OAuth2AccessToken getExistingToken() {
         return existingToken;

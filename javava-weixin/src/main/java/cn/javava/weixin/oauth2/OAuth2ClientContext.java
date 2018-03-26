@@ -17,6 +17,13 @@ public class OAuth2ClientContext implements Serializable {
 
     private Map<String, Object> state = new HashMap<>();
 
+    public OAuth2ClientContext() {
+    }
+
+    public OAuth2ClientContext(AccessTokenRequest accessTokenRequest) {
+        this.accessTokenRequest = accessTokenRequest;
+    }
+
     public AccessTokenRequest getAccessTokenRequest() {
         return accessTokenRequest;
     }

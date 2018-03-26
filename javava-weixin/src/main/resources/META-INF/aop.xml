@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE aspectj PUBLIC "-//AspectJ//DTD//EN" "http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
+<aspectj>
+    <!-- options="-showWeaveInfo -verbose -nowarn -Xlint:ignore" -->
+    <weaver options="-nowarn -Xlint:ignore">
+        <exclude within="java.*" />
+        <exclude within="javax.*" />
+        <exclude within="org.springframework.boot.*" />
+        <exclude within="freemarker.*" />
+    </weaver>
+    <aspects>
+        <aspect name="cn.javava.weixin.aspect.OAuth2ClientContextFilterAspect" />
+        <aspect name="cn.javava.weixin.aspect.UserRedirectRequiredExceptionAspect" />
+
+        <include within="cn.javava.weixin.aspect.*" />
+    </aspects>
+</aspectj>

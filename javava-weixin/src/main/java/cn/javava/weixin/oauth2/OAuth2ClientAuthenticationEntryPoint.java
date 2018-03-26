@@ -17,7 +17,7 @@ public class OAuth2ClientAuthenticationEntryPoint implements AuthenticationEntry
             authException.printStackTrace();
         }
         UriComponentsBuilder builder = UriComponentsBuilder.newInstance();
-        builder.scheme("https").host("open.weixin.qq.com").port(80).path("/connect/oauth2/authorize");
+        builder.scheme("https").host("open.weixin.qq.com").port(443).path("/connect/oauth2/authorize");
         builder.queryParam("appid", "wxfe19480979014ade");
         builder.queryParam("redirect_uri", "http://zhifu.javava.cn/zhifu/login");
         builder.queryParam("response_type", "code");

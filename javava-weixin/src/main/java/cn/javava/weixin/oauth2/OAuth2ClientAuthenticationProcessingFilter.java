@@ -15,8 +15,9 @@ public class OAuth2ClientAuthenticationProcessingFilter extends AbstractAuthenti
 
     private OAuth2RestTemplate oauth2RestTemplate;
 
-    public OAuth2ClientAuthenticationProcessingFilter() {
+    public OAuth2ClientAuthenticationProcessingFilter(OAuth2RestTemplate oauth2RestTemplate) {
         super(new AntPathRequestMatcher("/**"));
+        this.oauth2RestTemplate = oauth2RestTemplate;
     }
 
     @Override

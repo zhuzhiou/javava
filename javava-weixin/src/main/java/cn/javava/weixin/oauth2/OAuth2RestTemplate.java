@@ -29,6 +29,12 @@ public class OAuth2RestTemplate {
 
     private ObjectMapper objectMapper;
 
+    public OAuth2RestTemplate(OAuth2ClientContext context, CloseableHttpClient httpClient, ObjectMapper objectMapper) {
+        this.context = context;
+        this.httpClient = httpClient;
+        this.objectMapper = objectMapper;
+    }
+
     /**
      * 尝试从上下文获取令牌，如果上下文无令牌或令牌失效，则重新获取令牌。
      * @return
