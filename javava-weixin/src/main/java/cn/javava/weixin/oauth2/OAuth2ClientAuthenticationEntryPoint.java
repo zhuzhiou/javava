@@ -13,6 +13,9 @@ public class OAuth2ClientAuthenticationEntryPoint implements AuthenticationEntry
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+        if (authException != null) {
+            authException.printStackTrace();
+        }
         UriComponentsBuilder builder = UriComponentsBuilder.newInstance();
         builder.scheme("https").host("open.weixin.qq.com").port(80).path("/connect/oauth2/authorize");
         builder.queryParam("appid", "wxfe19480979014ade");

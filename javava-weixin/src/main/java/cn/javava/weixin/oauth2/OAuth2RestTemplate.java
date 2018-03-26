@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.Map;
 
+import static org.apache.commons.lang3.StringUtils.isBlank;
+
 /**
  * TODO
  * 为避免与spring的OAuth2RestTemplate混淆，需重命名。
@@ -74,14 +76,17 @@ public class OAuth2RestTemplate {
      * 从微信公众平台获取令牌
      */
     private OAuth2AccessToken obtainAccessToken(AccessTokenRequest accessTokenRequest) {
+        if (isBlank(accessTokenRequest.getAuthorizationCode())) {
+            if (isBlank(accessTokenRequest.getStateKey())) {
+                throw new RuntimeException();
+            }// else { 用户确认环节 }
+        }
         UriComponentsBuilder builder = UriComponentsBuilder.newInstance();
         builder.scheme("https").host("api.weixin.qq.com").port(80).path("/sns/oauth2/access_token");
         builder.queryParam("appid", "wxfe19480979014ade");
         builder.queryParam("secret", "");
-        builder.queryParam("code", "code");
+        builder.queryParam("code", accessTokenRequest.getAuthorizationCode());
         builder.queryParam("grant_type", "snsapi_userinfo");
-        // TODO
-        builder.queryParam("state", accessTokenRequest.getPreservedState());
 
         HttpGet httpGet = new HttpGet(builder.toUriString());
         HttpEntityResponseExtractor<OAuth2AccessToken> responseExtractor = new HttpEntityResponseExtractor<>(objectMapper);
